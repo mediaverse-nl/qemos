@@ -16,6 +16,7 @@ class CreateTafelsTable extends Migration
         Schema::create('tafels', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('aantal_plaatsen');
+            $table->boolean('bezet')->default(false);;
             $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
         });
     }

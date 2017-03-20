@@ -35,6 +35,17 @@ Route::get('/ingredient', 'IngredientsController@index')->name('ingredient.index
 
 Route::get('/products', 'ProductsController@index')->name('product.index');
 
+Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
+
+Route::get('/products', 'ProductsController@index')->name('product.index');
+Route::get('/products/create', 'ProductsController@create')->name('product.create');
+Route::post('/products', 'ProductsController@store')->name('product.store');
+Route::patch('/products/{id}', 'ProductsController@update')->name('product.update');
+
+
+
+//Route::get('/keuken', 'TafelsController@index')->name('product.index');
+
 
 
 

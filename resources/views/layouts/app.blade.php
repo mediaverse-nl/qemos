@@ -42,6 +42,11 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
@@ -56,7 +61,7 @@
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -116,85 +121,6 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
-                </li>
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-tasks">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 1</strong>
-                                        <span class="pull-right text-muted">40% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 2</strong>
-                                        <span class="pull-right text-muted">20% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 3</strong>
-                                        <span class="pull-right text-muted">60% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                            <span class="sr-only">60% Complete (warning)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <p>
-                                        <strong>Task 4</strong>
-                                        <span class="pull-right text-muted">80% Complete</span>
-                                    </p>
-                                    <div class="progress progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                            <span class="sr-only">80% Complete (danger)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Tasks</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-tasks -->
                 </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
@@ -291,91 +217,43 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.html" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{route('dashboard')}}" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a href=""><i class="fa fa-dashboard fa-fw"></i> Calendar</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="{{route('product.index')}}">Producten</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="">staff</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('tafel.index')}}">tafels</a>
+                                </li>
+                                <li>
+                                    <a href="">Rooster</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                            <a href=""><i class="fa fa-table fa-fw"></i> Sales</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li class="">
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"> Icons</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li class="">
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li class="active">
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level collapse in" aria-expanded="true">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href=""><i class="fa fa-edit fa-fw"></i> Reports</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href=""><i class="fa fa-edit fa-fw"></i> Account</a>
+                        </li>
+                        <li>
+                            <a href=""><i class="fa fa-edit fa-fw"></i> Messages</a>
+                        </li>
+                        <li>
+                            <a href="{{route('kitchen.index')}}"><i class="fa fa-edit fa-fw"></i> Tafels</a>
                         </li>
                     </ul>
                 </div>
@@ -458,10 +336,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     {{-- javascript money mask on inputs --}}
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>--}}
@@ -484,6 +358,14 @@
         //call on metis menu
         $("#side-menu").metisMenu();
         $(".nav").metisMenu();
+//        $(".navbar-top-links").metisMenu();
+
+        $(document).ready(function() {
+            $('#dataTables').DataTable({
+                responsive: true
+            });
+        });
+
 
     </script>
 

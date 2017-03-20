@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Product;
+use Validator;
+use Input;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProductsController extends Controller
 {
+    protected $product;
+
+    public function __construct()
+    {
+        $this->product = new Product();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +24,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth.product.index')->with('products', $this->product->get());
     }
 
     /**
@@ -23,7 +34,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.product.create');
     }
 
     /**
@@ -34,7 +45,31 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+//            'aantal_plaatsen' => 'required',
+            'status_test' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+//            return response()->json(['data' =>$validator]);
+            return redirect()
+                ->route('product.create')
+                ->withErrors($validator)
+                ->withInput()
+                ->with('id', $request->id);
+        }
+
+        $product = $this->product;
+
+        $product->bereidingsduur = $request->bereidingsduur;
+        $product->naam = $request->naam;
+        $product->prijs = $request->prijs;
+        $product->beschrijving = $request->beschrijving;
+        $product->status = $request->status;
+
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**
@@ -68,7 +103,31 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+//            'aantal_plaatsen' => 'required',
+            'status_test' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+//            return response()->json(['data' =>$validator]);
+            return redirect()
+                ->route('product.index')
+                ->withErrors($validator)
+                ->withInput()
+                ->with('id', $id);
+        }
+
+        $product = $this->product->findOrFail($id);
+
+        $product->bereidingsduur = $request->bereidingsduur;
+        $product->naam = $request->naam;
+        $product->prijs = $request->prijs;
+        $product->beschrijving = $request->beschrijving;
+        $product->status = $request->status;
+
+        $product->save();
+
+        return redirect()->route('product.index');
     }
 
     /**

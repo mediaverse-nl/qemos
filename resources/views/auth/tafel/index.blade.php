@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
 
-    {!! Breadcrumbs::render('home') !!}
 
     <h1>tafels</h1>
     <hr>
+    {!! Breadcrumbs::render('home') !!}
+
 
     <a href="{{route('tafel.create')}}" class="btn btn-default">Nieuw</a>
 
@@ -38,5 +38,4 @@
         </table>
     <div>
 
-</div>
 @endsection
