@@ -6,7 +6,6 @@ use App\Product;
 use Validator;
 use Input;
 use Illuminate\Http\Request;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class ProductsController extends Controller
 {
@@ -45,18 +44,20 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-//            'aantal_plaatsen' => 'required',
-            'status_test' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-//            return response()->json(['data' =>$validator]);
-            return redirect()
-                ->route('product.create')
-                ->withErrors($validator)
-                ->withInput()
-                ->with('id', $request->id);
+        $rules = [
+            'naam' => 'required',
+            'bereidingsduur' => 'required',
+            'status' => 'required',
+            'beschrijving' => 'required',
+            'prijs' => 'required',
+//                'password' => 'required'
+        ];
+//
+        $validator = Validator::make($request->all(), $rules);
+//
+        if ($validator->fails())
+        {
+            return  response()->json($validator->getMessageBag()->toArray(), 200); // 400 being the HTTP code for an invalid request.
         }
 
         $product = $this->product;
@@ -103,31 +104,59 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-//            'aantal_plaatsen' => 'required',
-            'status_test' => 'required',
-        ]);
+//        $validator = Validator::make($request->all(), [
+////            'aantal_plaatsen' => 'required',
+//            'status_test' => 'required',
+//        ]);
+//
+//        if ($validator->fails()) {
+////            return response()->json(['data' =>$validator]);
+//            return redirect()
+//                ->route('product.index')
+//                ->withErrors($validator)
+//                ->withInput()
+//                ->with('id', $id);
+//        }
+//
+//        $product = $this->product->findOrFail($id);
+//
+//        $product->bereidingsduur = $request->bereidingsduur;
+//        $product->naam = $request->naam;
+//        $product->prijs = $request->prijs;
+//        $product->beschrijving = $request->beschrijving;
+//        $product->status = $request->status;
+//
+//        $product->save();
+//
+//        return redirect()->route('product.index');
 
-        if ($validator->fails()) {
-//            return response()->json(['data' =>$validator]);
-            return redirect()
-                ->route('product.index')
-                ->withErrors($validator)
-                ->withInput()
-                ->with('id', $id);
-        }
+//        function(Request $request, $id){
 
-        $product = $this->product->findOrFail($id);
+            $rules = [
+                'naam' => 'required',
+                'bereidingsduur' => 'required',
+//                'password' => 'required'
+            ];
+//
+            $validator = Validator::make($request->all(), $rules);
+//
+            if ($validator->fails())
+            {
+                return  response()->json($validator->getMessageBag()->toArray()); // 400 being the HTTP code for an invalid request.
+            }
 
-        $product->bereidingsduur = $request->bereidingsduur;
-        $product->naam = $request->naam;
-        $product->prijs = $request->prijs;
-        $product->beschrijving = $request->beschrijving;
-        $product->status = $request->status;
+            $task = $this->product->find($id);
 
-        $product->save();
+            $task->naam = $request->naam;
+            $task->bereidingsduur = $request->bereidingsduur;
+            $task->prijs = $request->prijs;
+            $task->beschrijving = $request->beschrijving;
+            $task->status = $request->status;
 
-        return redirect()->route('product.index');
+            $task->save();
+
+            return response()->json($task);
+
     }
 
     /**
