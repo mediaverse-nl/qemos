@@ -38,10 +38,42 @@ Route::get('/products', 'ProductsController@index')->name('product.index');
 Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
 
 Route::get('/products', 'ProductsController@index')->name('product.index');
-Route::get('/products/create', 'ProductsController@create')->name('product.create');
-Route::post('/products', 'ProductsController@store')->name('product.store');
-Route::patch('/products/{id}', 'ProductsController@update')->name('product.update');
+Route::get('/products/create/ss', 'ProductsController@create')->name('product.create');
+//Route::post('/products', 'ProductsController@store')->name('product.store');
+//Route::patch('/products/{id}/update', 'ProductsController@update')->name('product.update');
 
+Route::get('/products/{id?}',function($task_id){
+    $task = Task::find($task_id);
+    return Response::json($task);
+});
+Route::get('/products/{id?}',function($task_id){
+    $task = \App\Product::find($task_id);
+
+    return Response::json($task);
+})->name('product.json');
+
+Route::post('/products',function(Request $request){
+    $task = \App\Product::create($request->all());
+
+    return Response::json($task);
+});
+
+Route::put('/products/{id?}',function(Request $request, $id){
+    $task = \App\Product::find($id);
+
+    $task->naam = $request->naam;
+    $task->beschrijving = $request->beschrijving;
+
+    $task->save();
+
+    return Response::json(['test']);
+});
+
+Route::delete('/products/{task_id?}',function($task_id){
+    $task = \App\Product::destroy($task_id);
+
+    return Response::json($task);
+});
 
 
 //Route::get('/keuken', 'TafelsController@index')->name('product.index');
