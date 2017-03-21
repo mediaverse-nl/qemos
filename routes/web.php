@@ -11,6 +11,9 @@
 |
 */
 
+use App\Task;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -33,15 +36,15 @@ Route::get('/rooster', 'RoostersController@index')->name('rooster.index');
 
 Route::get('/ingredient', 'IngredientsController@index')->name('ingredient.index');
 
-Route::get('/products', 'ProductsController@index')->name('product.index');
+//Route::get('/products', 'ProductsController@index')->name('product.index');
 
 Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
 
 Route::get('/products', 'ProductsController@index')->name('product.index');
 Route::get('/products/create/ss', 'ProductsController@create')->name('product.create');
-//Route::post('/products', 'ProductsController@store')->name('product.store');
+Route::post('/products', 'ProductsController@store')->name('product.store');
 //Route::patch('/products/{id}/update', 'ProductsController@update')->name('product.update');
-
+//https://tutorials.kode-blog.com/laravel-5-ajax-tutorial
 Route::get('/products/{id?}',function($task_id){
     $task = Task::find($task_id);
     return Response::json($task);
@@ -62,11 +65,13 @@ Route::put('/products/{id?}',function(Request $request, $id){
     $task = \App\Product::find($id);
 
     $task->naam = $request->naam;
+    $task->bereidingsduur = $request->bereidingsduur;
+    $task->prijs = $request->prijs;
     $task->beschrijving = $request->beschrijving;
 
     $task->save();
 
-    return Response::json(['test']);
+    return Response::json($task);
 });
 
 Route::delete('/products/{task_id?}',function($task_id){

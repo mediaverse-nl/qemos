@@ -131,6 +131,10 @@
                                 {{Form::label('naam', 'naam')}}
                                 {{Form::text('naam', null, ['class' => 'form-control'])}}
                             </div>
+                            <div class="form-group">
+                                {{Form::label('id', 'id')}}
+                                {{Form::text('id', null, ['class' => 'form-control'])}}
+                            </div>
 
                             <div class="form-group">
                                 {{Form::label('prijs', 'prijs')}}
@@ -203,6 +207,12 @@
             $('.delete-task').click(function(){
                 var row_id = $(this).val();
 
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    }
+                });
+
                 $.ajax({
 
                     type: "DELETE",
@@ -236,7 +246,7 @@
                     id : $('#id').val(),
                     prijs : $('#prijs').val(),
                     beschrijving : $('#beschrijving').val(),
-                    _token : '{!! csrf_token() !!}',
+                    {{--_token : '{!! csrf_token() !!}',--}}
 //                    '_token': token,
                 }
 
@@ -262,9 +272,9 @@
                     success: function (data) {
                         console.log(data);
 
-                        var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.task + '</td><td>' + data.description + '</td><td>' + data.created_at + '</td>';
-                        task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '">Edit</button>';
-                        task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">Delete</button></td></tr>';
+                        var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
+                        task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 5px;">wijzigen</button>';
+                        task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 
                         if (state == "add"){ //if user added a new record
                             $('#tasks-list').append(task);
