@@ -195,28 +195,17 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav in" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
                         <li>
-                            <a href="{{route('dashboard')}}" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{route('dashboard')}}" class="{{ !Request::is('dashboard') ? : 'active' }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href=""><i class="fa fa-dashboard fa-fw"></i> Calendar</a>
                         </li>
-                        <li>
+                        <li class="{{ !Request::is('settings/*') ? : 'active' }}">
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="{{route('product.index')}}">Producten</a>
+                                    <a href="{{route('product.index')}}" class="{{ !Request::is('settings/product*') ? : 'active' }}">Producten</a>
                                 </li>
                                 <li>
                                     <a href="">staff</a>
@@ -251,66 +240,6 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>        {{--<nav class="navbar navbar-default navbar-static-top">--}}
-            {{--<div class="container">--}}
-                {{--<div class="navbar-header">--}}
-
-                    {{--<!-- Collapsed Hamburger -->--}}
-                    {{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">--}}
-                        {{--<span class="sr-only">Toggle Navigation</span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                        {{--<span class="icon-bar"></span>--}}
-                    {{--</button>--}}
-
-                    {{--<!-- Branding Image -->--}}
-                    {{--<a class="navbar-brand" href="{{ url('/') }}">--}}
-                        {{--{{ config('app.name', 'Laravel') }}--}}
-                    {{--</a>--}}
-                    {{--<a class="navbar-brand" href="{{ route('dashboard') }}">Dashboard</a>--}}
-                {{--</div>--}}
-
-                {{--<div class="collapse navbar-collapse" id="app-navbar-collapse">--}}
-                    {{--<!-- Left Side Of Navbar -->--}}
-                    {{--<ul class="nav navbar-nav">--}}
-                        {{--&nbsp;--}}
-                    {{--</ul>--}}
-
-                    {{--<!-- Right Side Of Navbar -->--}}
-                    {{--<ul class="nav navbar-nav navbar-right">--}}
-                        {{--<!-- Authentication Links -->--}}
-                        {{--@if (Auth::guest())--}}
-                            {{--<li><a href="{{ route('login') }}">Login</a></li>--}}
-                            {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
-                        {{--@else--}}
-                            {{--<li class="dropdown">--}}
-                                {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">--}}
-                                    {{--{{ Auth::user()->name }} <span class="caret"></span>--}}
-                                {{--</a>--}}
-
-                                {{--<ul class="dropdown-menu" role="menu">--}}
-                                    {{--<li>--}}
-                                        {{--<a href="{{route('rooster.index')}}">Mijn Rooster</a>--}}
-                                    {{--</li>--}}
-
-                                    {{--<li>--}}
-                                        {{--<a href="{{ route('logout') }}"--}}
-                                            {{--onclick="event.preventDefault();--}}
-                                                     {{--document.getElementById('logout-form').submit();">--}}
-                                            {{--Logout--}}
-                                        {{--</a>--}}
-
-                                        {{--<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">--}}
-                                            {{--{{ csrf_field() }}--}}
-                                        {{--</form>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
-                        {{--@endif--}}
-                    {{--</ul>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-        {{--</nav>--}}
-
 
     </div>
 
@@ -334,15 +263,6 @@
     <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.2/js/metismenu.min.js"></script>
 
     <script type="text/javascript">
-        {{--remove msg after response--}}
-        $(document).ready(function () {
-            window.setTimeout(function() {
-                $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
-                    $(this).remove();
-                });
-            }, 5000);
-        });
-
         //call on metis menu
         $("#side-menu").metisMenu();
         $(".nav").metisMenu();
@@ -353,7 +273,6 @@
                 responsive: true
             });
         });
-
     </script>
 
     <meta name="_token" content="{!! csrf_token() !!}" />

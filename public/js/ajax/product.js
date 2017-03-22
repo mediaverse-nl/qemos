@@ -1,19 +1,24 @@
 
-    var url = "/products";
+    var url = "/settings/products";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
         successMsg += '</div>';
 
+    function createAutoClosingAlert(selector, delay) {
+        var alert = $(selector).alert();
+        window.setTimeout(function() { alert.alert('close') }, delay);
+    }
+
     //display modal form for task editing
     $('#tasks-list').on("click", ".open-modal", function(){
         $('div.has-error').removeClass('has-error');
+
         var row_id = $(this).val();
 
         $.get(url + '/' + row_id, function (data) {
             //success data
             // console.log(data);
-
             $('#row_id').val(data.id);
             $('#bereidingsduur').val(data.bereidingsduur);
             $('#naam').val(data.naam);
@@ -107,7 +112,6 @@
             dataType: 'json',
             success: function (data) {
                 // console.log(data);
-
                 $("#successMsg").html( successMsg );
 
                 var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
@@ -133,7 +137,7 @@
                     $('#error-' + key).html(inputErrorsHtml);
                     // console.log(inputErrorsHtml);
                 });
-                console.log('Error:', data);
+                // console.log('Error:', data);
             }
         });
     });

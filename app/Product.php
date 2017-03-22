@@ -8,9 +8,9 @@ class Product extends Model
 {
     public static function status(){
         return collect([
-            'verwijdert',
-            'zichtbaar',
-            'verschuilen',
+            'verwijdert' => 'verwijdert',
+            'zichtbaar' => 'zichtbaar',
+            'verschuilen' => 'verschuilen',
         ]);
     }
 }

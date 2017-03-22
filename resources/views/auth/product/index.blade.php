@@ -10,8 +10,8 @@
     <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
 
     <hr>
-    <div id="successMsg"></div>
 
+    <div id="successMsg"></div>
 
     <div class="table-responsive table-bordered">
         <table class="table table-hover" style="margin-bottom: 0px !important;">
@@ -80,10 +80,9 @@
                             {{Form::textarea('beschrijving', null, ['class' => 'form-control'])}}
                             <small id="error-beschrijving" class="error"></small>
                         </div>
-
                         <div class="form-group error-status">
                             {{Form::label('status', 'Status')}}
-                            {{Form::select('status', ['verwijdert'=>'verwijdert', 'zichtbaar'=>'zichtbaar', 'verschuilen'=>'verschuilen'], null, ['class' => 'form-control'])}}
+                            {{Form::select('status', \App\Product::status(), null, ['class' => 'form-control'])}}
                             <small id="error-status" class="error"></small>
                         </div>
 
