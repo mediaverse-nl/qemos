@@ -42,29 +42,24 @@ Route::get('/ingredient', 'IngredientsController@index')->name('ingredient.index
 
 Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
 
+//Route::get('/products/{id?}', 'ProductsController@show')->name('product.show');
 Route::get('/products', 'ProductsController@index')->name('product.index');
 Route::get('/products/create/ss', 'ProductsController@create')->name('product.create');
 Route::post('/products', 'ProductsController@store')->name('product.store');
 Route::put('/products/{id}', 'ProductsController@update')->name('product.update');
+Route::delete('/products/{id}', 'ProductsController@destroy')->name('product.destroy');
 
 //https://tutorials.kode-blog.com/laravel-5-ajax-tutorial
-Route::get('/products/{id?}',function($task_id){
-    $task = Task::find($task_id);
-    return response()->json($task);
-});
+//Route::get('/products/{id?}',function($task_id){
+//    $task = Task::find($task_id);
+//    return response()->json($task);
+//});
 
 Route::get('/products/{id?}',function($task_id){
     $task = \App\Product::find($task_id);
 
     return Response::json($task);
 })->name('product.json');
-
-
-Route::delete('/products/{task_id?}',function($task_id){
-    $task = \App\Product::destroy($task_id);
-
-    return Response::json($task);
-});
 
 
 //Route::get('/keuken', 'TafelsController@index')->name('product.index');

@@ -10,9 +10,11 @@
     <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
 
     <hr>
+    <div id="successMsg"></div>
+
 
     <div class="table-responsive table-bordered">
-        <table class="table table-hover">
+        <table class="table table-hover" style="margin-bottom: 0px !important;">
             <thead>
                 <tr>
                     <th>#</th>
@@ -41,46 +43,49 @@
         </table>
     <div>
 
+    {{--<hr>--}}
+
+    {{--Model--}}
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Task Editor</h4>
+                    <h4 class="modal-title" id="myModalLabel">Product</h4>
                 </div>
                 <div class="modal-body">
+{{--                    {{Illuminate\Validation\Rule::in(['a'=>'a','c'=>'c'])}}--}}
                     <form id="frmTasks" name="frmTasks" class="" novalidate="">
-
-                        <div class="form-group">
+                        {{Form::hidden('id', null, ['class' => 'form-control'])}}
+                        <div class="form-group error-bereidingsduur">
                             {{Form::label('bereidingsduur', 'bereidingsduur')}}
                             {{Form::number('bereidingsduur', null, ['class' => 'form-control'])}}
+                            <small id="error-bereidingsduur" class="error"></small>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group error-naam" >
                             {{Form::label('naam', 'naam')}}
                             {{Form::text('naam', null, ['class' => 'form-control'])}}
+                            <small id="error-naam" class="error"></small>
                         </div>
-                        {{--<div class="form-group">--}}
-                        {{--{{Form::label('id', 'id')}}--}}
-                        {{Form::hidden('id', null, ['class' => 'form-control'])}}
-                        {{--</div>--}}
 
-                        <div class="form-group">
+                        <div class="form-group error-prijs">
                             {{Form::label('prijs', 'prijs')}}
                             {{Form::text('prijs', null, ['class' => 'form-control'])}}
+                            <small id="error-prijs" class="error"></small>
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group error-beschrijving">
                             {{Form::label('beschrijving', 'beschrijving')}}
                             {{Form::textarea('beschrijving', null, ['class' => 'form-control'])}}
+                            <small id="error-beschrijving" class="error"></small>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group error-status">
                             {{Form::label('status', 'Status')}}
                             {{Form::select('status', ['verwijdert'=>'verwijdert', 'zichtbaar'=>'zichtbaar', 'verschuilen'=>'verschuilen'], null, ['class' => 'form-control'])}}
+                            <small id="error-status" class="error"></small>
                         </div>
-
-                        {{--                                                {{Form::submit('Aanmaken', ['class' => 'btn btn-default', 'id' => 'submit'])}}--}}
-                        {{--                                                <a href="{{route('tafel.index')}}" class="btn btn-default">Terug</a>--}}
 
                     </form>
                 </div>
@@ -95,5 +100,7 @@
 @endsection
 
 @push('js')
-    <script type="text/javascript" src="{{ asset('js/ajax/product.js') }}"></script>
+        <meta name="_token" content="{!! csrf_token() !!}" />
+
+        <script type="text/javascript" src="{{ asset('js/ajax/product.js') }}"></script>
 @endpush
