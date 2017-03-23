@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+    protected $orders;
+//    protected $;
+
+//ordered time = time
+//het verschil tussen ordered time
+//if()
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        return view('auth.order.index');
     }
 
     /**
