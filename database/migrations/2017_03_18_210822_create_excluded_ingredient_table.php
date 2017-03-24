@@ -15,9 +15,9 @@ class CreateExcludedIngredientTable extends Migration
     {
         Schema::create('excluded_ingredient', function (Blueprint $table) {
             $table->integer('ordered_items_id')->unsigned();
-            $table->foreign('ordered_items_id')->references('id')->on('ordered_items');
+            $table->foreign('ordered_items_id')->references('id')->on('ordered_items')->onDelete('cascade');;
             $table->integer('ingredient_id')->unsigned();
-            $table->foreign('ingredient_id')->references('id')->on('ingredient');
+            $table->foreign('ingredient_id')->references('id')->on('ingredient')->onDelete('cascade');;
         });
     }
 

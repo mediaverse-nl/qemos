@@ -1,0 +1,48 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
+{
+    protected $table = 'orders';
+
+    public $timestamps = true;
+
+    protected $fillable = ['status', 'payment_method', 'korting'];
+
+    public function orderedItems()
+    {
+        return $this->hasMany('App\OrderedItems', 'order_id', 'id');
+    }
+
+    public function tafels()
+    {
+        return $this->belongsTo('App\Tafel', 'tafel_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo('App\Users', 'user_id', 'id');
+    }
+
+    public static function status(){
+        return collect([
+            'open' => 'open',
+            'cancelled' => 'cancelled',
+            'pending' => 'pending',
+            'failed' => 'failed',
+            'paid' => 'paid',
+        ]);
+    }
+
+    public static function paymentMethod(){
+        return collect([
+            'ideal' => 'ideal',
+            'contant' => 'contant',
+            'paypal' => 'paypal',
+            'bitcoin' => 'bitcoin',
+        ]);
+    }
+}

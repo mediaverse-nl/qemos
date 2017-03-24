@@ -16,10 +16,11 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('bereidingsduur');
-            $table->string('naam');
+            $table->string('naam', 50);
             $table->decimal('prijs', 16, 2);
             $table->string('beschrijving', 250);
             $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
+            $table->enum('bezonderheden', ['vega', 'scherp', 'zoet', 'zuur', 'noot', 'glutten', 'halal'])->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTafelsTable extends Migration
+class CreateMenuTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTafelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tafels', function (Blueprint $table) {
+        Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('aantal_plaatsen');
-            $table->boolean('bezet')->default(false);
-            $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
+            $table->string('naam', 20)->unique();
         });
     }
 
@@ -28,6 +26,6 @@ class CreateTafelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tafels');
+        Schema::dropIfExists('menu');
     }
 }

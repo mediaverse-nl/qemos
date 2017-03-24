@@ -26,7 +26,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-Route::get('/orders', 'OrdersController@index')->name('order.index');
+Route::get('/tafel', 'OrdersController@index')->name('order.index');
+Route::get('/orders/{id}', 'OrdersController@show')->name('order.show');
 
 Route::get('/tafels', 'TafelsController@index')->name('tafel.index');
 Route::get('/tafels/create', 'TafelsController@create')->name('tafel.create');

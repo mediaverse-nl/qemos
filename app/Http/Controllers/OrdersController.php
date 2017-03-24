@@ -2,11 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Tafel;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
     protected $orders;
+    protected $tafels;
+
+    public function __construct()
+    {
+        $this->orders = new Order();
+        $this->tafels = new Tafel();
+    }
+
 //    protected $;
 
 //ordered time = time
@@ -20,7 +30,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        return view('auth.order.index');
+        return view('auth.order.index')->with('tafels', $this->tafels->get());
     }
 
     /**
@@ -52,7 +62,8 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('auth.order.show')->with('tafels', $this->tafels->findOrfail($id));
+
     }
 
     /**
