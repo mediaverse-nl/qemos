@@ -17,11 +17,13 @@
 
         var row_id = $(this).val();
 
-        console.log(row_id);
+        // reset all checkboxes on form
+        $('input[type=checkbox]').attr('checked', false);
 
         $.get(url + '/' + row_id, function (data) {
             //success data
-            // console.log(data);
+            // console.log(data.ingredients);
+
             $('#row_id').val(data.id);
             $('#bereidingsduur').val(data.bereidingsduur);
             $('#naam').val(data.naam);
@@ -29,6 +31,12 @@
             $('#status').val(data.status);
             $('#prijs').val(data.prijs);
             $('#beschrijving').val(data.beschrijving);
+            // console.log(data.product_ingredient);
+            $.each(data.product_ingredient, function(k, v) {
+                // console.log(v.ingredient_id);
+
+                $('.ingredienten' + v.ingredient_id).attr('checked','checked')
+            });
 
             $('#btn-save').val("update");
 

@@ -25,6 +25,7 @@
             <tbody id="tasks-list" name="tasks-list">
                 @foreach($ingredients as $ingredient)
                     <tr id="task{{$ingredient->id}}">
+                        <td>{{$ingredient->id}}</td>
                         <td>{{$ingredient->ingredient}}</td>
                         <td>
                             <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$ingredient->id}}">wijzigen</button>

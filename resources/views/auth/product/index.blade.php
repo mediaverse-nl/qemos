@@ -86,6 +86,23 @@
                             <small id="error-status" class="error"></small>
                         </div>
 
+                        <div class="form-group error-ingredienten">
+                            {!! Form::label('ingredienten', 'ingredienten') !!}<br>
+                            <div class="row">
+{{--                                {{$ingredients}}--}}
+                                @foreach($ingredients as $ingredient)
+                                    <div class="col-lg-4" style="margin-bottom: 10px;">
+                                        {{--{{$ingredient}}--}}
+                                        {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id]) !!}
+                                        {!! Form::label('ingredienten', $ingredient->ingredient) !!}
+                                        <br>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <hr class="col-lg-12">
+
+                        </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">

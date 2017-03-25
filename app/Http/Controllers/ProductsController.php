@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ingredient;
 use App\Product;
 use Illuminate\Validation\Rule;
 use Validator;
@@ -11,10 +12,12 @@ use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     protected $product;
+    protected $ingredient;
 
     public function __construct()
     {
         $this->product = new Product();
+        $this->ingredient = new Ingredient();
     }
 
     /**
@@ -24,7 +27,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('auth.product.index')->with('products', $this->product->get());
+        return view('auth.product.index')->with('products', $this->product->get())->with('ingredients', $this->ingredient->get());
     }
 
     /**
@@ -71,7 +74,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->find($id);
+        $product = $this->product->with('productIngredient')->find($id);
 
         return response()->json($product);
     }
@@ -109,6 +112,12 @@ class ProductsController extends Controller
         $task->status = $request->status;
 
         $task->save();
+
+        if(!empty($request->ingredients)){
+            foreach ($request->ingredients as $ingredient){
+                $ingredient->projectRole()->insert([['project_id' => $ingredient->id, 'role_id' => $ingredient,],]);
+            }
+        }
 
         return response()->json($task);
     }
