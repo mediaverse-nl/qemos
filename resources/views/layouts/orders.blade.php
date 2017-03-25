@@ -45,38 +45,42 @@
     </script>
 </head>
 <body>
-
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Qemos</a>
-            <a class="navbar-brand" href="{{route('order.index')}}">Tafel</a>
-            <a class="navbar-brand" href="#"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">WHO</a></li>
-                <li><a href="#">WHAT</a></li>
-                <li><a href="#">WHERE</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-    {{--<div id="page-wrapper">--}}
-        <div class="container-fluid">
-            <div class="row">
-                @yield('content')
+    <nav class="navbar navbar-inverse" style="min-height: 30px !important; margin-bottom: 0px !important;">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="{{route('dashboard')}}" class="btn btn-default btn-xs" style="margin-top: 3px;">admin</a>
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
-    {{--</div>--}}
+    </nav>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Qemos</a>
+                <a class="navbar-brand" href="{{route('order.index')}}">Tafel</a>
+                <a class="navbar-brand" href="#"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">WHO</a></li>
+                    <li><a href="#">WHAT</a></li>
+                    <li><a href="#">WHERE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            @yield('content')
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

@@ -99,7 +99,7 @@
 @endsection
 
 @push('js')
-        {{--<meta name="_token" content="{!! csrf_token() !!}" />--}}
+        <meta name="_token" content="{!! csrf_token() !!}" />
 
         <script type="text/javascript" src="{{ asset('js/ajax/product.js') }}"></script>
 @endpush

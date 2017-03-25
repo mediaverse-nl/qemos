@@ -2,19 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use Illuminate\Validation\Rule;
+use App\Ingredient;
 use Validator;
-use Input;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class IngredientsController extends Controller
 {
-    protected $product;
+    protected $ingredient;
 
     public function __construct()
     {
-        $this->product = new Product();
+        $this->ingredient = new Ingredient();
     }
 
     /**
@@ -24,7 +22,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('auth.product.index')->with('products', $this->product->get());
+        return view('auth.ingredient.index')->with('ingredients', $this->ingredient->get());
     }
 
     /**
@@ -36,11 +34,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'naam' => 'required',
-            'bereidingsduur' => 'required',
-            'status' => 'required',
-            'beschrijving' => 'required|string|min:5|max:250',
-            'prijs' => 'required|numeric',
+            'ingredient' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -50,17 +44,13 @@ class ProductsController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $product = $this->product;
+        $ingredient = $this->ingredient;
 
-        $product->bereidingsduur = $request->bereidingsduur;
-        $product->naam = $request->naam;
-        $product->prijs = $request->prijs;
-        $product->beschrijving = $request->beschrijving;
-        $product->status = $request->status;
+        $ingredient->ingredient = $request->ingredient;
 
-        $product->save();
+        $ingredient->save();
 
-        return response()->json($product, 200);
+        return response()->json($ingredient, 200);
     }
 
     /**
@@ -71,9 +61,9 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->find($id);
+        $ingredient = $this->ingredient->find($id);
 
-        return response()->json($product);
+        return response()->json($ingredient);
     }
 
     /**
@@ -86,11 +76,7 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'naam' => 'required',
-            'bereidingsduur' => 'required',
-            'status' => 'required',
-            'beschrijving' => 'required|string|min:5|max:250',
-            'prijs' => 'required|numeric',
+            'ingredient' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -100,17 +86,13 @@ class ProductsController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $task = $this->product->find($id);
+        $ingredient = $this->ingredient->find($id);
 
-        $task->naam = $request->naam;
-        $task->bereidingsduur = $request->bereidingsduur;
-        $task->prijs = $request->prijs;
-        $task->beschrijving = $request->beschrijving;
-        $task->status = $request->status;
+        $ingredient->ingredient = $request->ingredient;
 
-        $task->save();
+        $ingredient->save();
 
-        return response()->json($task);
+        return response()->json($ingredient);
     }
 
     /**
@@ -121,8 +103,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $task = $this->product->destroy($id);
+        $ingredient = $this->ingredient->destroy($id);
 
-        return response()->json($task);
+        return response()->json($ingredient);
     }
 }

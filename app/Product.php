@@ -12,9 +12,9 @@ class Product extends Model
 
     protected $fillable = ['bereidingsduur', 'naam', 'prijs', 'status', 'beschrijving', 'status', 'bezonderheden'];
 
-    public function orderedItems()
+    public function orderedItem()
     {
-        return $this->hasMany('App\OrderedItems', 'product_id', 'id');
+        return $this->hasMany('App\OrderedItem', 'product_id', 'id');
     }
 
     public function productIngredient()

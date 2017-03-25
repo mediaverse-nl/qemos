@@ -1,5 +1,5 @@
 
-    var url = "/settings/products";
+    var url = "/settings/ingredients";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -23,12 +23,7 @@
             //success data
             // console.log(data);
             $('#row_id').val(data.id);
-            $('#bereidingsduur').val(data.bereidingsduur);
-            $('#naam').val(data.naam);
-            $('#id').val(data.id);
-            $('#status').val(data.status);
-            $('#prijs').val(data.prijs);
-            $('#beschrijving').val(data.beschrijving);
+            $('#ingredient').val(data.ingredient);
 
             $('#btn-save').val("update");
 
@@ -89,12 +84,8 @@
         e.preventDefault();
 
         var formData = {
-            bereidingsduur: $('#bereidingsduur').val(),
-            naam : $('#naam').val(),
-            status : $('#status').val(),
+            ingredient : $('#ingredient').val(),
             id : $('#id').val(),
-            prijs : $('#prijs').val(),
-            beschrijving : $('#beschrijving').val()
         };
 
         //used to determine the http verb to use [add=POST], [update=PUT]
@@ -118,7 +109,7 @@
                 // console.log(data);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
+                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.ingredient + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

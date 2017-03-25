@@ -12,9 +12,9 @@ class Order extends Model
 
     protected $fillable = ['status', 'payment_method', 'korting'];
 
-    public function orderedItems()
+    public function orderedItem()
     {
-        return $this->hasMany('App\OrderedItems', 'order_id', 'id');
+        return $this->hasMany('App\OrderedItem', 'order_id', 'id');
     }
 
     public function tafels()

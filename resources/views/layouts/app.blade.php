@@ -205,6 +205,9 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
+                                    <a href="{{route('ingredient.index')}}">Ingredient</a>
+                                </li>
+                                <li>
                                     <a href="{{route('product.index')}}" class="{{ !Request::is('settings/product*') ? : 'active' }}">Producten</a>
                                 </li>
                                 <li>
@@ -230,9 +233,6 @@
                         </li>
                         <li>
                             <a href=""><i class="fa fa-edit fa-fw"></i> Messages</a>
-                        </li>
-                        <li>
-                            <a href="{{route('kitchen.index')}}"><i class="fa fa-edit fa-fw"></i> Tafels</a>
                         </li>
                     </ul>
                 </div>
