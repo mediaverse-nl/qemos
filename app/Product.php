@@ -34,9 +34,22 @@ class Product extends Model
 
     public static function status(){
         return collect([
-            'verwijdert' => 'verwijdert',
             'zichtbaar' => 'zichtbaar',
+            'verwijdert' => 'verwijdert',
             'verschuilen' => 'verschuilen',
         ]);
+    }
+
+    public static function bezonderheden(){
+        return collect([
+            'vega' => 'vega',
+            'scherp' => 'scherp',
+            'zoet' => 'zoet',
+            'zuur' => 'zuur',
+            'noot' => 'noot',
+            'glutten' => 'glutten',
+            'halal' => 'glutten',
+        ]);
+//        'vega','scherp','zoet','zuur','noot','glutten','halal'
     }
 }

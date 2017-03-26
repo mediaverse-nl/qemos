@@ -205,6 +205,9 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
+                                    <a href="{{route('menu.index')}}">Menu</a>
+                                </li>
+                                <li>
                                     <a href="{{route('ingredient.index')}}">Ingredient</a>
                                 </li>
                                 <li>

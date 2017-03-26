@@ -1,5 +1,5 @@
 
-    var url = "/settings/products";
+    var url = "/settings/menu";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -10,8 +10,6 @@
         window.setTimeout(function() { alert.alert('close') }, delay);
     }
 
-    // $('input[type=checkbox]').attr('checked', false);
-
     //display modal form for task editing
     $('#tasks-list').on("click", ".open-modal", function(){
         // console.log('asda');
@@ -19,30 +17,13 @@
 
         var row_id = $(this).val();
 
-        // reset all checkboxes on form
+        // console.log(row_id);
 
         $.get(url + '/' + row_id, function (data) {
             //success data
-            // console.log(data.bezonderheden);
-            $('.ingredients').find('input[type=checkbox]').prop('checked', false);
-
+            // console.log(data);
             $('#row_id').val(data.id);
-            $('#bereidingsduur').val(data.bereidingsduur);
             $('#naam').val(data.naam);
-            $('#id').val(data.id);
-            $('#status').val(data.status);
-            $('#prijs').val(data.prijs);
-            $('#beschrijving').val(data.beschrijving);
-            $('#bezonderheden').val(data.bezonderheden);
-
-            $.each(data.menu_product, function(k, v) {
-                $('#menu').val(v.menu_id);
-            });
-                // console.log(data.product_ingredient);
-            $.each(data.product_ingredient, function(k, v) {
-                // console.log(v.ingredient_id);
-                $('.ingredienten' + v.ingredient_id).prop('checked', true);
-            });
 
             $('#btn-save').val("update");
 
@@ -102,25 +83,11 @@
 
         e.preventDefault();
 
-        var ingredients = [];
-        $('.ingre:checked').each(function(i){
-            ingredients[i] = $(this).val();
-        });
-
         var formData = {
-            bereidingsduur: $('#bereidingsduur').val(),
             naam : $('#naam').val(),
-            status : $('#status').val(),
-            // id : $('#id').val(),
-            prijs : $('#prijs').val(),
-            beschrijving : $('#beschrijving').val(),
-            bezonderheden : $('#bezonderheden').val(),
-            ingredients : ingredients,
-            menu : $('#menu').val(),
+            id : $('#id').val(),
         };
-        // console.log($('input[name="ingredienten[]"]:checked'));
 
-        console.log(formData);
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
 
@@ -133,8 +100,6 @@
             my_url += '/' + row_id;
         }
 
-        // $('input[type=checkbox]').attr('checked', false);
-
         $.ajax({
             type: type,
             url: my_url,
@@ -144,7 +109,7 @@
                 // console.log(data);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
+                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.naam + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

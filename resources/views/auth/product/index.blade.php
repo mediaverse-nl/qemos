@@ -57,49 +57,71 @@
 {{--                    {{Illuminate\Validation\Rule::in(['a'=>'a','c'=>'c'])}}--}}
                     <form id="frmTasks" name="frmTasks" class="" novalidate="">
                         {{Form::hidden('id', null, ['class' => 'form-control'])}}
-                        <div class="form-group error-bereidingsduur">
-                            {{Form::label('bereidingsduur', 'bereidingsduur')}}
-                            {{Form::number('bereidingsduur', null, ['class' => 'form-control'])}}
-                            <small id="error-bereidingsduur" class="error"></small>
-                        </div>
-
                         <div class="form-group error-naam" >
                             {{Form::label('naam', 'naam')}}
                             {{Form::text('naam', null, ['class' => 'form-control'])}}
                             <small id="error-naam" class="error"></small>
                         </div>
 
-                        <div class="form-group error-prijs">
-                            {{Form::label('prijs', 'prijs')}}
-                            {{Form::text('prijs', null, ['class' => 'form-control'])}}
-                            <small id="error-prijs" class="error"></small>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group error-bereidingsduur">
+                                    {{Form::label('bereidingsduur', 'bereidingsduur')}}
+                                    {{Form::number('bereidingsduur', null, ['class' => 'form-control'])}}
+                                    <small id="error-bereidingsduur" class="error"></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group error-prijs">
+                                    {{Form::label('prijs', 'prijs')}}
+                                    {{Form::text('prijs', null, ['class' => 'form-control'])}}
+                                    <small id="error-prijs" class="error"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group error-status">
+                                    {{Form::label('status', 'Status')}}
+                                    {{Form::select('status', \App\Product::status(), null, ['class' => 'form-control'])}}
+                                    <small id="error-status" class="error"></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group error-bezonderheden">
+                                    {{Form::label('bezonderheden', 'bezonderheden')}}
+                                    {{Form::select('bezonderheden', \App\Product::bezonderheden()->push('---', null), 0, ['class' => 'form-control'])}}
+                                    <small id="error-bezonderheden" class="error"></small>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group error-Menu">
+                                    {{Form::label('menu', 'Menu')}}
+                                    {{Form::select('menu', collect(\App\Menu::all())->pluck('naam', 'id'), null, ['class' => 'form-control'])}}
+                                    <small id="error-Menu" class="error"></small>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group error-beschrijving">
                             {{Form::label('beschrijving', 'beschrijving')}}
-                            {{Form::textarea('beschrijving', null, ['class' => 'form-control'])}}
+                            {{Form::textarea('beschrijving', null, ['class' => 'form-control', 'rows' => '3'])}}
                             <small id="error-beschrijving" class="error"></small>
-                        </div>
-                        <div class="form-group error-status">
-                            {{Form::label('status', 'Status')}}
-                            {{Form::select('status', \App\Product::status(), null, ['class' => 'form-control'])}}
-                            <small id="error-status" class="error"></small>
                         </div>
 
                         <div class="form-group error-ingredienten">
                             {!! Form::label('ingredienten', 'ingredienten') !!}<br>
-                            <div class="row">
+                            <div class="row ingredients">
 {{--                                {{$ingredients}}--}}
                                 @foreach($ingredients as $ingredient)
                                     <div class="col-lg-4" style="margin-bottom: 10px;">
                                         {{--{{$ingredient}}--}}
-                                        {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id]) !!}
+                                        {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id.' ingre']) !!}
                                         {!! Form::label('ingredienten', $ingredient->ingredient) !!}
-                                        <br>
                                     </div>
                                 @endforeach
                             </div>
-                            <hr class="col-lg-12">
 
                         </div>
 

@@ -45,6 +45,12 @@ Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
 
 Route::group(['prefix' => 'settings'], function () {
 
+    Route::get('/menu/{id}', 'MenuController@show')->name('menu.show');
+    Route::get('/menu', 'MenuController@index')->name('menu.index');
+    Route::post('/menu', 'MenuController@store')->name('menu.store');
+    Route::put('/menu/{id?}', 'MenuController@update')->name('menu.update');
+    Route::delete('/menu/{id?}', 'MenuController@destroy')->name('menu.destroy');
+
     Route::get('/ingredients/{id}', 'IngredientsController@show')->name('ingredient.show');
     Route::get('/ingredients', 'IngredientsController@index')->name('ingredient.index');
     Route::post('/ingredients', 'IngredientsController@store')->name('ingredient.store');
