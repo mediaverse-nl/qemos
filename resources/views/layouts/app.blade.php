@@ -205,23 +205,23 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> settings<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="{{route('menu.index')}}">Menu</a>
+                                    <a href="{{route('menu.index')}}" class="{{ !Request::is('settings/menu*') ? : 'active' }}">Menu</a>
                                 </li>
                                 <li>
-                                    <a href="{{route('ingredient.index')}}">Ingredient</a>
+                                    <a href="{{route('ingredient.index')}}" class="{{ !Request::is('settings/ingredient*') ? : 'active' }}">Ingredient</a>
                                 </li>
                                 <li>
                                     <a href="{{route('product.index')}}" class="{{ !Request::is('settings/product*') ? : 'active' }}">Producten</a>
                                 </li>
+                                {{--<li>--}}
+                                    {{--<a href="">staff</a>--}}
+                                {{--</li>--}}
                                 <li>
-                                    <a href="">staff</a>
+                                    <a href="{{route('tafel.index')}}" class="{{ !Request::is('settings/tafel*') ? : 'active' }}">tafels</a>
                                 </li>
-                                <li>
-                                    <a href="{{route('tafel.index')}}">tafels</a>
-                                </li>
-                                <li>
-                                    <a href="">Rooster</a>
-                                </li>
+                                {{--<li>--}}
+                                    {{--<a href="">Rooster</a>--}}
+                                {{--</li>--}}
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

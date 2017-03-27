@@ -24,7 +24,7 @@ class Product extends Model
 
     public function menuProduct()
     {
-        return $this->hasMany('App\MenuProduct', 'product_id', 'id');
+        return $this->hasOne('App\MenuProduct', 'product_id', 'id');
     }
 
     public function image()

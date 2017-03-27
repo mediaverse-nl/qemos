@@ -12,7 +12,7 @@ class Excluded extends Model
 
     public function orderedItem()
     {
-        return $this->belongsTo('App\OrderedItem', 'order_items_id', 'id');
+        return $this->belongsTo('App\OrderedItem', 'ordered_items_id', 'id');
     }
 
     public function ingredient()

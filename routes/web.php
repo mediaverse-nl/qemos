@@ -29,11 +29,11 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/tafel', 'OrdersController@index')->name('order.index');
 Route::get('/orders/{id}', 'OrdersController@show')->name('order.show');
 
-Route::get('/tafels', 'TafelsController@index')->name('tafel.index');
-Route::get('/tafels/create', 'TafelsController@create')->name('tafel.create');
-Route::get('/tafels/{id}/edit', 'TafelsController@edit')->name('tafel.edit');
-Route::post('/tafels', 'TafelsController@store')->name('tafel.store');
-Route::patch('/tafels/{id}', 'TafelsController@update')->name('tafel.update');
+//Route::get('/tafels', 'TafelsController@index')->name('tafel.index');
+//Route::get('/tafels/create', 'TafelsController@create')->name('tafel.create');
+//Route::get('/tafels/{id}/edit', 'TafelsController@edit')->name('tafel.edit');
+//Route::post('/tafels', 'TafelsController@store')->name('tafel.store');
+//Route::patch('/tafels/{id}', 'TafelsController@update')->name('tafel.update');
 
 Route::get('/rooster', 'RoostersController@index')->name('rooster.index');
 
@@ -57,12 +57,31 @@ Route::group(['prefix' => 'settings'], function () {
     Route::put('/ingredients/{id?}', 'IngredientsController@update')->name('ingredient.update');
     Route::delete('/ingredients/{id?}', 'IngredientsController@destroy')->name('ingredient.destroy');
 
+    Route::get('/tafel/{id}', 'TafelsController@show')->name('tafel.show');
+    Route::get('/tafel', 'TafelsController@index')->name('tafel.index');
+    Route::post('/tafel', 'TafelsController@store')->name('tafel.store');
+    Route::put('/tafel/{id?}', 'TafelsController@update')->name('tafel.update');
+    Route::delete('/tafel/{id?}', 'TafelsController@destroy')->name('tafel.destroy');
+
     Route::get('/products/{id}', 'ProductsController@show')->name('product.show');
     Route::get('/products', 'ProductsController@index')->name('product.index');
     Route::post('/products', 'ProductsController@store')->name('product.store');
     Route::put('/products/{id?}', 'ProductsController@update')->name('product.update');
     Route::delete('/products/{id?}', 'ProductsController@destroy')->name('product.destroy');
 
+});
+
+Route::group(['prefix' => 'order'], function ()
+{
+    Route::get('/{id}', ['as' => 'cart.index', 'uses' => 'OrdersController@get']);
+    Route::post('/add', ['as' => 'cart.add', 'uses' => 'OrdersController@add']);
+
+    Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);
+
+//    Route::post('/verwijder', ['as' => 'cart.remove', 'uses' => 'CartController@remove']);
+//    Route::post('/plus', ['as' => 'cart.increase', 'uses' => 'CartController@increase']);
+//    Route::post('/min', ['as' => 'cart.decrease', 'uses' => 'CartController@decrease']);
+//    Route::post('/legen', ['as' => 'cart.empty', 'uses' => 'CartController@destroy']);
 });
 
 //https://tutorials.kode-blog.com/laravel-5-ajax-tutorial

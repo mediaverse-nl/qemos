@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Menu;
 use App\Order;
+use App\Product;
 use App\Tafel;
 use Illuminate\Http\Request;
 
@@ -10,11 +12,15 @@ class OrdersController extends Controller
 {
     protected $orders;
     protected $tafels;
+    protected $menu;
+    protected $product;
 
     public function __construct()
     {
         $this->orders = new Order();
+        $this->product = new Product();
         $this->tafels = new Tafel();
+        $this->menu = new Menu();
     }
 
 //    protected $;
@@ -22,6 +28,37 @@ class OrdersController extends Controller
 //ordered time = time
 //het verschil tussen ordered time
 //if()
+
+    public function get($id)
+    {
+        $tafel = $this->tafels->find($id);
+
+        $order = $this->orders->where('status', 'open')->where('tafel_id', $tafel->id)->first();
+
+        return response()->json($order->orderedItem()->with('product')->get(), 200);
+    }
+
+    public function add(Request $request)
+    {
+        $order = $this->orders->where('status', 'open')->where('tafel_id', $request->tafel_id)->first();
+
+        if(!empty($order)){
+            $order->orderedItem()->insert(['product_id' => $request->product_id, 'order_id' => $order->id, 'prijs' => 0]);
+        }else{
+            $order = $this->orders;
+
+            $order->tafel_id = $request->tafel_id;
+            $order->status = 'open';
+            $order->korting = 0;
+
+            $order->save();
+
+            $order->orderedItem()->insert(['product_id' => $request->product_id, 'order_id' => $order->id, 'prijs' => 0]);
+            $order->tafels()->update(['bezet' => 1]);
+        }
+
+        return response()->json($order->exists(), 200);
+    }
 
     /**
      * Display a listing of the resource.
@@ -51,7 +88,35 @@ class OrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'naam' => 'required',
+            'bereidingsduur' => 'required',
+            'status' => 'required',
+        ];
+//
+        $validator = Validator::make($request->all(), $rules);
+//
+        if ($validator->fails())
+        {
+            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
+        }
+
+        $product = $this->product;
+
+        $product->bereidingsduur = $request->bereidingsduur;
+        $product->naam = $request->naam;
+
+        $product->save();
+
+        $product->menuProduct()->insert(['product_id' => $product->id, 'menu_id' => $request->menu]);
+
+        if(!empty($request->ingredients)){
+            foreach ($request->ingredients as $ingredient){
+                $product->productIngredient()->insert([['product_id' => $product->id, 'ingredient_id' => $ingredient],]);
+            }
+        }
+
+        return response()->json($product, 200);
     }
 
     /**
@@ -62,8 +127,10 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        return view('auth.order.show')->with('tafels', $this->tafels->findOrfail($id));
-
+        return view('auth.order.show')
+            ->with('products', $this->product->get())
+            ->with('menus', $this->menu->get())
+            ->with('tafels', $this->tafels->findOrfail($id));
     }
 
     /**

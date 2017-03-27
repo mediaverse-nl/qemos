@@ -14,9 +14,9 @@ class Tafel extends Model
 
     public static function status(){
         return collect([
-            'verwijdert' => 'verwijdert',
             'zichtbaar' => 'zichtbaar',
             'verschuilen' => 'verschuilen',
+            'verwijdert' => 'verwijdert',
         ]);
     }
 }

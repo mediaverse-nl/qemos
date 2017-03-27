@@ -27,16 +27,6 @@ class TafelsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('auth.tafel.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,17 +34,16 @@ class TafelsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $rules = [
             'aantal_plaatsen' => 'required',
             'status' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-//            return response()->json(['data' =>$validator]);
-            return redirect()
-                ->route('tafel.create')
-                ->withErrors($validator)
-                ->withInput();
+        ];
+//
+        $validator = Validator::make($request->all(), $rules);
+//
+        if ($validator->fails())
+        {
+            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
         $tafel = $this->tafel;
@@ -64,7 +53,7 @@ class TafelsController extends Controller
 
         $tafel->save();
 
-        return redirect()->route('tafel.index');
+        return response()->json($tafel, 200);
     }
 
     /**
@@ -75,18 +64,9 @@ class TafelsController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $tafel = $this->tafel->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return view('auth.tafel.edit')->with('tafel', $this->tafel->findOrFail($id));
+        return response()->json($tafel);
     }
 
     /**
@@ -98,14 +78,26 @@ class TafelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tafel = $this->tafel->findOrFail($id);
+        $rules = [
+            'aantal_plaatsen' => 'required',
+            'status' => 'required',
+        ];
+//
+        $validator = Validator::make($request->all(), $rules);
+//
+        if ($validator->fails())
+        {
+            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
+        }
+
+        $tafel = $this->tafel->find($id);
 
         $tafel->aantal_plaatsen = $request->aantal_plaatsen;
         $tafel->status = $request->status;
 
         $tafel->save();
 
-        return redirect()->route('tafel.index');
+        return response()->json($tafel, 200);
     }
 
     /**
@@ -116,6 +108,8 @@ class TafelsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tafel = $this->tafel->destroy($id);
+
+        return response()->json($tafel);
     }
 }

@@ -182,7 +182,7 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
-
+        Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
 
     ],
 
@@ -241,7 +241,7 @@ return [
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
-
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ],
 
 ];

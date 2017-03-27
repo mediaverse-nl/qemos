@@ -8,8 +8,9 @@
             @foreach($tafels as $tafel)
                 <div class="col-lg-3">
                     <a href="{{route('order.show', $tafel->id)}}">
-                        <div class="thumbnail">
-                            <p class="text-center">{{$tafel->id}}</p>
+                        <div class="thumbnail {{!$tafel->bezet ? 'alert-success' : 'alert-warning'}}">
+                            <p class="text-center">Tafel #: {{$tafel->id}}</p>
+                            <p class="text-center">plaatsen: {{$tafel->aantal_plaatsen}}</p>
                         </div>
                     </a>
                 </div>
