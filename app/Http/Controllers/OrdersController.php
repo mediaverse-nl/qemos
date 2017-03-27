@@ -23,12 +23,6 @@ class OrdersController extends Controller
         $this->menu = new Menu();
     }
 
-//    protected $;
-
-//ordered time = time
-//het verschil tussen ordered time
-//if()
-
     public function get($id)
     {
         $tafel = $this->tafels->find($id);
@@ -36,6 +30,19 @@ class OrdersController extends Controller
         $order = $this->orders->where('status', 'open')->where('tafel_id', $tafel->id)->first();
 
         return response()->json($order->orderedItem()->with('product')->get(), 200);
+    }
+
+    public function save(Request $request)
+    {
+        $tafel = $this->tafels->find($request->tafel_id);
+
+        $order = $this->orders->where('status', 'open')->where('tafel_id', $tafel->id)->first();
+
+        foreach ($order->orderedItem()->where('status', 'open')->get() as $item){
+            $item->update(['status' => 'bevestigd']);
+        }
+
+        return response()->json('ok', 200);
     }
 
     public function add(Request $request)
@@ -58,6 +65,13 @@ class OrdersController extends Controller
         }
 
         return response()->json($order->exists(), 200);
+    }
+
+    public function ingredients($id){
+        $product = $this->product->find($id);
+        $ingredients = $product->productIngredient()->with('ingredient')->get();
+
+        return response()->json($ingredients, 200);
     }
 
     /**

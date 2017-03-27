@@ -75,6 +75,8 @@ Route::group(['prefix' => 'order'], function ()
 {
     Route::get('/{id}', ['as' => 'cart.index', 'uses' => 'OrdersController@get']);
     Route::post('/add', ['as' => 'cart.add', 'uses' => 'OrdersController@add']);
+    Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
+    Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
 
     Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);
 

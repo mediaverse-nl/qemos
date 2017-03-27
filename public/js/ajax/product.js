@@ -34,13 +34,10 @@
             $('#prijs').val(data.prijs);
             $('#beschrijving').val(data.beschrijving);
             $('#bezonderheden').val(data.bezonderheden);
+            $('#menu').val(data.menu_product.menu_id);
 
-            $.each(data.menu_product, function(k, v) {
-                $('#menu').val(v.menu_id);
-            });
                 // console.log(data.product_ingredient);
             $.each(data.product_ingredient, function(k, v) {
-                // console.log(v.ingredient_id);
                 $('.ingredienten' + v.ingredient_id).prop('checked', true);
             });
 

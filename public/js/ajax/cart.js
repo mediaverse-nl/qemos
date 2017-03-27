@@ -3,28 +3,121 @@
     var tafel_id = $('#tafel').val();
     var bezet = $('#status').val();
 
-    function refresh() {
+    function OrderList() {
+        var total = 0;
         $.ajax({
             type: "GET",
             url: url + '/' + tafel_id,
             success: function (data) {
-                var html_order = '<ul>';
+                var html_order = '<ul class="list-group">';
                 $.each(data, function(k, v) {
-                    // console.log(v);
-                    // $('#menu').val(v);
-                    html_order += '<li><span class="pull-left">' + v.product.naam + '</span><span class="pull-right">' + v.product.prijs + '</span></li>';
+                    console.log(v);
+                    html_order += '<li class="' + v.status + ' list-group-item"><span class="">' + v.product.naam + '</span>' +
+                        '<span class="badge"> ' + v.product.prijs + ' </span>' +
+                        '<span class="hidden id"> ' + v.id + ' </span>' +
+                        '<span class="hidden product_id"> ' + v.product.id + ' </span>' +
+                        '<span class="badge ">' + v.status + '</span></li>';
+                    total += parseFloat(v.product.prijs)
                 });
+                html_order += '<li class="list-group-item"> totaal <span class="badge">€ ' + total + '</span></li>';
                 html_order += '</ul>';
+                $("#order").html(html_order);
+                console.log(total);
+            }
+        });
+    }
+    setInterval(OrderList, 5000);
+    OrderList();
 
-                $("#order").replaceWith('<div id="order">' + html_order + '</div>');
-                // console.log(data);
-                // $("#order" + row_id).replaceWith( task );
+    $("#option").on('click', '#btn-save', function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
 
-    }
-    setInterval(refresh, 5000);
-    refresh();
+        e.preventDefault();
+
+        var formData = {
+            tafel_id : $('#tafel').val(),
+        };
+
+        $.ajax({
+            type: "POST",
+            url: url + '/save',
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                OrderList();
+                console.log(data);
+            }
+        });
+    });
+
+    $("#order").on('click', '.open', function (e) {
+        var orderedItem = $(this).find('.id').text();
+        var productId = parseInt($(this).find('.product_id').text());
+        // console.log(productId);
+
+        $.ajax({
+            type: "GET",
+            url: url + '/product/' + productId,
+            success: function (data) {
+                console.log(data);
+                $('.modal').modal('show');
+
+                var html_order = '<ul class="list-group">';
+                $.each(data, function(k, v) {
+                    html_order += '<p>' + v.ingredient.ingredient + '</p>';
+
+                    console.log(v);
+                //     html_order += '<li class="' + v.status + ' list-group-item"><span class="">' + v.product.naam + '</span>' +
+                //         '<span class="badge"> ' + v.product.prijs + ' </span>' +
+                //         '<span class="hidden id"> ' + v.id + ' </span>' +
+                //         '<span class="hidden product_id"> ' + v.id + ' </span>' +
+                //         '<span class="badge ">' + v.status + '</span></li>';
+                //     total += parseFloat(v.product.prijs)
+                });
+
+                html_order += '</ul>';
+
+                $(".modal-body").html(html_order);
+
+            }
+        });
+        // $('#myModal').on('submit', function(e) {
+
+            // $('modal').modal('toggle');
+            // $('modal').modal('hide');
+
+            // e.preventDefault();
+        // });
+
+        // console.log(orderedItem);
+        // $.ajaxSetup({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        //     }
+        // });
+        //
+        // e.preventDefault();
+        //
+        // var formData = {
+        //     tafel_id : $('#tafel').val(),
+        // };
+        //
+        // $.ajax({
+        //     type: "POST",
+        //     url: url + '/save',
+        //     data: formData,
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         OrderList();
+        //         console.log(data);
+        //     }
+        // });
+    });
+
 
     $("#menu").on('click', '#btn-menu', function () {
         $(".menu").hide();
@@ -81,7 +174,7 @@
             data: formData,
             dataType: 'json',
             success: function (data) {
-                refresh();
+                OrderList();
                 console.log(data);
 
                 // var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.naam + '</td>';

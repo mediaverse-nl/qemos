@@ -15,91 +15,94 @@
         {{--<input id="status" type="hidden" value="{{$tafels->status}}" />--}}
     {{--</div>--}}
     {{--<hr>--}}
-    {{--{!! Breadcrumbs::render('home') !!}--}}
+    {!! Breadcrumbs::render('home') !!}
     {{--<hr>--}}
 
-    <div class="col-lg-2">
-        <h1>Menu</h1>
-        <div id="menu" class="row">
-            @foreach($menus as $menu)
+    <div class="row">
+        <div class="col-lg-2">
+            <h1>Menu</h1>
+            <div id="menu" class="row">
+                @foreach($menus as $menu)
+                    <div class="col-lg-12">
+                        <div class="thumbnail">
+                            <button type="button" value="{{$menu->id}}" id="btn-menu" class="btn-menu menu-item-{{$menu->id}}">
+                                {{$menu->naam}}
+                            </button>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+        <div class="col-lg-5">
+            <h1>Producten</h1>
+            <div id="product" class="row">
+                <div class="col-lg-12">
+                    @foreach($products as $product)
+                        <button type="button" value="{{$product->id}}" id="btn-add" class="col-lg-6 menu menu-{{$product->menuProduct->menu_id}}">
+                            {{--<div class="thumbnail">--}}
+                                {{$product->naam}}
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <h1>Bestelling</h1>
+            <div id="order">
+
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <h1></h1>
+            <div class="row" id="option">
+
                 <div class="col-lg-12">
                     <div class="thumbnail">
-                        <button type="button" value="{{$menu->id}}" id="btn-menu" class="btn-menu menu-item-{{$menu->id}}">
-                            {{$menu->naam}}
-                        </button>
+                        <button type="button" id="btn-save" value="{{$tafels->id}}">verwijderen</button>
+                    </div>
+                    <div class="thumbnail">
+                        <button type="button" id="btn-save" value="{{$tafels->id}}">korting</button>
+                    </div>
+                    <div class="thumbnail">
+                        <button type="button" id="btn-save" value="{{$tafels->id}}">Splitsen</button>
+                    </div>
+                    <div class="thumbnail">
+                        <button type="button" id="btn-save" value="{{$tafels->id}}">Afrekenen</button>
+                    </div>
+                    <div class="thumbnail">
+                         <button type="button" id="btn-save" value="{{$tafels->id}}">Opslaan</button>
                     </div>
                 </div>
-            @endforeach
+
+            </div>
         </div>
-
+        {{--end of row--}}
     </div>
-    <div class="col-lg-5">
-        <h1>Producten</h1>
-        <div id="product" class="row">
+    {{--end of container--}}
 
-            @foreach($products as $product)
-                <button type="button" value="{{$product->id}}" id="btn-add" class="col-lg-6 menu menu-{{$product->menuProduct->menu_id}}">
-                    {{--<div class="thumbnail">--}}
-                        {{$product->naam}}
+<!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Anders</h4>
+                </div>
+                <div class="modal-body">
+                    {{--<div class="form-control">--}}
+                        {{--<label></label>--}}
+                        {{--<input type="" />--}}
                     {{--</div>--}}
-                </button>
-            @endforeach
 
-            {{--<div class="thumbnail">--}}
-
-        </div>
-    </div>
-    <div class="col-lg-3">
-        {{--<div class="">--}}
-        <h1>Bestelling</h1>
-        <div id="order" class="thumbnail">
-
-        </div>
-        {{--</div>--}}
-    </div>
-
-    <div class="col-lg-2">
-        <h1> .</h1>
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div class="thumbnail">
-                    verwijderen
                 </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="thumbnail">
-                    korting
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="thumbnail">
-                    Splitsen
-                </div>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="thumbnail">
-                    Afrekenen
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="thumbnail">
-                    {{--status veranderen van alle nieuwe bestelde producten --}}
-                    @if($tafels->bezet)
-                        <button type="button">opslaan</button>
-                    @else
-                        <button type="button">open</button>
-                    @endif
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
-        {{--<div class="thumbnail">--}}
-            {{--<ul>--}}
-                {{--<li><a href="#">Splitsen</a></li>--}}
-                {{--<li><a href="#">Afrekenen</a></li>--}}
-            {{--</ul>--}}
-        {{--</div>--}}
     </div>
 
 </div>
