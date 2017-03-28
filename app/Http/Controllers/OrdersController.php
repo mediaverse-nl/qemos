@@ -33,7 +33,14 @@ class OrdersController extends Controller
 
         $order = $this->orders->where('status', 'open')->where('tafel_id', $tafel->id)->first();
 
-        return response()->json($order->orderedItem()->with('product')->with('excluded')->get(), 200);
+        return response()->json(
+            $order->orderedItem()
+                ->with('product')
+                ->with('excluded')
+//                ->rightJoin('excluded_ingredient', 'excluded_ingredient.ordered_items_id', '=', 'ordered_items.id')
+                ->join('ingredients', 'ingredients.id', '=', 'excluded.ingredient_id')
+                ->get(),
+        200);
     }
 
     public function save(Request $request)
@@ -76,7 +83,7 @@ class OrdersController extends Controller
         $product = $this->product->find($id);
         $ingredients = $product->productIngredient()->with('ingredient')->with('product')->get();
 
-        return response()->json($ingredients, 200);
+        return response()->json([$ingredients, 'as'], 200);
     }
 
     public function excluded(Request $request)

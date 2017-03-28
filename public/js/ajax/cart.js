@@ -9,6 +9,7 @@
             type: "GET",
             url: url + '/' + tafel_id,
             success: function (data) {
+                console.log(data);
                 var html_excluded = '';
                 var html_order = '<ul class="list-group">';
 
@@ -31,7 +32,7 @@
 
                 $.each(data, function(k, v) {
                     $.each(v.excluded, function(k1, v1) {
-                        html_excluded = '<li class="">geen ' + v1.ingredient_id + '</li>';
+                        html_excluded = '<li class="">geen ' + v1.ingredients + '</li>';
                         $('#excluded-items-'+v1.ordered_items_id).append(html_excluded);
                         // console.log(v1);
                     });
@@ -77,15 +78,17 @@
             type: "GET",
             url: url + '/product/' + productId,
             success: function (data) {
-                $("#product-naam").append().text(data[0].product.naam);
+                // console.log(data[0]);
+                $("#product-naam").append().text(data[0][0].product.naam);
                 $("#ordered-item").append().val(orderedItem);
 
-                var html_order = '<div class="form-group">';
+                var html_order = '<div class="row">';
 
                 $.each(data, function(k, v) {
-                    html_order += '<div class="col-lg-4" style="margin-bottom: 10px;">';
-                        html_order += '<input type="checkbox" name="ingredients[]" value="' + v.ingredient.id + '" class="ingredients" >';
-                        html_order += '<label>' + v.ingredient.ingredient + '</label>';
+                    console.log(v);
+                    html_order += '<div class="col-lg-4" style="margin-bottom: 0px;">';
+                        html_order += '<input type="checkbox" name="ingredients[]" value="' + v[0].ingredient.id + '" class="ingredients" >';
+                        html_order += '<label>' + v[0].ingredient.ingredient + '</label>';
                     html_order += '</div>';
                 });
 

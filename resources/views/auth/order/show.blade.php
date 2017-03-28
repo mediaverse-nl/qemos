@@ -12,7 +12,9 @@
     {{--<div class="col-lg-12">--}}
         <input id="tafel" type="hidden" value="{{$tafels->id}}" />
         <input id="status" type="hidden" value="{{$tafels->bezet}}" />
-        <input id="order_id" type="hidden" value="{{$tafels->orders()->where('status', 'open')->first()->id}}" />
+        @if($tafels->orders()->exists())
+            <input id="order_id" type="hidden" value="{{$tafels->orders()->where('status', 'open')->first()->id}}" />
+        @endif
         {{--<input id="status" type="hidden" value="{{$tafels->status}}" />--}}
     {{--</div>--}}
     {{--<hr>--}}
