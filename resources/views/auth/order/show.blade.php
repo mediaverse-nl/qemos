@@ -12,6 +12,7 @@
     {{--<div class="col-lg-12">--}}
         <input id="tafel" type="hidden" value="{{$tafels->id}}" />
         <input id="status" type="hidden" value="{{$tafels->bezet}}" />
+        <input id="order_id" type="hidden" value="{{$tafels->orders()->where('status', 'open')->first()->id}}" />
         {{--<input id="status" type="hidden" value="{{$tafels->status}}" />--}}
     {{--</div>--}}
     {{--<hr>--}}
@@ -83,14 +84,16 @@
     {{--end of container--}}
 
 <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="my-ingredients" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Anders</h4>
+                    <h4 class="modal-title" id="product-naam">Anders</h4>
+                    <input type="hidden" id="ordered-item" value="">
                 </div>
                 <div class="modal-body">
+
                     {{--<div class="form-control">--}}
                         {{--<label></label>--}}
                         {{--<input type="" />--}}
@@ -99,7 +102,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btn-add">Save changes</button>
                 </div>
             </div>
         </div>

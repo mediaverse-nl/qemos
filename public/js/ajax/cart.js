@@ -9,24 +9,38 @@
             type: "GET",
             url: url + '/' + tafel_id,
             success: function (data) {
+                var html_excluded = '';
                 var html_order = '<ul class="list-group">';
+
                 $.each(data, function(k, v) {
-                    console.log(v);
-                    html_order += '<li class="' + v.status + ' list-group-item"><span class="">' + v.product.naam + '</span>' +
-                        '<span class="badge"> ' + v.product.prijs + ' </span>' +
-                        '<span class="hidden id"> ' + v.id + ' </span>' +
-                        '<span class="hidden product_id"> ' + v.product.id + ' </span>' +
-                        '<span class="badge ">' + v.status + '</span></li>';
+                                       // console.log(v);
+                    html_order +=
+                        '<li class="' + v.status + ' list-group-item" style="height: auto;">' +
+                            '<span class="">' + v.product.naam + '</span>' +
+                            '<span class="badge"> ' + v.product.prijs + ' </span>' +
+                            '<span class="hidden id"> ' + v.id + ' </span>' +
+                            '<span class="hidden product_id"> ' + v.product.id + ' </span>' +
+                            '<span class="badge ">' + v.status + '</span>'+
+                            '<ul id="excluded-items-'+ v.id +'"></ul>'+
+                        '</li>';
                     total += parseFloat(v.product.prijs)
                 });
                 html_order += '<li class="list-group-item"> totaal <span class="badge">€ ' + total + '</span></li>';
                 html_order += '</ul>';
                 $("#order").html(html_order);
-                console.log(total);
+
+                $.each(data, function(k, v) {
+                    $.each(v.excluded, function(k1, v1) {
+                        html_excluded = '<li class="">geen ' + v1.ingredient_id + '</li>';
+                        $('#excluded-items-'+v1.ordered_items_id).append(html_excluded);
+                        // console.log(v1);
+                    });
+                });
+                // console.log(total);
             }
         });
     }
-    setInterval(OrderList, 5000);
+    setInterval(OrderList, 1500);
     OrderList();
 
     $("#option").on('click', '#btn-save', function (e) {
@@ -63,61 +77,61 @@
             type: "GET",
             url: url + '/product/' + productId,
             success: function (data) {
-                console.log(data);
-                $('.modal').modal('show');
+                $("#product-naam").append().text(data[0].product.naam);
+                $("#ordered-item").append().val(orderedItem);
 
-                var html_order = '<ul class="list-group">';
+                var html_order = '<div class="form-group">';
+
                 $.each(data, function(k, v) {
-                    html_order += '<p>' + v.ingredient.ingredient + '</p>';
-
-                    console.log(v);
-                //     html_order += '<li class="' + v.status + ' list-group-item"><span class="">' + v.product.naam + '</span>' +
-                //         '<span class="badge"> ' + v.product.prijs + ' </span>' +
-                //         '<span class="hidden id"> ' + v.id + ' </span>' +
-                //         '<span class="hidden product_id"> ' + v.id + ' </span>' +
-                //         '<span class="badge ">' + v.status + '</span></li>';
-                //     total += parseFloat(v.product.prijs)
+                    html_order += '<div class="col-lg-4" style="margin-bottom: 10px;">';
+                        html_order += '<input type="checkbox" name="ingredients[]" value="' + v.ingredient.id + '" class="ingredients" >';
+                        html_order += '<label>' + v.ingredient.ingredient + '</label>';
+                    html_order += '</div>';
                 });
 
-                html_order += '</ul>';
+                html_order += '</div>';
 
                 $(".modal-body").html(html_order);
 
+                $('.modal').modal('show');
             }
         });
-        // $('#myModal').on('submit', function(e) {
-
-            // $('modal').modal('toggle');
-            // $('modal').modal('hide');
-
-            // e.preventDefault();
-        // });
-
-        // console.log(orderedItem);
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        //     }
-        // });
-        //
-        // e.preventDefault();
-        //
-        // var formData = {
-        //     tafel_id : $('#tafel').val(),
-        // };
-        //
-        // $.ajax({
-        //     type: "POST",
-        //     url: url + '/save',
-        //     data: formData,
-        //     dataType: 'json',
-        //     success: function (data) {
-        //         OrderList();
-        //         console.log(data);
-        //     }
-        // });
     });
 
+
+    $("#my-ingredients").on('click', '#btn-add', function (e) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        e.preventDefault();
+
+        var ingredients = [];
+        $('.ingredients:checked').each(function(i){
+            ingredients[i] = parseInt($(this).val());
+        });
+
+        console.log($('#id').val());
+
+        $.ajax({
+            type: 'POST',
+            url: '/order/excluded',
+            data: {
+                ingredients : ingredients,
+                ordered_item_id : parseInt($('#ordered-item').val()),
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data);
+
+            }
+        });
+    });
 
     $("#menu").on('click', '#btn-menu', function () {
         $(".menu").hide();

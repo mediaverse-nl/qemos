@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Excluded;
+use App\Ingredient;
 use App\Menu;
 use App\Order;
+use App\OrderedItem;
 use App\Product;
 use App\Tafel;
 use Illuminate\Http\Request;
@@ -21,6 +24,7 @@ class OrdersController extends Controller
         $this->product = new Product();
         $this->tafels = new Tafel();
         $this->menu = new Menu();
+        $this->ingredients = new Ingredient();
     }
 
     public function get($id)
@@ -29,7 +33,7 @@ class OrdersController extends Controller
 
         $order = $this->orders->where('status', 'open')->where('tafel_id', $tafel->id)->first();
 
-        return response()->json($order->orderedItem()->with('product')->get(), 200);
+        return response()->json($order->orderedItem()->with('product')->with('excluded')->get(), 200);
     }
 
     public function save(Request $request)
@@ -67,11 +71,25 @@ class OrdersController extends Controller
         return response()->json($order->exists(), 200);
     }
 
-    public function ingredients($id){
+    public function ingredients($id)
+    {
         $product = $this->product->find($id);
-        $ingredients = $product->productIngredient()->with('ingredient')->get();
+        $ingredients = $product->productIngredient()->with('ingredient')->with('product')->get();
 
         return response()->json($ingredients, 200);
+    }
+
+    public function excluded(Request $request)
+    {
+        $orderedItem = OrderedItem::find($request->ordered_item_id);
+
+        $orderedItem->excluded()->where('ordered_items_id', $orderedItem->id)->delete();
+
+        foreach ($request->ingredients as $ingredient){
+            $orderedItem->excluded()->insert(['ordered_items_id' => $orderedItem->id, 'ingredient_id' => (int)$ingredient]);
+        }
+
+        return response()->json( $orderedItem, 200);
     }
 
     /**

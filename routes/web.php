@@ -77,9 +77,10 @@ Route::group(['prefix' => 'order'], function ()
     Route::post('/add', ['as' => 'cart.add', 'uses' => 'OrdersController@add']);
     Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
     Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
+    Route::post('/excluded', ['as' => 'cart.excluded', 'uses' => 'OrdersController@excluded']);
 
-    Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);
 
+//    Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);
 //    Route::post('/verwijder', ['as' => 'cart.remove', 'uses' => 'CartController@remove']);
 //    Route::post('/plus', ['as' => 'cart.increase', 'uses' => 'CartController@increase']);
 //    Route::post('/min', ['as' => 'cart.decrease', 'uses' => 'CartController@decrease']);

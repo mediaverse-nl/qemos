@@ -12,6 +12,11 @@ class Tafel extends Model
 
     public $timestamps = false;
 
+    public function orders()
+    {
+        return $this->hasMany('App\Order', 'tafel_id', 'id');
+    }
+
     public static function status(){
         return collect([
             'zichtbaar' => 'zichtbaar',

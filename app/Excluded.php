@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Excluded extends Model
 {
-    protected $table = 'excluded';
+    protected $table = 'excluded_ingredient';
 
     public $timestamps = false;
 
