@@ -16,11 +16,11 @@
                 $.each(data, function(k, v) {
 
                     $.each(v.excluded, function(k1, v1) {
-                        html_excluded += '<li class="">geen: '+ v1.ingredient.ingredient  +'</li>';
+                        html_excluded += '<li class="">zonder: '+ v1.ingredient.ingredient  +'</li>';
                     });
 
                     html_item +=
-                        '<li class="' + v.status + ' list-group-item" style="height: auto;">' +
+                        '<li class="' + v.status + ' list-group-item" id="row-'+ v.id +'" style="height: auto;">' +
                             '<span class="">' + v.product.naam + '</span>' +
                             '<span class="badge"> ' + v.product.prijs + ' </span>' +
                             '<span class="hidden id"> ' + v.id + ' </span>' +
@@ -48,6 +48,7 @@
     OrderList();
 
     $("#option").on('click', '#btn-save', function (e) {
+        $('#ajax-loader').show();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -67,12 +68,15 @@
             dataType: 'json',
             success: function (data) {
                 OrderList();
+                $('#ajax-loader').hide();
                 // console.log(data);
             }
         });
     });
 
     $("#order").on('click', '.open', function (e) {
+        $('#ajax-loader').show();
+
         var orderedItem = $(this).find('.id').text();
         var productId = parseInt($(this).find('.product_id').text());
         // console.log(productId);
@@ -100,12 +104,16 @@
                 $(".modal-body").html(html_order);
 
                 $('.modal').modal('show');
+                $('#ajax-loader').hide();
+
             }
         });
     });
 
 
     $("#my-ingredients").on('click', '#btn-add', function (e) {
+        $('#ajax-loader').show();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -132,34 +140,43 @@
             success: function (data) {
                 // console.log(data);
                 $('.modal').modal('hide');
+                $('#ajax-loader').hide();
+
             },
             error: function (data) {
                 // console.log(data);
+                $('#ajax-loader').hide();
 
             }
         });
     });
 
     $("#menu").on('click', '#btn-menu', function () {
+        $('#ajax-loader').show();
         $(".menu").hide();
         $(".btn-menu").removeClass('active');
         $(".menu-item-" + $(this).val()).addClass('active');
         $(".menu-" + $(this).val()).show();
+        $('#ajax-loader').hide();
     });
 
     //delete task and remove it from list
-    $('#tasks-list').on('click', '.delete-task',function(){
-        var row_id = $(this).val();
+    $('#my-ingredients').on('click', '#btn-delete',function(){
+        var row_id = $('#ordered-item').val();
+        $('#ajax-loader').show();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
         });
+        // console.log(row_id);
         $.ajax({
             type: "DELETE",
-            url: url + '/' + row_id,
+            url: url + '/delete/' + row_id,
             success: function (data) {
-                $("#task" + row_id).remove();
+                $("#row-" + row_id).remove();
+                $('.modal').modal('hide');
+                $('#ajax-loader').hide();
             }
         });
     });
@@ -167,7 +184,7 @@
     //create new task / update existing task
     $("#product").on('click', '#btn-add', function (e) {
         var product_id = $(this).val();
-
+        $('#ajax-loader').show();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -189,6 +206,7 @@
             dataType: 'json',
             success: function (data) {
                 OrderList();
+                $('#ajax-loader').hide();
             }
         });
     });

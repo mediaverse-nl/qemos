@@ -8,6 +8,10 @@
         }
     </style>
 
+    <div id="ajax-loader" style="display:none; height: 100%; width: 100%; background: #333333; z-index:9999; opacity: 0.5; position:fixed; top: 0; ">
+        <img src="/image/ajax_loader_gray_32.gif" id="loader" style="width: 30px; position:fixed;z-index:9999;top:48%;left:48%;">
+    </div>
+
 <div class="container">
     {{--<div class="col-lg-12">--}}
         <input id="tafel" type="hidden" value="{{$tafels->id}}" />
@@ -78,7 +82,6 @@
                          <button type="button" id="btn-save" value="{{$tafels->id}}">Opslaan</button>
                     </div>
                 </div>
-
             </div>
         </div>
         {{--end of row--}}
@@ -99,6 +102,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btn-delete">delete</button>
                     <button type="button" class="btn btn-primary" id="btn-add">Save changes</button>
                 </div>
             </div>
@@ -106,6 +110,7 @@
     </div>
 
 </div>
+
 @endsection
 
 

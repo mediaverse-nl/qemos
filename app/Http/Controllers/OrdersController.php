@@ -181,6 +181,9 @@ class OrdersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $orderedItem = OrderedItem::findOrFail($id);
+        $orderedItem->delete();
+
+        return response()->json(true, 200);
     }
 }
