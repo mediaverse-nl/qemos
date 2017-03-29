@@ -25,6 +25,11 @@ class IngredientsController extends Controller
         return view('auth.ingredient.index')->with('ingredients', $this->ingredient->get());
     }
 
+    public function ingredients()
+    {
+        return response()->json($this->ingredient->get(), 200);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

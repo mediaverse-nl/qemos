@@ -63,16 +63,16 @@
 
                 <div class="col-lg-12">
                     <div class="thumbnail">
-                        <button type="button" id="btn-save" value="{{$tafels->id}}">verwijderen</button>
+                        <button type="button" id="btn-save" value="">verwijderen</button>
                     </div>
                     <div class="thumbnail">
-                        <button type="button" id="btn-save" value="{{$tafels->id}}">korting</button>
+                        <button type="button" id="btn-save" value="">korting</button>
                     </div>
                     <div class="thumbnail">
-                        <button type="button" id="btn-save" value="{{$tafels->id}}">Splitsen</button>
+                        <button type="button" id="btn-save" value="">Splitsen</button>
                     </div>
                     <div class="thumbnail">
-                        <button type="button" id="btn-save" value="{{$tafels->id}}">Afrekenen</button>
+                        <button type="button" id="btn-save" value="">Afrekenen</button>
                     </div>
                     <div class="thumbnail">
                          <button type="button" id="btn-save" value="{{$tafels->id}}">Opslaan</button>
@@ -95,11 +95,6 @@
                     <input type="hidden" id="ordered-item" value="">
                 </div>
                 <div class="modal-body">
-
-                    {{--<div class="form-control">--}}
-                        {{--<label></label>--}}
-                        {{--<input type="" />--}}
-                    {{--</div>--}}
 
                 </div>
                 <div class="modal-footer">

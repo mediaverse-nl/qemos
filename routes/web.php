@@ -78,6 +78,8 @@ Route::group(['prefix' => 'order'], function ()
     Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
     Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
     Route::post('/excluded', ['as' => 'cart.excluded', 'uses' => 'OrdersController@excluded']);
+    Route::get('/get/ingredients', ['as' => 'ingredients', 'uses' => 'IngredientsController@ingredients']);
+
 
 
 //    Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);

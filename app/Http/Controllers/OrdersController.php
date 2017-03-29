@@ -36,9 +36,7 @@ class OrdersController extends Controller
         return response()->json(
             $order->orderedItem()
                 ->with('product')
-                ->with('excluded')
-//                ->rightJoin('excluded_ingredient', 'excluded_ingredient.ordered_items_id', '=', 'ordered_items.id')
-                ->join('ingredients', 'ingredients.id', '=', 'excluded.ingredient_id')
+                ->with('excluded.ingredient')
                 ->get(),
         200);
     }
@@ -83,7 +81,7 @@ class OrdersController extends Controller
         $product = $this->product->find($id);
         $ingredients = $product->productIngredient()->with('ingredient')->with('product')->get();
 
-        return response()->json([$ingredients, 'as'], 200);
+        return response()->json($ingredients, 200);
     }
 
     public function excluded(Request $request)
@@ -92,11 +90,12 @@ class OrdersController extends Controller
 
         $orderedItem->excluded()->where('ordered_items_id', $orderedItem->id)->delete();
 
-        foreach ($request->ingredients as $ingredient){
-            $orderedItem->excluded()->insert(['ordered_items_id' => $orderedItem->id, 'ingredient_id' => (int)$ingredient]);
-        }
+        if (isset($request->ingredients))
+            foreach ($request->ingredients as $ingredient){
+                $orderedItem->excluded()->insert(['ordered_items_id' => $orderedItem->id, 'ingredient_id' => (int)$ingredient]);
+            }
 
-        return response()->json( $orderedItem, 200);
+        return response()->json(true, 200);
     }
 
     /**
@@ -107,16 +106,6 @@ class OrdersController extends Controller
     public function index()
     {
         return view('auth.order.index')->with('tafels', $this->tafels->get());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -170,17 +159,6 @@ class OrdersController extends Controller
             ->with('products', $this->product->get())
             ->with('menus', $this->menu->get())
             ->with('tafels', $this->tafels->findOrfail($id));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

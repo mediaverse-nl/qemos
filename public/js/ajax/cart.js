@@ -9,39 +9,42 @@
             type: "GET",
             url: url + '/' + tafel_id,
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 var html_excluded = '';
-                var html_order = '<ul class="list-group">';
+                var html_item = '';
 
                 $.each(data, function(k, v) {
-                                       // console.log(v);
-                    html_order +=
+
+                    $.each(v.excluded, function(k1, v1) {
+                        html_excluded += '<li class="">geen: '+ v1.ingredient.ingredient  +'</li>';
+                    });
+
+                    html_item +=
                         '<li class="' + v.status + ' list-group-item" style="height: auto;">' +
                             '<span class="">' + v.product.naam + '</span>' +
                             '<span class="badge"> ' + v.product.prijs + ' </span>' +
                             '<span class="hidden id"> ' + v.id + ' </span>' +
                             '<span class="hidden product_id"> ' + v.product.id + ' </span>' +
                             '<span class="badge ">' + v.status + '</span>'+
-                            '<ul id="excluded-items-'+ v.id +'"></ul>'+
+                            '<ul id="excluded-items-'+ v.id +'">'+ html_excluded + '</ul>'+
                         '</li>';
-                    total += parseFloat(v.product.prijs)
-                });
-                html_order += '<li class="list-group-item"> totaal <span class="badge">€ ' + total + '</span></li>';
-                html_order += '</ul>';
-                $("#order").html(html_order);
 
-                $.each(data, function(k, v) {
-                    $.each(v.excluded, function(k1, v1) {
-                        html_excluded = '<li class="">geen ' + v1.ingredients + '</li>';
-                        $('#excluded-items-'+v1.ordered_items_id).append(html_excluded);
-                        // console.log(v1);
-                    });
+                    html_excluded = '';
+
+                    total += parseFloat(v.product.prijs);
                 });
-                // console.log(total);
+
+                var html_order = '<ul class="list-group">';
+                html_order +=  html_item;
+                    html_order += '<li class="list-group-item"> totaal <span class="badge">€ ' + total + '</span></li>';
+                html_order += '</ul>';
+
+                $("#order").html(html_order);
             }
         });
     }
-    setInterval(OrderList, 1500);
+
+    setInterval(OrderList, 1000);
     OrderList();
 
     $("#option").on('click', '#btn-save', function (e) {
@@ -64,7 +67,7 @@
             dataType: 'json',
             success: function (data) {
                 OrderList();
-                console.log(data);
+                // console.log(data);
             }
         });
     });
@@ -79,7 +82,7 @@
             url: url + '/product/' + productId,
             success: function (data) {
                 // console.log(data[0]);
-                $("#product-naam").append().text(data[0][0].product.naam);
+                $("#product-naam").append().text('order wijziging: ' + data[0].product.naam);
                 $("#ordered-item").append().val(orderedItem);
 
                 var html_order = '<div class="row">';
@@ -87,8 +90,8 @@
                 $.each(data, function(k, v) {
                     console.log(v);
                     html_order += '<div class="col-lg-4" style="margin-bottom: 0px;">';
-                        html_order += '<input type="checkbox" name="ingredients[]" value="' + v[0].ingredient.id + '" class="ingredients" >';
-                        html_order += '<label>' + v[0].ingredient.ingredient + '</label>';
+                        html_order += '<input type="checkbox" name="ingredients[]" value="' + v.ingredient.id + '" class="ingredients" >';
+                        html_order += '<label>' + v.ingredient.ingredient + '</label>';
                     html_order += '</div>';
                 });
 
@@ -116,7 +119,7 @@
             ingredients[i] = parseInt($(this).val());
         });
 
-        console.log($('#id').val());
+        // console.log($('#id').val());
 
         $.ajax({
             type: 'POST',
@@ -127,10 +130,11 @@
             },
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                // console.log(data);
+                $('.modal').modal('hide');
             },
             error: function (data) {
-                console.log(data);
+                // console.log(data);
 
             }
         });
@@ -163,6 +167,7 @@
     //create new task / update existing task
     $("#product").on('click', '#btn-add', function (e) {
         var product_id = $(this).val();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -175,15 +180,7 @@
             product_id : product_id,
             tafel_id : tafel_id,
             status : bezet,
-            // id : $(this).val(),
-            // id : $('#id').val(),
         };
-
-        // console.log(formData);
-        //used to determine the http verb to use [add=POST], [update=PUT]
-        // var product_id = $('#btn-add').val();
-
-        // var row_id = $('#row_id').val();
 
         $.ajax({
             type: "POST",
@@ -192,15 +189,6 @@
             dataType: 'json',
             success: function (data) {
                 OrderList();
-                console.log(data);
-
-                // var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.naam + '</td>';
-                // task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
-                // task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
-
-                // $("#order").replaceWith('<div id="order">' + data.product_id + '</div>');
             }
         });
     });
-// });
-// </script>
