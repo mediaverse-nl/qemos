@@ -48,7 +48,7 @@
                     @foreach($products as $product)
                         <button type="button" value="{{$product->id}}" id="btn-add" class="col-lg-6 menu menu-{{$product->menuProduct->menu_id}}">
                             {{--<div class="thumbnail">--}}
-                                {{$product->naam}}
+                            {{$product->naam}}
                         </button>
                     @endforeach
                 </div>

@@ -44,7 +44,7 @@
         });
     }
 
-    setInterval(OrderList, 1000);
+    // setInterval(OrderList, 5000);
     OrderList();
 
     $("#option").on('click', '#btn-save', function (e) {
@@ -79,13 +79,13 @@
 
         var orderedItem = $(this).find('.id').text();
         var productId = parseInt($(this).find('.product_id').text());
-        // console.log(productId);
+        console.log(productId);
 
         $.ajax({
             type: "GET",
             url: url + '/product/' + productId,
             success: function (data) {
-                // console.log(data[0]);
+                console.log(data);
                 $("#product-naam").append().text('order wijziging: ' + data[0].product.naam);
                 $("#ordered-item").append().val(orderedItem);
 
@@ -139,6 +139,8 @@
             dataType: 'json',
             success: function (data) {
                 // console.log(data);
+                OrderList();
+
                 $('.modal').modal('hide');
                 $('#ajax-loader').hide();
 
