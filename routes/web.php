@@ -20,6 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+    $api->get('login', function(){
+        return response()->json(['code'=>20000, 'token'=>'fsdf234']);
+    });
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
