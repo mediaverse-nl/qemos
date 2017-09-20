@@ -7,6 +7,9 @@ use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+
 class OrderController extends Controller
 {
     // todo documentations - https://github.com/dingo/api/wiki/Responses
@@ -18,9 +21,15 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        try{
+            $users = User::all();
 
-        return $this->response->collection($users, new UserTransformer);
+            return $this->response->item($users, n);
+
+        }catch (JWTException $e){
+            return $e;
+        }
+
     }
 
     /**

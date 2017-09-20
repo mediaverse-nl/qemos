@@ -13,14 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/order', 'Api\OrderController@index')->name('api.order.index');
+//Route::get('/order', 'Api\OrderController@index')->name('api.order.index');
 
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->get('test', function(){
-        return response()->json(['code'=>20000, 'token'=>'fsdf234']);
-    });
+    $api->post('login', 'App\Http\Controllers\Auth\AuthController@authenticate');
+    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
+
+});
+
+$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

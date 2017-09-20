@@ -11,23 +11,10 @@
 |
 */
 
-//use Input;
-//use Validator;
-use App\Product;
-use Illuminate\Http\Request;
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-$api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api) {
-    $api->get('login', function(){
-        return response()->json(['code'=>20000, 'token'=>'fsdf234']);
-    });
-});
 
 Auth::routes();
 
