@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use Dingo\Api\Routing\Helpers;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Transformers\UserTransformer;
+
 
 class OrderController extends Controller
 {
@@ -21,14 +23,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        try{
-            $users = User::all();
+//        try{
+            $orders = User::all();
 
-            return $this->response->item($users, n);
+            return $this->response->collection($orders, new UserTransformer)->setStatusCode(200);
 
-        }catch (JWTException $e){
-            return $e;
-        }
+//        }catch (Exception $e){
+//            return $e;
+//        }
 
     }
 
@@ -61,7 +63,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+//        return \Tymon\JWTAuth\JWTAuth::parseToken()->toUser();
+
+//        try{
+            $order = User::findOrFail($id);
+
+            return $this->response->item($order, new UserTransformer)->setStatusCode(200);
+
+//        }catch (Exception $e)
+//        {
+//            return $e;
+//        }
     }
 
     /**

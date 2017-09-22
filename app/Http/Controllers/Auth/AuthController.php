@@ -11,7 +11,9 @@ class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+//        $this->middleware('guest', ['except' => 'getLogout']);
+
+        $this->middleware('jwt.refresh')->except('authenticate');
     }
 
     /**
@@ -32,5 +34,22 @@ class AuthController extends Controller
          }
 
          return response()->json(compact('token'));
+    }
+
+    public function token()
+    {
+        $token = JWTAuth::getToken();
+
+        if(!$token){
+            throw new BadRequestHtttpException('Token not provided');
+        }
+
+        try{
+            $token = JWTAuth::refresh($token);
+        }catch(TokenInvalidException $e){
+            throw new AccessDeniedHttpException('The token is invalid');
+        }
+
+        return $this->response->withArray(['token'=>$token]);
     }
 }

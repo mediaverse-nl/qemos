@@ -19,11 +19,13 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\Auth\AuthController@authenticate');
-    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
-
 });
-
+//
 $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
+    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
+    $api->get('order/{id}', 'App\Http\Controllers\Api\OrderController@show');
+
+    $api->get('token', 'App\Http\Controllers\Auth\AuthController@token');
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
