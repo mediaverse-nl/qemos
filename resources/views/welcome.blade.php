@@ -10,6 +10,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+        @stack('css')
+
         <!-- Styles -->
         <style>
             html, body {
@@ -94,5 +96,8 @@
 
             </div>
         </div>
+
+        @stack('js')
+
     </body>
 </html>

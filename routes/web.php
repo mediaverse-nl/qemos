@@ -15,8 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Auth::routes();
+
+Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+    Route::resource('/menu', 'MenuController');
+});
+
+Route::middleware(['web'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
+    Route::get('/', function () {
+        return view('kiosk.index');
+    });
+    Route::resource('/booking', 'BookingController');
+    Route::resource('/order', 'OrderController');
+});
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -99,8 +112,43 @@ Route::get('/products/{id?}',function($task_id){
 })->name('product.json');
 
 
+
+
 //Route::get('/keuken', 'TafelsController@index')->name('product.index');
 
 
 
+//use App\Events\OrderPosted;
+
+//Route::get('/socket-test',function(){
+//    return view('socket-text');
+//});
+
+//Route::get('/socket-test', function() {
+//    // this doesn't do anything other than to
+//    // tell you to go to /fire
+//    return "go to /fire";
+//});
+//
+//Route::get('socket-test/fire', function () {
+//    $user = \App\User::findOrFail(1);
+//    // this fires the event
+//    event(new App\Events\OrderPosted());
+//    return "event fired";
+//});
+//
+//Route::get('socket-test/test', function () {
+//    // this checks for the event
+//    return view('socket-text');
+//});
+
+//Route::post('/new-orders',function(){
+//
+//    $user = auth()->user();
+//
+//    event(new OrderPosted($user));
+//
+//    return ['status' => 'OK'];
+//
+//});
 
