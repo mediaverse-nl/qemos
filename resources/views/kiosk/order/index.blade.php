@@ -14,13 +14,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 col-sm-9">
             @foreach($product as $i)
                 <div class="panel panel-content">
                     <div class="panel-body">
                         <h3>asdasdsa</h3>
+asdasd
 
-                        {{$i}}
+                        {{--{{dd($i->productIngredient())}}--}}
+                        @foreach($i->productIngredient as $ingr)
+                            Gemaakt met: {{$ingr->ingredient->ingredient}},
+                        @endforeach
+
                     </div>
                 </div>
             @endforeach

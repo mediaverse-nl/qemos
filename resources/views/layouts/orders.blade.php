@@ -45,13 +45,13 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse" style="min-height: 30px !important; margin-bottom: 0px !important;">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="{{route('dashboard')}}" class="btn btn-default btn-xs" style="margin-top: 3px;">admin</a>
-            </div>
-        </div>
-    </nav>
+    {{--<nav class="navbar navbar-inverse" style="min-height: 30px !important; margin-bottom: 0px !important;">--}}
+        {{--<div class="container">--}}
+            {{--<div class="navbar-header">--}}
+                {{--<a href="{{route('dashboard')}}" class="btn btn-default btn-xs" style="margin-top: 3px;">admin</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</nav>--}}
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">

@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+
 
 use App\Ingredient;
 use App\Menu;
@@ -10,7 +13,7 @@ use Validator;
 use Input;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     protected $product;
     protected $ingredient;
@@ -29,7 +32,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('auth.product.index')
+        return view('auth.admin.product.index')
             ->with('products', $this->product->get())
             ->with('menu', $this->menu->get())
             ->with('ingredients', $this->ingredient->get());

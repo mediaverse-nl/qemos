@@ -1,5 +1,5 @@
 
-    var url = "/settings/ingredients";
+    var url = "/admin/ingredient";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -12,7 +12,7 @@
 
     //display modal form for task editing
     $('#tasks-list').on("click", ".open-modal", function(){
-        // console.log('asda');
+        // console.log('asda') ;
         $('div.has-error').removeClass('has-error');
 
         var row_id = $(this).val();

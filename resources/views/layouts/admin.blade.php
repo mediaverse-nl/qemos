@@ -115,26 +115,26 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav in" id="side-menu">
                         <li>
-                            <a href="{{route('dashboard')}}" class="{{ !Request::is('dashboard') ? : 'active' }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="{{route('admin.index')}}" class="{{ !Request::is('admin') ? : 'active' }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="{{route('menu.index')}}" class="{{ !Request::is('settings/menu*') ? : 'active' }}">Menu</a>
+                            <a href="{{route('admin.menu.index')}}" class="{{ !Request::is('admin/menu*') ? : 'active' }}">Menu</a>
                         </li>
                         <li>
-                            <a href="{{route('ingredient.index')}}" class="{{ !Request::is('settings/ingredient*') ? : 'active' }}">Ingredient</a>
+                            <a href="{{route('admin.ingredient.index')}}" class="{{ !Request::is('admin/ingredient*') ? : 'active' }}">Ingredient</a>
                         </li>
                         <li>
-                            <a href="{{route('product.index')}}" class="{{ !Request::is('settings/product*') ? : 'active' }}">Producten</a>
+                            <a href="{{route('admin.product.index')}}" class="{{ !Request::is('admin/product*') ? : 'active' }}">Producten</a>
                         </li>
                         <li>
-                            <a href="{{route('tafel.index')}}" class="{{ !Request::is('settings/tafel*') ? : 'active' }}">tafels</a>
+                            <a href="{{route('admin.tafel.index')}}" class="{{ !Request::is('admin/tafel*') ? : 'active' }}">tafels</a>
                         </li>
-                        <li>
-                            <a href="{{route('tafel.index')}}" class="{{ !Request::is('settings/tafel*') ? : 'active' }}">reservering</a>
-                        </li>
-                        <li>
-                            <a href="{{route('tafel.index')}}" class="{{ !Request::is('settings/tafel*') ? : 'active' }}">orders</a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{route('admin.tafel.index')}}" class="{{ !Request::is('admin/tafel*') ? : 'active' }}">reservering</a>--}}
+                        {{--</li>--}}
+                        {{--<li>--}}
+                            {{--<a href="{{route('admin.tafel.index')}}" class="{{ !Request::is('admin/tafel*') ? : 'active' }}">orders</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

@@ -18,13 +18,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+    Route::get('/', function () {
+        return view('auth.admin.index');
+    })->name('index');
     Route::resource('/menu', 'MenuController');
+    Route::resource('/product', 'ProductController');
+    Route::resource('/ingredient', 'IngredientController');
+    Route::resource('/tafel', 'TafelController');
 });
 
 Route::middleware(['web'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
     Route::get('/', function () {
         return view('kiosk.index');
-    });
+    })->name('index');
     Route::resource('/booking', 'BookingController');
     Route::resource('/order', 'OrderController');
 });
@@ -38,47 +44,47 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/tafel', 'OrdersController@index')->name('order.index');
 Route::get('/orders/{id}', 'OrdersController@show')->name('order.show');
 
-//Route::get('/tafels', 'TafelsController@index')->name('tafel.index');
-//Route::get('/tafels/create', 'TafelsController@create')->name('tafel.create');
-//Route::get('/tafels/{id}/edit', 'TafelsController@edit')->name('tafel.edit');
-//Route::post('/tafels', 'TafelsController@store')->name('tafel.store');
-//Route::patch('/tafels/{id}', 'TafelsController@update')->name('tafel.update');
+//Route::get('/tafels', 'TafelController@index')->name('tafel.index');
+//Route::get('/tafels/create', 'TafelController@create')->name('tafel.create');
+//Route::get('/tafels/{id}/edit', 'TafelController@edit')->name('tafel.edit');
+//Route::post('/tafels', 'TafelController@store')->name('tafel.store');
+//Route::patch('/tafels/{id}', 'TafelController@update')->name('tafel.update');
 
-Route::get('/rooster', 'RoostersController@index')->name('rooster.index');
+//Route::get('/rooster', 'RoostersController@index')->name('rooster.index');
+//
+//Route::get('/ingredient', 'IngredientController@index')->name('ingredient.index');
 
-Route::get('/ingredient', 'IngredientsController@index')->name('ingredient.index');
+//Route::get('/products', 'ProductController@index')->name('product.index');
 
-//Route::get('/products', 'ProductsController@index')->name('product.index');
+//Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
 
-Route::get('/keuken', 'KitchenController@index')->name('kitchen.index');
-
-Route::group(['prefix' => 'settings'], function () {
-
-    Route::get('/menu/{id}', 'MenuController@show')->name('menu.show');
-    Route::get('/menu', 'MenuController@index')->name('menu.index');
-    Route::post('/menu', 'MenuController@store')->name('menu.store');
-    Route::put('/menu/{id?}', 'MenuController@update')->name('menu.update');
-    Route::delete('/menu/{id?}', 'MenuController@destroy')->name('menu.destroy');
-
-    Route::get('/ingredients/{id}', 'IngredientsController@show')->name('ingredient.show');
-    Route::get('/ingredients', 'IngredientsController@index')->name('ingredient.index');
-    Route::post('/ingredients', 'IngredientsController@store')->name('ingredient.store');
-    Route::put('/ingredients/{id?}', 'IngredientsController@update')->name('ingredient.update');
-    Route::delete('/ingredients/{id?}', 'IngredientsController@destroy')->name('ingredient.destroy');
-
-    Route::get('/tafel/{id}', 'TafelsController@show')->name('tafel.show');
-    Route::get('/tafel', 'TafelsController@index')->name('tafel.index');
-    Route::post('/tafel', 'TafelsController@store')->name('tafel.store');
-    Route::put('/tafel/{id?}', 'TafelsController@update')->name('tafel.update');
-    Route::delete('/tafel/{id?}', 'TafelsController@destroy')->name('tafel.destroy');
-
-    Route::get('/products/{id}', 'ProductsController@show')->name('product.show');
-    Route::get('/products', 'ProductsController@index')->name('product.index');
-    Route::post('/products', 'ProductsController@store')->name('product.store');
-    Route::put('/products/{id?}', 'ProductsController@update')->name('product.update');
-    Route::delete('/products/{id?}', 'ProductsController@destroy')->name('product.destroy');
-
-});
+//Route::group(['prefix' => 'settings'], function () {
+//
+//    Route::get('/menu/{id}', 'MenuController@show')->name('menu.show');
+//    Route::get('/menu', 'MenuController@index')->name('menu.index');
+//    Route::post('/menu', 'MenuController@store')->name('menu.store');
+//    Route::put('/menu/{id?}', 'MenuController@update')->name('menu.update');
+//    Route::delete('/menu/{id?}', 'MenuController@destroy')->name('menu.destroy');
+//
+//    Route::get('/ingredients/{id}', 'IngredientController@show')->name('ingredient.show');
+//    Route::get('/ingredients', 'IngredientController@index')->name('ingredient.index');
+//    Route::post('/ingredients', 'IngredientController@store')->name('ingredient.store');
+//    Route::put('/ingredients/{id?}', 'IngredientController@update')->name('ingredient.update');
+//    Route::delete('/ingredients/{id?}', 'IngredientController@destroy')->name('ingredient.destroy');
+//
+//    Route::get('/tafel/{id}', 'TafelController@show')->name('tafel.show');
+//    Route::get('/tafel', 'TafelController@index')->name('tafel.index');
+//    Route::post('/tafel', 'TafelController@store')->name('tafel.store');
+//    Route::put('/tafel/{id?}', 'TafelController@update')->name('tafel.update');
+//    Route::delete('/tafel/{id?}', 'TafelController@destroy')->name('tafel.destroy');
+//
+//    Route::get('/products/{id}', 'ProductController@show')->name('product.show');
+//    Route::get('/products', 'ProductController@index')->name('product.index');
+//    Route::post('/products', 'ProductController@store')->name('product.store');
+//    Route::put('/products/{id?}', 'ProductController@update')->name('product.update');
+//    Route::delete('/products/{id?}', 'ProductController@destroy')->name('product.destroy');
+//
+//});
 
 Route::group(['prefix' => 'order'], function ()
 {
@@ -87,7 +93,7 @@ Route::group(['prefix' => 'order'], function ()
     Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
     Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
     Route::post('/excluded', ['as' => 'cart.excluded', 'uses' => 'OrdersController@excluded']);
-    Route::get('/get/ingredients', ['as' => 'ingredients', 'uses' => 'IngredientsController@ingredients']);
+    Route::get('/get/ingredients', ['as' => 'ingredients', 'uses' => 'IngredientController@ingredients']);
     Route::delete('/delete/{id?}', 'OrdersController@destroy')->name('product.destroy');
 
 
@@ -114,7 +120,7 @@ Route::get('/products/{id?}',function($task_id){
 
 
 
-//Route::get('/keuken', 'TafelsController@index')->name('product.index');
+//Route::get('/keuken', 'TafelController@index')->name('product.index');
 
 
 

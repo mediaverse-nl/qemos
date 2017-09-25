@@ -1,5 +1,5 @@
 
-    var url = "/settings/menu";
+    var url = "/admin/menu";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -92,7 +92,7 @@
         var state = $('#btn-save').val();
 
         var type = "POST"; //for creating new resource
-        var row_id = $('#row_id').val();
+        var row_id = $('#row_id').val() ;
         var my_url = url;
 
         if (state == "update"){

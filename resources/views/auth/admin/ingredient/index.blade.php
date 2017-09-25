@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
-    <h1>menu</h1>
+    <h1>ingredients</h1>
     <hr>
 
     {!! Breadcrumbs::render('home') !!}
@@ -18,18 +18,18 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>naam</th>
+                    <th>ingredient</th>
                     <th>opties</th>
                 </tr>
             </thead>
             <tbody id="tasks-list" name="tasks-list">
-                @foreach($menus as $menu)
-                    <tr id="task{{$menu->id}}">
-                        <td>{{$menu->id}}</td>
-                        <td>{{$menu->naam}}</td>
+                @foreach($ingredients as $ingredient)
+                    <tr id="task{{$ingredient->id}}">
+                        <td>{{$ingredient->id}}</td>
+                        <td>{{$ingredient->ingredient}}</td>
                         <td>
-                            <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$menu->id}}">wijzigen</button>
-                            <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$menu->id}}">verwijderen</button>
+                            <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$ingredient->id}}">wijzigen</button>
+                            <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$ingredient->id}}">verwijderen</button>
                         </td>
                     </tr>
                 @endforeach
@@ -45,17 +45,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Menu</h4>
+                    <h4 class="modal-title" id="myModalLabel">Product</h4>
                 </div>
                 <div class="modal-body">
 {{--                    {{Illuminate\Validation\Rule::in(['a'=>'a','c'=>'c'])}}--}}
                     <form id="frmTasks" name="frmTasks" class="" novalidate="">
                         {{Form::hidden('id', null, ['class' => 'form-control'])}}
 
-                        <div class="form-group error-naam" >
-                            {{Form::label('naam', 'naam')}}
-                            {{Form::text('naam', null, ['class' => 'form-control'])}}
-                            <small id="error-naam" class="error"></small>
+                        <div class="form-group error-ingredient" >
+                            {{Form::label('ingredient', 'ingredient')}}
+                            {{Form::text('ingredient', null, ['class' => 'form-control'])}}
+                            <small id="error-ingredient" class="error"></small>
                         </div>
 
                     </form>
@@ -73,5 +73,5 @@
 @push('js')
         <meta name="_token" content="{!! csrf_token() !!}" />
 
-        <script type="text/javascript" src="{{ asset('js/ajax/menu.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/ajax/ingredient.js') }}"></script>
 @endpush

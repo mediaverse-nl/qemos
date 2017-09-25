@@ -1,5 +1,5 @@
 
-    var url = "/settings/products";
+    var url = "/admin/product" ;
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
