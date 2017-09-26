@@ -14,6 +14,6 @@ class Menu extends Model
 
     public function menuProduct()
     {
-        return $this->hasMany('App\MenuProduct', 'product_id', 'id');
+        return $this->hasMany('App\MenuProduct', 'menu_id', 'id');
     }
 }

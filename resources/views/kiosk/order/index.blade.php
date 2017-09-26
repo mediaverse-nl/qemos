@@ -2,10 +2,28 @@
 
 @section('content')
     <div class="container">
-        {{--<button id="click">Click me</button>--}}
+
+      {{--@php--}}
+          {{--$directory = "qemos/image/*/";--}}
+
+        {{--//get all image files with a .jpg extension.--}}
+        {{--$images = glob("" . $directory . "*.jpg");--}}
+
+        {{--$imgs = '';--}}
+        {{--// create array--}}
+        {{--foreach($images as $image){ $imgs[] = "$image"; }--}}
+
+        {{--//shuffle array--}}
+        {{--shuffle($imgs);--}}
+
+        {{--//select first 20 images in randomized array--}}
+        {{--$imgs = array_slice($imgs, 0, 1);--}}
+
+      {{--@endphp--}}
+
 
         <div class="col-sm-3" style="margin-top: 0px;">
-            <div class="affix" style="width: 250px;">
+            <div class="affix" style="width: 220px;">
                 <div class="panel panel-content" id="">
                     <div class="panel-body">
                         {{--<div>filter</div>--}}
@@ -40,21 +58,24 @@
                         </div>
                     </div>
 
+                        {{--{{$i}}--}}
                 </div>
 
                 @foreach($i->menuProduct as $m)
                     <div class="col-sm-12">
+                        {{--{{$m}}--}}
                         <div class="panel panel-content" style="background: #FFFFFF;">
                             <div class="panel-body">
                                 <div class="col-md-3">
-                                    <img src="/image/soep/{{rand(1,5)}}.jpg" class="img-responsive center-block"  style="height: 130px;">
+                                    <img src="/qemos/image/{{$m->menu->id}}/{{rand(1, 4)}}.jpg" class="img-responsive center-block"  style="height: 130px;">
                                 </div>
                                 <div class="col-md-6">
                                     <h3>{{$m->product->naam}}</h3>
 {{--                                    <h3>{{$m->product->menuProduct->menu->naam}}</h3>--}}
                                     {{--{{dd($i->productIngredient())}}--}}
+                                    Gemaakt met:
                                     @foreach($m->product->productIngredient as $ingr)
-                                        Gemaakt met: {{$ingr->ingredient->ingredient}},
+                                        {{$ingr->ingredient->ingredient}},
                                     @endforeach
                                 </div>
                                 <div class="col-md-3">
@@ -73,35 +94,6 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12">
-                        <div class="panel panel-content" style="background: #FFFFFF;">
-                            <div class="panel-body">
-                                <div class="col-md-3">
-                                    <img src="/image/soep/{{rand(1,5)}}.jpg" class="img-responsive  center-block" style="height: 130px;">
-                                </div>
-                                <div class="col-md-6">
-                                    <h3>{{$m->product->naam}}</h3>
-{{--                                    <h3>{{$m->product->menuProduct->menu->naam}}</h3>--}}
-                                    {{--{{dd($i->productIngredient())}}--}}
-                                    @foreach($m->product->productIngredient as $ingr)
-                                        Gemaakt met: {{$ingr->ingredient->ingredient}},
-                                    @endforeach
-                                </div>
-                                <div class="col-md-3">
-                                    <br>
-                                    <br>
-                                    <br>
-                                    <a href="" class="btn btn-primary pull-right">
-                                        <span>
-                                            <i class="fa fa-eur" aria-hidden="true"></i>
-                                            {{$m->product->prijs}}
-                                        </span> |
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 @endforeach
             @endforeach
 
@@ -195,7 +187,7 @@
 @push('css')
     <style>
         .menu-cate{
-            background-image: url('/image/banner.jpg');
+            background-image: url('/qemos/image/banner.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

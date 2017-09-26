@@ -186,6 +186,7 @@ return [
 
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 
