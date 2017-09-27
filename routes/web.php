@@ -17,6 +17,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//super admin
+Route::middleware(['auth.role:admin,admin1'])->prefix('admin-test')->name('admin-test.')->namespace('Admin')->group(function () {
+    Route::get('/', function () {
+        return view('auth.admin.index');
+    })->name('index');
+});
+
+//manager admin
 Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
     Route::get('/', function () {
         return view('auth.admin.index');
@@ -25,13 +33,29 @@ Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')-
     Route::resource('/product', 'ProductController');
     Route::resource('/ingredient', 'IngredientController');
     Route::resource('/tafel', 'TafelController');
+//    Route::resource('/order', 'OrderController');
+//    Route::resource('/user', 'UserController');
 });
 
-Route::middleware(['web'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
+//kiosk api migration
+
+//make database compleet
+//organization size wise + communication with our own api
+
+//kiosk panel
+Route::middleware(['web', 'kiosk.token'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
     Route::get('/', function () {
         return view('kiosk.index');
     })->name('index');
     Route::resource('/booking', 'BookingController');
+    Route::resource('/order', 'OrderController');
+});
+
+//klant panel
+Route::middleware(['web'])->prefix('klant')->name('klant.')->namespace('Klant')->group(function () {
+    Route::get('/', function () {
+        return view('kiosk.index');
+    })->name('index');
     Route::resource('/order', 'OrderController');
 });
 
