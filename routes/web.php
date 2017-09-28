@@ -17,6 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware(['auth.role:developer'])->prefix('developer')->name('developer.')->namespace('Developer')->group(function () {
+    Route::get('/', function () {
+        return 'developer';
+    })->name('index');
+    Route::resource('/kiosk', 'KioskController');
+    Route::resource('/location', 'LocationController');
+    Route::resource('/Pin', 'PinController');
+});
+
 //super admin
 Route::middleware(['auth.role:admin,admin1'])->prefix('admin-test')->name('admin-test.')->namespace('Admin')->group(function () {
     Route::get('/', function () {
@@ -35,6 +44,8 @@ Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')-
     Route::resource('/tafel', 'TafelController');
 //    Route::resource('/order', 'OrderController');
 //    Route::resource('/user', 'UserController');
+//    Route::resource('/kiosk', 'KioskController');
+
 });
 
 //kiosk api migration
