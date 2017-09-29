@@ -21,7 +21,7 @@ class UserRoles
         }
 
 //        $user = \auth()->user()->role;
-        $user = ['admin1', 'admin4', 'developer'];
+        $user = ['admin', 'manager', 'developer'];
 
         foreach ($roles as $role)
         {

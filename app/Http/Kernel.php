@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ApiToken;
+use App\Http\Middleware\RedirectInvalidIPs;
 use App\Http\Middleware\UserRoles;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -53,6 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'firewall' => RedirectInvalidIPs::class,
         'kiosk.token' => ApiToken::class,
         'auth.role' => UserRoles::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,

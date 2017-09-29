@@ -17,44 +17,40 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth.role:developer'])->prefix('developer')->name('developer.')->namespace('Developer')->group(function () {
+Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->namespace('support')->group(function () {
     Route::get('/', function () {
         return 'developer';
     })->name('index');
     Route::resource('/kiosk', 'KioskController');
     Route::resource('/location', 'LocationController');
     Route::resource('/Pin', 'PinController');
+    Route::resource('/ticket', 'TicketController');
 });
 
-//super admin
-Route::middleware(['auth.role:admin,admin1'])->prefix('admin-test')->name('admin-test.')->namespace('Admin')->group(function () {
+//staff panel
+Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->namespace('Staff')->group(function () {
     Route::get('/', function () {
         return view('auth.admin.index');
     })->name('index');
+    //staff manager panel
+    Route::middleware(['web', 'auth.role:manager'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+        Route::get('/', function () {
+            return view('auth.admin.index');
+        })->name('index');
+        Route::resource('/menu', 'MenuController');
+        Route::resource('/product', 'ProductController');
+        Route::resource('/ingredient', 'IngredientController');
+        Route::resource('/tafel', 'TafelController');
+        Route::resource('/order', 'OrderController');
+        Route::resource('/user', 'UserController');
+        Route::resource('/kiosk', 'KioskController');
+        Route::resource('/ticket', 'TicketController');
+
+    });
 });
-
-//manager admin
-Route::middleware(['web'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
-    Route::get('/', function () {
-        return view('auth.admin.index');
-    })->name('index');
-    Route::resource('/menu', 'MenuController');
-    Route::resource('/product', 'ProductController');
-    Route::resource('/ingredient', 'IngredientController');
-    Route::resource('/tafel', 'TafelController');
-//    Route::resource('/order', 'OrderController');
-//    Route::resource('/user', 'UserController');
-//    Route::resource('/kiosk', 'KioskController');
-
-});
-
-//kiosk api migration
-
-//make database compleet
-//organization size wise + communication with our own api
 
 //kiosk panel
-Route::middleware(['web', 'kiosk.token'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
+Route::middleware(['web', 'kiosk.token', 'firewall'])->prefix('kiosk')->name('kiosk.')->namespace('Kiosk')->group(function () {
     Route::get('/', function () {
         return view('kiosk.index');
     })->name('index');
@@ -63,7 +59,7 @@ Route::middleware(['web', 'kiosk.token'])->prefix('kiosk')->name('kiosk.')->name
 });
 
 //klant panel
-Route::middleware(['web'])->prefix('klant')->name('klant.')->namespace('Klant')->group(function () {
+Route::middleware(['web', 'firewall'])->prefix('klant')->name('klant.')->namespace('Klant')->group(function () {
     Route::get('/', function () {
         return view('kiosk.index');
     })->name('index');
