@@ -36,4 +36,20 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Booking', 'user_id', 'id');
     }
+
+    public function checkRole($roles)
+    {
+//        $user = $this->role;
+        $user = ['admin', 'manager', 'developer', 'staff'];
+
+        foreach ($roles as $role)
+        {
+            if (in_array($role, $user)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

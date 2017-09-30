@@ -18,8 +18,8 @@ class ApiToken
         $bearer_token = $request->header('authorization');
         $url_token = $request->token;
 
-//        dd($url1);
         $token = '8b9257a19898f585a806f3759e0aa620';
+        return $next($request);
 
         if ($bearer_token || $url_token){
             if ($bearer_token == 'Bearer '.$token || $url_token){
@@ -29,7 +29,5 @@ class ApiToken
         }else{
             return response()->json(['Token not found.'])->setStatusCode(200);
         }
-
-//dd($url);
     }
 }

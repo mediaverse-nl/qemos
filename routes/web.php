@@ -17,6 +17,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::get('/printen', function () {
+
+//    use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+//    use Mike42\Escpos\Printer;
+//
+//    $connector = new FilePrintConnector("php://stdout");
+//    $printer = new Printer($connector);
+//    $printer -> text("Hello World!\n");
+//    $printer -> cut();
+//    $printer -> close();
+
+    return view('print-text');
+})->name('print');
+
 Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->namespace('support')->group(function () {
     Route::get('/', function () {
         return 'developer';
@@ -30,23 +45,23 @@ Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->n
 //staff panel
 Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->namespace('Staff')->group(function () {
     Route::get('/', function () {
-        return view('auth.admin.index');
+        return view('staff.index');
     })->name('index');
     //staff manager panel
-    Route::middleware(['web', 'auth.role:manager'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
-        Route::get('/', function () {
-            return view('auth.admin.index');
-        })->name('index');
-        Route::resource('/menu', 'MenuController');
-        Route::resource('/product', 'ProductController');
-        Route::resource('/ingredient', 'IngredientController');
-        Route::resource('/tafel', 'TafelController');
-        Route::resource('/order', 'OrderController');
-        Route::resource('/user', 'UserController');
-        Route::resource('/kiosk', 'KioskController');
-        Route::resource('/ticket', 'TicketController');
+//    Route::middleware(['web', 'auth.role:manager'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
+//        Route::get('/', function () {
+//            return view('auth.admin.index');
+//        })->name('index');
+    Route::resource('/menu', 'MenuController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/product', 'ProductController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/ingredient', 'IngredientController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/tafel', 'TafelController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/order', 'OrderController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/user', 'UserController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/kiosk', 'KioskController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/ticket', 'TicketController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
 
-    });
+//    });
 });
 
 //kiosk panel

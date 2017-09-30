@@ -20,16 +20,12 @@ class UserRoles
             return redirect()->route('login');
         }
 
-//        $user = \auth()->user()->role;
-        $user = ['admin', 'manager', 'developer'];
+        $status = auth()->user()->checkRole($roles);
 
-        foreach ($roles as $role)
-        {
-            if (in_array($role, $user)){
-                return $next($request);
-            }
-
+        if ($status){
+            return $next($request);
         }
+
 
         abort(403, 'Access denied');
     }
