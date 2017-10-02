@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Support;
 
+use App\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LocationController extends Controller
 {
+    protected $location;
+
+    public function __construct()
+    {
+        $this->location = new Location();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return view('support.location.index')->with('locations', $this->location->get());
     }
 
     /**
@@ -24,7 +32,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('support.location.create');
     }
 
     /**
@@ -39,17 +47,6 @@ class LocationController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -57,7 +54,7 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('support.location.edit')->with('locations', $this->location->findOrFail($id));
     }
 
     /**

@@ -15,6 +15,11 @@ class CreateKioskTable extends Migration
     {
         Schema::create('kiosk', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('location_id')->nullable()->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
+            $table->string('api_key');
+            $table->string('model_nr');
+            $table->enum('status', \App\Kiosk::status());
             $table->timestamps();
         });
     }

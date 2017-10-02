@@ -61,7 +61,7 @@ Breadcrumbs::register('support.pin.index', function($breadcrumbs) {
     $breadcrumbs->push('Pin', route('support.pin.index'));
 });
 
-//support edit
+//support kiosk
 Breadcrumbs::register('support.kiosk.index', function($breadcrumbs) {
     $breadcrumbs->parent('support.index');
     $breadcrumbs->push('kiosk', route('support.kiosk.index'));
@@ -76,11 +76,25 @@ Breadcrumbs::register('support.kiosk.create', function($breadcrumbs) {
     $breadcrumbs->parent('support.kiosk.index');
     $breadcrumbs->push('create', route('support.kiosk.create'));
 });
+//support kiosk end
 
+//support location
 Breadcrumbs::register('support.location.index', function($breadcrumbs) {
     $breadcrumbs->parent('support.index');
     $breadcrumbs->push('Location', route('support.location.index'));
 });
+
+Breadcrumbs::register('support.location.edit', function($breadcrumbs) {
+    $breadcrumbs->parent('support.location.index');
+    $breadcrumbs->push('edit', route('support.location.index'));
+});
+
+Breadcrumbs::register('support.location.create', function($breadcrumbs) {
+    $breadcrumbs->parent('support.location.index');
+    $breadcrumbs->push('create', route('support.location.create'));
+});
+//support location
+
 
 Breadcrumbs::register('support.ticket.index', function($breadcrumbs) {
     $breadcrumbs->parent('support.index');

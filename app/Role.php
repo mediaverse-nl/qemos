@@ -19,5 +19,5 @@ class Role extends Model
         ]);
     }
 
-    public $timestamps = true;
+    public $timestamps = false;
 }

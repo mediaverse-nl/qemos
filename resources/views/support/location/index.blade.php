@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <a class="btn btn-default" href="{{route('support.kiosk.create')}}">create</a>
+    <a class="btn btn-default" href="{{route('support.location.create')}}">create</a>
 
     <hr>
 
@@ -10,21 +10,20 @@
         @slot('thead')
             <tr>
                 <th>id</th>
-                <th>api_key</th>
-                <th>model_nr</th>
+                <th>adres</th>
+                <th>postcode</th>
+                <th>stad</th>
+                <th>lang</th>
+                <th>btw</th>
+                <th>kvk</th>
                 <th>status</th>
-                <th>location_id</th>
                 <th>actions</th>
             </tr>
         @endslot
         @slot('tbody')
-            @foreach($kiosks as $kiosk)
+            @foreach($locations as $location)
                 <tr>
-                    <td>{{$kiosk->id}}</td>
-                    <td>{{$kiosk->api_key}}</td>
-                    <td>{{$kiosk->model_nr}}</td>
-                    <td>{{$kiosk->status}}</td>
-                    <td>{{$kiosk->location_id}}</td>
+                    <td>{{$location->id}}</td>a
                     <td>
                         <a class="btn btn-xs btn-default" href="{{route('support.kiosk.edit', 1)}}">
                             edit

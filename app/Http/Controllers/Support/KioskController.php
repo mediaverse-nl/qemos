@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers\Support;
 
+use App\Kiosk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class KioskController extends Controller
 {
+    protected $kiosk;
+
+    public function __construct()
+    {
+        $this->kiosk = new Kiosk();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,7 @@ class KioskController extends Controller
      */
     public function index()
     {
-        return view('support.kiosk.index');
+        return view('support.kiosk.index')->with('kiosks', $this->kiosk->get());
     }
 
     /**

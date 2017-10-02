@@ -141,13 +141,19 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.location.index')}}" class="{{ !Request::is('staff/location*') ? : 'active' }}">
+                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                location
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('support.kiosk.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
                                 <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.pin.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
                                 <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
                                 pin
                             </a>
@@ -200,7 +206,11 @@
 
         $(document).ready(function() {
             $('#dataTables').DataTable({
-                responsive: true
+                responsive: true,
+                language: {
+                    "processing": "<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>"
+                }, // you can put text or html here in the language.processing setting.
+                processing: true,
             });
         });
 
