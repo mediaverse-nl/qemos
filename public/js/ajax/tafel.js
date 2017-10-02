@@ -1,5 +1,5 @@
 
-    var url = "/admin/tafel" ;
+    var url = "/staff/tafel" ;
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';

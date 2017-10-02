@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Staff;
 
-use App\Http\Controllers\Controller;
-
-use App\Menu;
-use Validator;
+use App\User;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+use App\Http\Controllers\Controller;
+
+use Validator;
+
+class UserController extends Controller
 {
-    protected $menu;
+    protected $user;
 
     public function __construct()
     {
-        $this->menu = new Menu();
+        $this->user = new User();
     }
 
     /**
@@ -24,7 +25,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('staff.menu.index')->with('menus', $this->menu->get());
+        return view('staff.user.index')->with('users', $this->user->get());
     }
 
     /**
@@ -36,7 +37,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'naam' => 'required',
+            'status' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -46,13 +47,13 @@ class MenuController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $menu = $this->menu;
+        $user = $this->user;
 
-        $menu->naam = $request->naam;
+        $user->status = $request->status;
 
-        $menu->save();
+        $user->save();
 
-        return response()->json($menu, 200);
+        return response()->json($user, 200);
     }
 
     /**
@@ -63,9 +64,9 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $menu = $this->menu->findOrFail($id);
+        $user = $this->user->find($id);
 
-        return response()->json($menu);
+        return response()->json($user);
     }
 
     /**
@@ -78,7 +79,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'naam' => 'required',
+            'status' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -88,13 +89,13 @@ class MenuController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $menu = $this->menu->find($id);
+        $user = $this->user->find($id);
 
-        $menu->naam = $request->naam;
+        $user->status = $request->status;
 
-        $menu->save();
+        $user->save();
 
-        return response()->json($menu);
+        return response()->json($user, 200);
     }
 
     /**
@@ -105,8 +106,8 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = $this->menu->destroy($id);
+        $user = $this->user->destroy($id);
 
-        return response()->json($menu);
+        return response()->json($user);
     }
 }

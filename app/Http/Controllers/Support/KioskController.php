@@ -14,7 +14,7 @@ class KioskController extends Controller
      */
     public function index()
     {
-        //
+        return view('support.kiosk.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class KioskController extends Controller
      */
     public function create()
     {
-        //
+        return view('support.kiosk.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class KioskController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('support.kiosk.edit');
     }
 
     /**

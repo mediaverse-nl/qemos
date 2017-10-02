@@ -1,5 +1,5 @@
 
-    var url = "/staff/menu";
+    var url = "/staff/.." ;
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -23,7 +23,8 @@
             //success data
             // console.log(data);
             $('#row_id').val(data.id);
-            $('#naam').val(data.naam);
+            $('#aantal_plaatsen').val(data.aantal_plaatsen);
+            $('#status').val(data.status);
 
             $('#btn-save').val("update");
 
@@ -84,7 +85,8 @@
         e.preventDefault();
 
         var formData = {
-            naam : $('#naam').val(),
+            aantal_plaatsen : $('#aantal_plaatsen').val(),
+            status : $('#status').val(),
             id : $('#id').val(),
         };
 
@@ -92,7 +94,7 @@
         var state = $('#btn-save').val();
 
         var type = "POST"; //for creating new resource
-        var row_id = $('#row_id').val() ;
+        var row_id = $('#row_id').val();
         var my_url = url;
 
         if (state == "update"){
@@ -109,7 +111,7 @@
                 // console.log(data);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.naam + '</td>';
+                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.aantal_plaatsen + '</td><td>' + data.status + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

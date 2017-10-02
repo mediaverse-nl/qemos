@@ -10,7 +10,7 @@
                 <p>
                     Je hebt niet de juiste rechten om op deze pagina te zijn.
                     <br>
-                    Neem contact op met de admin of ga terug naar <a href="{{route('home')}}">home</a>.
+                    Neem contact op met de admin of ga terug naar.
                 </p>
             </div>
         </div>

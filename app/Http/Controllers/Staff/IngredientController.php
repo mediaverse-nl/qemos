@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 
-use App\Menu;
+use App\Ingredient;
 use Validator;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class IngredientController extends Controller
 {
-    protected $menu;
+    protected $ingredient;
 
     public function __construct()
     {
-        $this->menu = new Menu();
+        $this->ingredient = new Ingredient();
     }
 
     /**
@@ -24,7 +24,12 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('auth.admin.menu.index')->with('menus', $this->menu->get());
+        return view('staff.ingredient.index')->with('ingredients', $this->ingredient->get());
+    }
+
+    public function ingredients()
+    {
+        return response()->json($this->ingredient->get(), 200);
     }
 
     /**
@@ -36,7 +41,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'naam' => 'required',
+            'ingredient' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -46,13 +51,13 @@ class MenuController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $menu = $this->menu;
+        $ingredient = $this->ingredient;
 
-        $menu->naam = $request->naam;
+        $ingredient->ingredient = $request->ingredient;
 
-        $menu->save();
+        $ingredient->save();
 
-        return response()->json($menu, 200);
+        return response()->json($ingredient, 200);
     }
 
     /**
@@ -63,9 +68,9 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $menu = $this->menu->find($id);
+        $ingredient = $this->ingredient->find($id);
 
-        return response()->json($menu);
+        return response()->json($ingredient);
     }
 
     /**
@@ -78,7 +83,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'naam' => 'required',
+            'ingredient' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -88,13 +93,13 @@ class MenuController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $menu = $this->menu->find($id);
+        $ingredient = $this->ingredient->find($id);
 
-        $menu->naam = $request->naam;
+        $ingredient->ingredient = $request->ingredient;
 
-        $menu->save();
+        $ingredient->save();
 
-        return response()->json($menu);
+        return response()->json($ingredient);
     }
 
     /**
@@ -105,8 +110,8 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = $this->menu->destroy($id);
+        $ingredient = $this->ingredient->destroy($id);
 
-        return response()->json($menu);
+        return response()->json($ingredient);
     }
 }

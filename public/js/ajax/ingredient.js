@@ -1,5 +1,5 @@
 
-    var url = "/admin/ingredient";
+    var url = "/staff/ingredient";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';

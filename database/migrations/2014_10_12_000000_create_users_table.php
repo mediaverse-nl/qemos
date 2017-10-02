@@ -15,6 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
@@ -25,8 +27,9 @@ class CreateUsersTable extends Migration
             $table->integer('lijftijd')->nullable();;
             $table->string('telefoon', 12)->nullable();;
             $table->string('thuis_telefoon', 12)->nullable();;
+            $table->string('bsn')->nullable();;
             $table->enum('status', ['nvt', 'verwijdert', 'indienst']);
-            $table->integer('uren_contract')->nullable();;
+            $table->integer('uren_contract')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

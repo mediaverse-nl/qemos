@@ -40,7 +40,7 @@ class User extends Authenticatable
     public function checkRole($roles)
     {
 //        $user = $this->role;
-        $user = ['admin', 'manager', 'developer', 'staff'];
+        $user = ['admin', 'manager', 'developer', 'staff', 'support'];
 
         foreach ($roles as $role)
         {

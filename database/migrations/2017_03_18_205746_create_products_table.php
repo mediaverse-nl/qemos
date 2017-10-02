@@ -15,6 +15,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
             $table->integer('bereidingsduur');
             $table->string('naam', 50);
             $table->decimal('prijs', 16, 2);

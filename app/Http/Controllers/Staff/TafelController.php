@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Staff;
+
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
-use App\Ingredient;
+use App\Tafel;
 use Validator;
-use Illuminate\Http\Request;
 
-class IngredientController extends Controller
+class TafelController extends Controller
 {
-    protected $ingredient;
+    protected $tafel;
 
     public function __construct()
     {
-        $this->ingredient = new Ingredient();
+        $this->tafel = new Tafel();
     }
 
     /**
@@ -24,12 +25,7 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return view('auth.admin.ingredient.index')->with('ingredients', $this->ingredient->get());
-    }
-
-    public function ingredients()
-    {
-        return response()->json($this->ingredient->get(), 200);
+        return view('staff.tafel.index')->with('tafels', $this->tafel->get());
     }
 
     /**
@@ -41,7 +37,8 @@ class IngredientController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'ingredient' => 'required',
+            'aantal_plaatsen' => 'required',
+            'status' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -51,13 +48,14 @@ class IngredientController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $ingredient = $this->ingredient;
+        $tafel = $this->tafel;
 
-        $ingredient->ingredient = $request->ingredient;
+        $tafel->aantal_plaatsen = $request->aantal_plaatsen;
+        $tafel->status = $request->status;
 
-        $ingredient->save();
+        $tafel->save();
 
-        return response()->json($ingredient, 200);
+        return response()->json($tafel, 200);
     }
 
     /**
@@ -68,9 +66,9 @@ class IngredientController extends Controller
      */
     public function show($id)
     {
-        $ingredient = $this->ingredient->find($id);
+        $tafel = $this->tafel->find($id);
 
-        return response()->json($ingredient);
+        return response()->json($tafel);
     }
 
     /**
@@ -83,7 +81,8 @@ class IngredientController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'ingredient' => 'required',
+            'aantal_plaatsen' => 'required',
+            'status' => 'required',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -93,13 +92,14 @@ class IngredientController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $ingredient = $this->ingredient->find($id);
+        $tafel = $this->tafel->find($id);
 
-        $ingredient->ingredient = $request->ingredient;
+        $tafel->aantal_plaatsen = $request->aantal_plaatsen;
+        $tafel->status = $request->status;
 
-        $ingredient->save();
+        $tafel->save();
 
-        return response()->json($ingredient);
+        return response()->json($tafel, 200);
     }
 
     /**
@@ -110,8 +110,8 @@ class IngredientController extends Controller
      */
     public function destroy($id)
     {
-        $ingredient = $this->ingredient->destroy($id);
+        $tafel = $this->tafel->destroy($id);
 
-        return response()->json($ingredient);
+        return response()->json($tafel);
     }
 }

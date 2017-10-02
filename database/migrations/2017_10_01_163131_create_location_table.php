@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenuProductTable extends Migration
+class CreateLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateMenuProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_product', function (Blueprint $table) {
+        Schema::create('location', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->integer('menu_id')->unsigned();
-            $table->foreign('menu_id')->references('id')->on('menu');
+            $table->string('adres');
+            $table->string('postcode');
+            $table->string('stad');
+            $table->string('lang');
+            $table->string('btw');
+            $table->string('kvk');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateMenuProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_product');
+        Schema::dropIfExists('location');
     }
 }

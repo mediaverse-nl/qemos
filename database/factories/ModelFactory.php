@@ -29,3 +29,10 @@ $factory->define(App\Role::class, function (Faker\Generator $faker) {
         'user_id' => $faker->numberBetween(1, 10),
     ];
 });
+
+$factory->define(App\Kiosk::class, function (Faker\Generator $faker) {
+    return [
+        'api_key' => str_random(14),
+        'location_id' => $faker->numberBetween(1, 10),
+    ];
+});

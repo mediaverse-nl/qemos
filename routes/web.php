@@ -12,33 +12,22 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect()->route('staff.index');
+})->middleware('auth');
+
+Route::get('/home', function () {
+    return redirect()->route('staff.index');
+})->middleware('auth');
 
 Auth::routes();
 
-
-Route::get('/printen', function () {
-
-//    use Mike42\Escpos\PrintConnectors\FilePrintConnector;
-//    use Mike42\Escpos\Printer;
-//
-//    $connector = new FilePrintConnector("php://stdout");
-//    $printer = new Printer($connector);
-//    $printer -> text("Hello World!\n");
-//    $printer -> cut();
-//    $printer -> close();
-
-    return view('print-text');
-})->name('print');
-
 Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->namespace('support')->group(function () {
     Route::get('/', function () {
-        return 'developer';
+        return view('support.index');
     })->name('index');
     Route::resource('/kiosk', 'KioskController');
     Route::resource('/location', 'LocationController');
-    Route::resource('/Pin', 'PinController');
+    Route::resource('/pin', 'PinController');
     Route::resource('/ticket', 'TicketController');
 });
 
@@ -47,11 +36,6 @@ Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->
     Route::get('/', function () {
         return view('staff.index');
     })->name('index');
-    //staff manager panel
-//    Route::middleware(['web', 'auth.role:manager'])->prefix('admin')->name('admin.')->namespace('Admin')->group(function () {
-//        Route::get('/', function () {
-//            return view('auth.admin.index');
-//        })->name('index');
     Route::resource('/menu', 'MenuController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/product', 'ProductController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ingredient', 'IngredientController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
@@ -60,8 +44,6 @@ Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->
     Route::resource('/user', 'UserController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/kiosk', 'KioskController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ticket', 'TicketController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
-
-//    });
 });
 
 //kiosk panel
@@ -81,14 +63,27 @@ Route::middleware(['web', 'firewall'])->prefix('klant')->name('klant.')->namespa
     Route::resource('/order', 'OrderController');
 });
 
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/tafel', 'OrdersController@index')->name('order.index');
 Route::get('/orders/{id}', 'OrdersController@show')->name('order.show');
+
+
+Route::get('/printen', function () {
+
+//    use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+//    use Mike42\Escpos\Printer;
+//
+//    $connector = new FilePrintConnector("php://stdout");
+//    $printer = new Printer($connector);
+//    $printer -> text("Hello World!\n");
+//    $printer -> cut();
+//    $printer -> close();
+
+    return view('print-text');
+})->name('print');
 
 //Route::get('/tafels', 'TafelController@index')->name('tafel.index');
 //Route::get('/tafels/create', 'TafelController@create')->name('tafel.create');

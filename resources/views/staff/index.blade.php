@@ -1,11 +1,13 @@
 @extends('layouts.staff')
 
 @section('content')
-<div class="container">
+{{--<div class="container">--}}
 
-    <div class="row">
+    {{--<div class="row">--}}
+    <br>
+    <br>
 
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <div class="panel panel-content">
                 <a href="{{route('staff.index')}}">
                     <div class="panel-body">
@@ -15,7 +17,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('staff.index')}}">
                     <div class="panel-body">
@@ -25,7 +27,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('kiosk.order.index')}}">
                     <div class="panel-body">
@@ -35,7 +37,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('kiosk.order.index')}}">
                     <div class="panel-body">
@@ -45,7 +47,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('kiosk.order.index')}}">
                     <div class="panel-body">
@@ -55,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('kiosk.order.index')}}">
                     <div class="panel-body">
@@ -65,7 +67,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-3">
             <div class="panel panel-content">
                 <a href="{{route('kiosk.booking.index')}}">
                     <div class="panel-body">
@@ -85,6 +87,6 @@
             {{--</div>--}}
         {{--</div>--}}
 
-    </div>
-</div>
+    {{--</div>--}}
+{{--</div>--}}
 @endsection

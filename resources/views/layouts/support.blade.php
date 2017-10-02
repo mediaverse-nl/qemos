@@ -40,91 +40,6 @@
         .panel-content{
             background: #FFFFFF;
         }
-
-
-        /*@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";*/
-        /*html {*/
-
-        /*-webkit-text-size-adjust: 100%;*/
-        /*-ms-text-size-adjust: 100%;*/
-        /*}*/
-        /*body {*/
-        /*margin: 0;*/
-        /*}*/
-
-        /*html, body {*/
-        /*width: 100%;*/
-        /*height: 100%*/
-        /*}*/
-        /*article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {*/
-        /*display: block;*/
-        /*}*/
-        /*audio, canvas, progress, video {*/
-        /*display: inline-block;*/
-        /*vertical-align: baseline;*/
-        /*}*/
-        /*audio:not([controls]) {*/
-        /*display: none;*/
-        /*height: 0;*/
-        /*}*/
-
-        /*a {*/
-        /*background-color: transparent;*/
-        /*text-decoration: none;*/
-        /*}*/
-        /*a:active, a:hover {*/
-        /*outline: 0;*/
-        /*}*/
-
-        /*h1,h2,h3,h4,h5,h6,p,ul,ol{ margin:0px; padding:0px;}*/
-
-
-        /*!***********************  TOP Bar ********************!*/
-        /*.sidebar{ width:220px;  background-color:#000;transition: all 0.5s  ease-in-out; }*/
-        /*.bg-defoult{background-color:#222;}*/
-        /*.sidebar ul{ list-style:none; margin:0px; padding:0px; }*/
-        /*.sidebar li a,.sidebar li a.collapsed.active{ display:block; padding:8px 12px; color:#fff;border-left:0px solid #dedede;  text-decoration:none}*/
-        /*.sidebar li a.active{background-color:#000;border-left:5px solid #dedede; transition: all 0.5s  ease-in-out}*/
-        /*.sidebar li a:hover{background-color:#000 !important;}*/
-        /*.sidebar li a i{ padding-right:5px;}*/
-        /*.sidebar ul li .sub-menu li a{ position:relative}*/
-        /*.sidebar ul li .sub-menu li a:before{*/
-            /*font-family: FontAwesome;*/
-            /*content: "\f105";*/
-            /*display: inline-block;*/
-            /*padding-left: 0px;*/
-            /*padding-right: 10px;*/
-            /*vertical-align: middle;*/
-        /*}*/
-        /*.sidebar ul li .sub-menu li a:hover:after {*/
-            /*content: "";*/
-            /*position: absolute;*/
-            /*left: -5px;*/
-            /*top: 0;*/
-            /*width: 5px;*/
-            /*background-color: #111;*/
-            /*height: 100%;*/
-        /*}*/
-        /*.sidebar ul li .sub-menu li a:hover{ background-color:#222; padding-left:20px; transition: all 0.5s  ease-in-out}*/
-        /*.sub-menu{ border-left:5px solid #dedede;}*/
-        /*.sidebar li a .nav-label,.sidebar li a .nav-label+span{ transition: all 0.5s  ease-in-out}*/
-
-
-        /*.sidebar.fliph li a .nav-label,.sidebar.fliph li a .nav-label+span{ display:none;transition: all 0.5s  ease-in-out}*/
-        /*.sidebar.fliph {*/
-            /*width: 42px;transition: all 0.5s  ease-in-out;*/
-
-        /*}*/
-
-        /*.sidebar.fliph li{ position:relative}*/
-        /*.sidebar.fliph .sub-menu {*/
-            /*position: absolute;*/
-            /*left: 39px;*/
-            /*top: 0;*/
-            /*background-color: #222;*/
-            /*width: 150px;*/
-            /*z-index: 100;*/
-        /*}*/
     </style>
 
     <!-- Scripts -->
@@ -150,9 +65,6 @@
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <a>asdasd</a>
-                </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -219,64 +131,34 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
-            {{--@include('components.left-sidebar-staff')--}}
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav in" id="side-menu">
                         <li>
-                            <a href="{{route('staff.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
                                 <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('staff.menu.index')}}" class="{{ !Request::is('staff/menu*') ? : 'active' }}">
-                                <i class="fa fa-bars" aria-hidden="true"></i>
-                                Menu
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.ingredient.index')}}" class="{{ !Request::is('staff/ingredient*') ? : 'active' }}">
-                                <i class="fa fa-lemon-o" aria-hidden="true"></i>
-                                Ingredient
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.product.index')}}" class="{{ !Request::is('staff/product*') ? : 'active' }}">
-                                <i class="fa fa-tag" aria-hidden="true"></i>
-                                Producten
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-cutlery" aria-hidden="true"></i>
-                                tafels
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.user.index')}}" class="{{ !Request::is('staff/user*') ? : 'active' }}">
-                                <i class="fa fa-users" aria-hidden="true"></i>
-                                users
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                                orders
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-tablet" aria-hidden="true"></i>
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                                reserveringen
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                pin
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                ticket
+                            </a>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
