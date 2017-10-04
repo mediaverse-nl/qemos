@@ -29,6 +29,7 @@ Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->n
     Route::resource('/location', 'LocationController');
     Route::resource('/pin', 'PinController');
     Route::resource('/ticket', 'TicketController');
+    Route::resource('/whitelist', 'WhitelistController');
 });
 
 //staff panel
@@ -44,6 +45,8 @@ Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->
     Route::resource('/user', 'UserController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/kiosk', 'KioskController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ticket', 'TicketController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+
+    Route::patch('/location-switch', 'LocationController@switch')->name('location.switch');
 });
 
 //kiosk panel
@@ -56,7 +59,7 @@ Route::middleware(['web', 'kiosk.token', 'firewall'])->prefix('kiosk')->name('ki
 });
 
 //klant panel
-Route::middleware(['web', 'firewall'])->prefix('klant')->name('klant.')->namespace('Klant')->group(function () {
+Route::middleware(['web', 'firewall'])->prefix('client')->name('client.')->namespace('Client')->group(function () {
     Route::get('/', function () {
         return view('kiosk.index');
     })->name('index');
@@ -129,14 +132,14 @@ Route::get('/printen', function () {
 
 Route::group(['prefix' => 'order'], function ()
 {
-    Route::get('/{id}', ['as' => 'cart.index', 'uses' => 'OrdersController@get']);
-    Route::post('/add', ['as' => 'cart.add', 'uses' => 'OrdersController@add']);
-    Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
-    Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
-    Route::post('/excluded', ['as' => 'cart.excluded', 'uses' => 'OrdersController@excluded']);
-    Route::get('/get/ingredients', ['as' => 'ingredients', 'uses' => 'IngredientController@ingredients']);
-    Route::delete('/delete/{id?}', 'OrdersController@destroy')->name('product.destroy');
-
+//    Route::get('/{id}', ['as' => 'cart.index', 'uses' => 'OrdersController@get']);
+//    Route::post('/add', ['as' => 'cart.add', 'uses' => 'OrdersController@add']);
+//    Route::post('/save', ['as' => 'cart.save', 'uses' => 'OrdersController@save']);
+//    Route::get('/product/{id}', ['as' => 'cart.ingredients', 'uses' => 'OrdersController@ingredients']);
+//    Route::post('/excluded', ['as' => 'cart.excluded', 'uses' => 'OrdersController@excluded']);
+//    Route::get('/get/ingredients', ['as' => 'ingredients', 'uses' => 'IngredientController@ingredients']);
+//    Route::delete('/delete/{id?}', 'OrdersController@destroy')->name('product.destroy');
+//
 
 
 //    Route::get('/checkout', ['as' => 'cart.checkout', 'uses' => 'CartController@create']);

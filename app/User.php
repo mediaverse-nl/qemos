@@ -32,9 +32,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Order', 'user_id', 'id');
     }
 
-    public function booking()
+    public function location()
     {
-        return $this->belongsTo('App\Booking', 'user_id', 'id');
+        return $this->belongsTo('App\Order', 'user_id', 'id');
+    }
+
+    public function locations()
+    {
+        return $this->location;
     }
 
     public function checkRole($roles)

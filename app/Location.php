@@ -14,7 +14,7 @@ class Location extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'location_id', 'id');
+        return $this->hasMany('App\User', 'location_id', 'id');
     }
 
     public function product()
@@ -45,5 +45,26 @@ class Location extends Model
     public function menu()
     {
         return $this->hasMany('App\Order', 'location_id', 'id');
+    }
+
+    public function locationSwitch($request)
+    {
+        $rules = [
+            'language' => 'in:en,fr' //list of supported languages of your application.
+        ];
+
+        $location = $request->location; //lang is name of form select field.
+
+        $validator = Validator::make(compact($location), $rules);
+
+        if($validator->passes())
+        {
+            Session::put('location', $location);
+//            App::setLocale($language);
+        }
+        else
+        {
+            /**/
+        }
     }
 }

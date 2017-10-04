@@ -145,13 +145,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">Staff Panel</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a>asdasd</a>
+                    <a>
+                        {{dd(auth()->user()->location)}}
+
+                        <label style="display: inline-block;"> Location:</label>
+                        {{ Form::open(['route' => 'staff.location.switch', 'style' => 'display: inline-block;']) }}
+                        {{ Form::select('lang',['en'=>'en','fr'=>'fr'], null,['onchange'=>'submit()'])}}
+                        {{ Form::close()}}
+                    </a>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -231,49 +238,49 @@
                         </li>
                         <li>
                             <a href="{{route('staff.menu.index')}}" class="{{ !Request::is('staff/menu*') ? : 'active' }}">
-                                <i class="fa fa-bars" aria-hidden="true"></i>
+                                <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
                                 Menu
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.ingredient.index')}}" class="{{ !Request::is('staff/ingredient*') ? : 'active' }}">
-                                <i class="fa fa-lemon-o" aria-hidden="true"></i>
+                                <i class="fa fa-lemon-o fa-fw" aria-hidden="true"></i>
                                 Ingredient
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.product.index')}}" class="{{ !Request::is('staff/product*') ? : 'active' }}">
-                                <i class="fa fa-tag" aria-hidden="true"></i>
+                                <i class="fa fa-tag fa-fw" aria-hidden="true"></i>
                                 Producten
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                <i class="fa fa-cutlery fa-fw" aria-hidden="true"></i>
                                 tafels
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.user.index')}}" class="{{ !Request::is('staff/user*') ? : 'active' }}">
-                                <i class="fa fa-users" aria-hidden="true"></i>
+                                <i class="fa fa-users fa-fw" aria-hidden="true"></i>
                                 users
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                                <i class="fa fa-shopping-basket fa-fw" aria-hidden="true"></i>
                                 orders
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-tablet" aria-hidden="true"></i>
+                                <i class="fa fa-tablet fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
                             <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <i class="fa fa-book fa-fw" aria-hidden="true"></i>
                                 reserveringen
                             </a>
                         </li>

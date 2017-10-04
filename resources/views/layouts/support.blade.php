@@ -40,6 +40,9 @@
         .panel-content{
             background: #FFFFFF;
         }
+        .no-sort::after { display: none!important; }
+
+        .no-sort { pointer-events: none!important; cursor: default!important; }
     </style>
 
     <!-- Scripts -->
@@ -60,7 +63,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">Support Panel</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -142,25 +145,25 @@
                         </li>
                         <li>
                             <a href="{{route('support.location.index')}}" class="{{ !Request::is('staff/location*') ? : 'active' }}">
-                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
                                 location
                             </a>
                         </li>
                         <li>
                             <a href="{{route('support.kiosk.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
-                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                <i class="fa fa-tablet fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
                             <a href="{{route('support.pin.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
-                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                <i class="fa fa-credit-card-alt fa-fw" aria-hidden="true"></i>
                                 pin
                             </a>
                         </li>
                         <li>
                             <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
-                                <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
+                                <i class="fa fa-comments fa-fw" aria-hidden="true"></i>
                                 ticket
                             </a>
                         </li>

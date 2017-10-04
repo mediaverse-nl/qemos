@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Support;
+namespace App\Http\Controllers\Staff;
 
 use App\Location;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('support.location.index')->with('locations', $this->location->get());
+        //
     }
 
     /**
@@ -32,7 +32,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('support.location.create');
+        //
     }
 
     /**
@@ -43,25 +43,18 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        $location = $this->location;
+        //
+    }
 
-        $location->adres = $request->adres;
-        $location->postcode = $request->postcode;
-        $location->stad = $request->stad;
-        $location->btw = $request->btw;
-        $location->lang = $request->lang;
-        $location->kvk = $request->kvk;
-        $location->status = $request->status;
-//
-//        if ($request->hasFile('image')){
-//            $file = $request->file('image');
-//            $ext = $file->getClientOriginalExtension();
-//            $file->move('images/blog/', $file->getFilename().'.'.$ext);
-//            $blog->image = $file->getFilename().'.'.$ext;
-//        }
-        $location->save();
-
-        return redirect()->route('support.location.edit', $location->id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
     }
 
     /**
@@ -72,7 +65,7 @@ class LocationController extends Controller
      */
     public function edit($id)
     {
-        return view('support.location.edit')->with('location', $this->location->findOrFail($id));
+        //
     }
 
     /**
@@ -84,7 +77,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->location->locationSwitch($request);
     }
 
     /**

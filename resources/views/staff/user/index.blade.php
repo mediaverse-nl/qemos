@@ -14,7 +14,7 @@
                 <th>#</th>
                 <th>bereidingsduur</th>
                 <th>naam</th>
-                <th>prijs</th>
+                <th>adres</th>
                 <th>status</th>
                 <th>opties</th>
             </tr>
@@ -23,7 +23,7 @@
             @foreach($users as $product)
                 <tr id="task{{$product->id}}">
                     <td>{{$product->id}}</td>
-                    <td>{{$product->bereidingsduur}}</td>
+                    <td>{{$product->name}}</td>
                     <td>{{$product->naam}}</td>
                     <td>{{$product->prijs}}</td>
                     <td>{{$product->status}}</td>
