@@ -12,7 +12,7 @@ class Role extends Model
 
     public static function UserRoles(){
         return collect([
-            'ober',
+            'staff',
             'kok',
             'manager',
             'baas',

@@ -178,7 +178,7 @@
     </div>
 
     <div id="page-wrapper">
-        {!! Breadcrumbs::render(Route::currentRouteName()) !!}
+        {!! Breadcrumbs::render(Request::route()->getName()) !!}
 
         <div class="container-fluid">
 

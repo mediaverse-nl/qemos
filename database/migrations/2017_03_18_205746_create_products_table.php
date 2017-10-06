@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('location');
+            $table->integer('menu_id')->unsigned();
+            $table->foreign('menu_id')->references('id')->on('menu');
             $table->integer('bereidingsduur');
             $table->string('naam', 50);
             $table->decimal('prijs', 16, 2);
             $table->string('beschrijving', 250);
             $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
-            $table->enum('bezonderheden', ['vega', 'scherp', 'zoet', 'zuur', 'noot', 'glutten', 'halal'])->nullable();
             $table->timestamps();
         });
     }

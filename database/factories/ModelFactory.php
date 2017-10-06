@@ -53,13 +53,20 @@ $factory->define(App\UserLocation::class, function (Faker\Generator $faker) {
     ];
 });
 
-
-
 $factory->define(App\Kiosk::class, function (Faker\Generator $faker) {
     return [
         'api_key' => str_random(14),
         'location_id' => $faker->numberBetween(1, 10),
         'model_nr' => str_random(9),
         'status' => array_rand(\App\Kiosk::status()),
+    ];
+});
+
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
+    return [
+        'menu_id' => array_rand(\App\Menu::pluck('id')->toArray()),
+        'location_id' => array_rand(\App\Location::pluck('id')->toArray()),
+        'bereidingsduur' => random_int(1, 200),
+        'status' => array_rand(),
     ];
 });
