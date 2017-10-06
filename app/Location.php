@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Session;
+use Validator;
 class Location extends Model
 {
     protected $table = 'location';
@@ -12,9 +13,9 @@ class Location extends Model
 
     protected $fillable = ['adres', 'postcode', 'stad', 'lang', 'btw', 'kvk', 'status'];
 
-    public function user()
+    public function userLocation()
     {
-        return $this->hasMany('App\User', 'location_id', 'id');
+        return $this->hasMany('App\UserLocation', 'location_id', 'id');
     }
 
     public function product()
@@ -47,6 +48,17 @@ class Location extends Model
         return $this->hasMany('App\Order', 'location_id', 'id');
     }
 
+    public static function status(){
+        return collect([
+//            'zichtbaar' => 'zichtbaar',
+            'offline' => 'offline',
+            'online' => 'online',
+        ]);
+    }
+
+    /**
+     * @param $request
+     */
     public function locationSwitch($request)
     {
         $rules = [
@@ -60,11 +72,13 @@ class Location extends Model
         if($validator->passes())
         {
             Session::put('location', $location);
+//            return redirect()->back();
 //            App::setLocale($language);
         }
         else
         {
             /**/
+            abort(403);
         }
     }
 }

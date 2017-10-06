@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTafelsTable extends Migration
+class CreateUserLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateTafelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tafels', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('user_location', function (Blueprint $table) {
             $table->integer('location_id')->nullable()->unsigned();
             $table->foreign('location_id')->references('id')->on('location');
-            $table->integer('aantal_plaatsen');
-            $table->integer('tafel_nr');
-            $table->boolean('bezet')->default(false);
-            $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
+            $table->integer('user_id')->nullable()->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateTafelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tafels');
+        Schema::dropIfExists('user_location');
     }
 }

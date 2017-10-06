@@ -2,9 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use Illuminate\Support\Facades\Hash;
-
-class LocationTableSeeder extends Seeder
+class UserLocationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +11,6 @@ class LocationTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Location::class, 15)->create();
+        factory(App\UserLocation::class, 10)->create();
     }
 }

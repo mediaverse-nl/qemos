@@ -12,6 +12,20 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->insert(array(
+            [
+//                'id' => 1,
+                'email' => 'def-lol-lol@hotmail.com',
+                'password' => Hash::make('asdasd'),
+                'name' => 'deveron reniers',
+            ],[
+//                'id' => 2,
+                'email' => 'admin@hotmail.com',
+                'password' => Hash::make('asdasd'),
+                'name' => 'admin account',
+            ],
+        ));
+
         factory(App\User::class, 10)->create();
     }
 }

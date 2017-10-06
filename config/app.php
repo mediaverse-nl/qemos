@@ -79,6 +79,8 @@ return [
 
     'locale' => 'nl',
 
+    'faker_locale' => 'nl_NL',
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

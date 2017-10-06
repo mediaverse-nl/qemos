@@ -32,14 +32,22 @@ class User extends Authenticatable
         return $this->hasMany('App\Order', 'user_id', 'id');
     }
 
-    public function location()
+    public function userLocation()
     {
-        return $this->belongsTo('App\Order', 'user_id', 'id');
+        return $this->hasMany('App\UserLocation');
     }
 
     public function locations()
     {
-        return $this->location;
+        return $this->userLocation()->with('location')->get()->pluck('location.adres', 'location.id');
+    }
+
+    public function currentLocation()
+    {
+//       todo set default location if not selected
+        session('location', $this->userLcation()->first()->location_id);
+
+        return session('location', 'default');
     }
 
     public function checkRole($roles)

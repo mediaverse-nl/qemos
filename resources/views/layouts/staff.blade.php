@@ -151,14 +151,12 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <a>
-                        {{dd(auth()->user()->location)}}
-
+                    {{--<a>--}}
                         <label style="display: inline-block;"> Location:</label>
-                        {{ Form::open(['route' => 'staff.location.switch', 'style' => 'display: inline-block;']) }}
-                        {{ Form::select('lang',['en'=>'en','fr'=>'fr'], null,['onchange'=>'submit()'])}}
+                        {{ Form::open(['route' => 'staff.location.switch', 'style' => 'display: inline-block;', 'method' => 'patch']) }}
+                        {{ Form::select('location',auth()->user()->locations(), session('location'), ['onchange'=>'submit()'])}}
                         {{ Form::close()}}
-                    </a>
+                    {{--</a>--}}
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">

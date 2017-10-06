@@ -46,7 +46,7 @@ Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->
     Route::resource('/kiosk', 'KioskController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ticket', 'TicketController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
 
-    Route::patch('/location-switch', 'LocationController@switch')->name('location.switch');
+    Route::patch('/location-switch', 'LocationController@switchLocation')->name('location.switch');
 });
 
 //kiosk panel
