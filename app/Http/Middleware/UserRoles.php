@@ -26,7 +26,6 @@ class UserRoles
             return $next($request);
         }
 
-
         abort(403, 'Access denied');
     }
 }

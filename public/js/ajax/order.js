@@ -1,5 +1,5 @@
 
-    var url = "/staff/product" ;
+    var url = "/staff/order" ;
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -10,37 +10,18 @@
         window.setTimeout(function() { alert.alert('close') }, delay);
     }
 
-    // $('input[type=checkbox]').attr('checked', false);
-
     //display modal form for task editing
-    $('#tasks-list').on("click", ".open-modal", function(){
-        // console.log('asda');
+    $('#tasks-list').on("click", ".open-modal", function()
+    {
         $('div.has-error').removeClass('has-error');
 
         var row_id = $(this).val();
 
-        // reset all checkboxes on form
-
         $.get(url + '/' + row_id, function (data) {
             //success data
-            // console.log(data.bezonderheden);
-            $('.ingredients').find('input[type=checkbox]').prop('checked', false);
-
             $('#row_id').val(data.id);
-            $('#bereidingsduur').val(data.bereidingsduur);
-            $('#naam').val(data.naam);
-            $('#id').val(data.id);
+            $('#aantal_plaatsen').val(data.aantal_plaatsen);
             $('#status').val(data.status);
-            $('#prijs').val(data.prijs);
-            $('#beschrijving').val(data.beschrijving);
-            $('#bezonderheden').val(data.bezonderheden);
-            $('#menu').val(data.menu.id);
-            console.log(data.menu);
-
-                // console.log(data.product_ingredient);
-            $.each(data.product_ingredient, function(k, v) {
-                $('.ingredienten' + v.ingredient_id).prop('checked', true);
-            });
 
             $('#btn-save').val("update");
 
@@ -100,27 +81,12 @@
 
         e.preventDefault();
 
-        var ingredients = [];
-        $('.ingre:checked').each(function(i){
-            ingredients[i] = $(this).val();
-        });
-
         var formData = {
-            bereidingsduur: $('#bereidingsduur').val(),
-            naam : $('#naam').val(),
+            aantal_plaatsen : $('#aantal_plaatsen').val(),
             status : $('#status').val(),
-            // id : $('#id').val(),
-            prijs : $('#prijs').val(),
-            beschrijving : $('#beschrijving').val(),
-            bezonderheden : $('#bezonderheden').val(),
-            ingredients : ingredients,
-            menu : $('#menu').val(),
-            image : new FormData($("#frmTasks")[0])
+            id : $('#id').val(),
         };
-        // console.log($('input[name="ingredienten[]"]:checked'));
-        console.log(formData);
 
-        // console.log(formData);
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
 
@@ -129,12 +95,9 @@
         var my_url = url;
 
         if (state == "update"){
-            type = "" +
-                "PATCH"; //for updating existing resource
+            type = "PUT"; //for updating existing resource
             my_url += '/' + row_id;
         }
-
-        // $('input[type=checkbox]').attr('checked', false);
 
         $.ajax({
             type: type,
@@ -145,7 +108,7 @@
                 // console.log(data);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
+                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.aantal_plaatsen + '</td><td>' + data.status + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 
@@ -171,9 +134,7 @@
                     // console.log(inputErrorsHtml);
                 });
                 // console.log('Error:', data);
-            },
-            // cache: false,
-            // processData: false
+            }
         });
     });
 // });

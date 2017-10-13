@@ -15,7 +15,12 @@ class CreateMenuTable extends Migration
     {
         Schema::create('menu', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('naam', 20)->unique();
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
+            $table->string('naam', 30)->unique();
+            $table->string('description', 500);
+            $table->string('status', 10);
+            $table->timestamps();
         });
     }
 

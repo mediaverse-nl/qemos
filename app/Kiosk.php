@@ -14,12 +14,12 @@ class Kiosk extends Model
 
     public function location()
     {
-        return $this->hasMany('App\Location', 'location_id', 'id');
+        return $this->belongsTo('App\Location', 'location_id', 'id');
     }
 
     public function pin()
     {
-        return $this->belongsTo('App\Pin', 'kiosk_id', 'id');
+        return $this->hasMany('App\Pin', 'kiosk_id', 'id');
     }
 
     public static function status()

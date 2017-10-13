@@ -33,11 +33,11 @@ Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->n
 });
 
 //staff panel
-Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->namespace('Staff')->group(function () {
+Route::middleware(['web', 'auth.role:staff', 'location'])->prefix('staff')->name('staff.')->namespace('Staff')->group(function () {
     Route::get('/', function () {
         return view('staff.index');
     })->name('index');
-    Route::resource('/menu', 'MenuController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/menu', 'MenuController');
     Route::resource('/product', 'ProductController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ingredient', 'IngredientController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/tafel', 'TafelController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
@@ -45,8 +45,11 @@ Route::middleware(['web', 'auth.role:staff'])->prefix('staff')->name('staff.')->
     Route::resource('/user', 'UserController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/kiosk', 'KioskController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
     Route::resource('/ticket', 'TicketController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
+    Route::resource('/booking', 'BookingController', ['middleware' => 'auth.role:manager', ['only' => ['index', 'update']]]);
 
     Route::patch('/location-switch', 'LocationController@switchLocation')->name('location.switch');
+
+    Route::get('register/verify/{confirmationCode}', ['as' => 'user.confirm', 'uses' => 'UserController@confirm']);
 });
 
 //kiosk panel

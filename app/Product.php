@@ -22,9 +22,14 @@ class Product extends Model
         return $this->hasMany('App\ProductIngredient', 'product_id', 'id');
     }
 
-    public function menuProduct()
+    public function menu()
     {
-        return $this->hasOne('App\MenuProduct', 'product_id', 'id');
+        return $this->belongsTo('App\Menu', 'menu_id', 'id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo('App\Location', 'location_id', 'id');
     }
 
     public function image()

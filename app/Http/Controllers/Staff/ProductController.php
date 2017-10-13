@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Helper\FileUpload;
 use App\Http\Controllers\Controller;
 
 
@@ -17,12 +18,19 @@ class ProductController extends Controller
 {
     protected $product;
     protected $ingredient;
+    protected $menu;
 
     public function __construct()
     {
-        $this->product = new Product();
         $this->ingredient = new Ingredient();
         $this->menu = new Menu();
+
+        $this->product = new Product();
+        $this->product = $this->product->where('location_id', '=', $this->location());
+    }
+
+    public function location(){
+        return session('location');
     }
 
     /**
@@ -70,12 +78,13 @@ class ProductController extends Controller
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
         $product->status = $request->status;
+        $product->menu_id = $request->menu;
 //        $product->bezonderheden = $request->bezonderheden;
 
         $product->save();
 
-        $product->menuProduct()->insert(['product_id' => $product->id, 'menu_id' => $request->menu]);
-
+//        $product->menu()->insert(['product_id' => $product->id, 'menu_id' => $request->menu]);
+//dd($request->ingredients);
         if(!empty($request->ingredients)){
             foreach ($request->ingredients as $ingredient){
                 $product->productIngredient()->insert([['product_id' => $product->id, 'ingredient_id' => $ingredient],]);
@@ -93,7 +102,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->with('productIngredient')->with('menuProduct')->find($id);
+        $product = $this->product->with('productIngredient')->with('menu')->find($id);
 
         return response()->json($product);
     }
@@ -108,13 +117,13 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'naam' => 'required',
-            'bereidingsduur' => 'required',
-            'status' => 'required',
-            'beschrijving' => 'required|string|min:5|max:250',
-            'prijs' => 'required|numeric',
-//            'bezonderheden' => '',
-            'menu' => 'required|numeric',
+//            'naam' => 'required',
+//            'bereidingsduur' => 'required',
+//            'status' => 'required',
+//            'beschrijving' => 'required|string|min:5|max:250',
+//            'prijs' => 'required|numeric',
+////            'bezonderheden' => '',
+//            'menu' => 'required|numeric',
         ];
 //
         $validator = Validator::make($request->all(), $rules);
@@ -124,20 +133,20 @@ class ProductController extends Controller
             return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
         }
 
-        $product = $this->product->find($id);
+        $product = $this->product->findOrFail($id);
 
-        $product->naam = $request->naam;
         $product->bereidingsduur = $request->bereidingsduur;
+        $product->naam = $request->naam;
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
         $product->status = $request->status;
-
-//        if ($request->bezonderheden != 0)
-            $product->bezonderheden = $request->bezonderheden;
+        $product->menu_id = $request->menu;
+//        $product->bezonderheden = $request->bezonderheden;
 
         $product->save();
 
-        $product->menuProduct()->update(['product_id' => $product->id, 'menu_id' => $request->menu]);
+        $abc = new FileUpload('/image');
+
 
         if(!empty($request->ingredients)){
             $product->productIngredient()->where('product_id', $product->id)->delete();

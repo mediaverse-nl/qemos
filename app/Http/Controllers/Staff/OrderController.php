@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
+    protected $order;
+
+    public function __construct()
+    {
+        $this->order = new Order();
+        $this->order = $this->order->where('location_id', '=', $this->location());
+    }
+
+    public function location(){
+        return session('location');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.order.index')->with('orders', $this->order->get());
     }
 
     /**

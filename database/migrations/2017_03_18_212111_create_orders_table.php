@@ -17,12 +17,15 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('tafel_id')->unsigned();
+            $table->integer('tafel_id')->nullable()->unsigned();
             $table->foreign('tafel_id')->references('id')->on('tafel');
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
+            $table->decimal('prijs', 6, 2)->default(0.00);
+            $table->mediumInteger('korting')->default(0);
             $table->string('mollie_id', 20)->nullable();
             $table->enum('status', ['open','cancelled','pending','failed','paid'])->default('open');
-            $table->enum('payment_method', ['ideal', 'contant', 'paypal', 'bitcoin'])->nullable();
-            $table->decimal('korting', 16, 2)->default(0);
+            $table->enum('payment_method', ['pin', 'ideal', 'contant', 'paypal', 'bitcoin'])->nullable();
             $table->timestamps();
         });
     }

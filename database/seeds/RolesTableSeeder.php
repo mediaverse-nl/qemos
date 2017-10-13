@@ -11,6 +11,14 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Role::class, 15)->create();
+        DB::table('role')->insert(array(
+            [
+                'role' => 'support',
+            ],[
+                'role' => 'staff',
+            ],[
+                'role' => 'manager',
+            ],
+        ));
     }
 }

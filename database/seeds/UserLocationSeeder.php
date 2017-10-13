@@ -11,6 +11,6 @@ class UserLocationSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\UserLocation::class, 10)->create();
+        factory(App\UserLocation::class, 20)->create();
     }
 }

@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('bsn')->nullable();
             $table->enum('status', ['nvt', 'verwijdert', 'indienst']);
             $table->integer('uren_contract')->nullable();
+            $table->boolean('confirmed')->default(0);
+            $table->string('confirmation_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

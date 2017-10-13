@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('naam', 50);
             $table->decimal('prijs', 16, 2);
             $table->string('beschrijving', 250);
-            $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
+            $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen'])->default('zichtbaar');
             $table->timestamps();
         });
     }

@@ -12,8 +12,8 @@ class Menu extends Model
 
     protected $fillable = ['naam'];
 
-    public function menuProduct()
+    public function product()
     {
-        return $this->hasMany('App\MenuProduct', 'menu_id', 'id');
+        return $this->hasOne('App\Product', 'menu_id');
     }
 }

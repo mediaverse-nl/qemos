@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Support;
+namespace App\Http\Controllers\Staff;
 
-use App\Kiosk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class KioskController extends Controller
+class Booking extends Controller
 {
-    protected $kiosk;
-
-    public function __construct()
-    {
-        $this->kiosk = new Kiosk();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +14,7 @@ class KioskController extends Controller
      */
     public function index()
     {
-        return view('support.kiosk.index')->with('kiosks', $this->kiosk->get());
+        //
     }
 
     /**
@@ -32,7 +24,7 @@ class KioskController extends Controller
      */
     public function create()
     {
-        return view('support.kiosk.create');
+        //
     }
 
     /**
@@ -43,16 +35,7 @@ class KioskController extends Controller
      */
     public function store(Request $request)
     {
-        $kiosk = $this->kiosk;
-
-        $kiosk->location_id = $request->location_id == 'null' ? null : $request->location_id ;
-        $kiosk->model_nr = $request->model_nr;
-        $kiosk->api_key = $request->api_key;
-        $kiosk->status = $request->status;
-
-        $kiosk->save();
-
-        return redirect()->route('support.kiosk.index');
+        //
     }
 
     /**
@@ -74,7 +57,7 @@ class KioskController extends Controller
      */
     public function edit($id)
     {
-        return view('support.kiosk.edit')->with('kiosk', $this->kiosk->findOrFail($id));
+        //
     }
 
     /**
@@ -86,16 +69,7 @@ class KioskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kiosk = $this->kiosk->findOrFail($id);
-
-        $kiosk->location_id = $request->location_id == 'null' ? null : $request->location_id ;
-        $kiosk->model_nr = $request->model_nr;
-        $kiosk->api_key = $request->api_key;
-        $kiosk->status = $request->status;
-
-        $kiosk->save();
-
-        return redirect()->route('support.kiosk.index');
+        //
     }
 
     /**

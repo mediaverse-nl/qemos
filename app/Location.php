@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Validator;
+
 class Location extends Model
 {
     protected $table = 'location';
@@ -50,10 +51,38 @@ class Location extends Model
 
     public static function status(){
         return collect([
-//            'zichtbaar' => 'zichtbaar',
-            'offline' => 'offline',
             'online' => 'online',
+
+//            'zichtbaar' => 'zichtbaar',N
+            'offline' => 'offline',
         ]);
+    }
+
+    public function allowedLocation($request)
+    {
+        $keys = array_keys(auth()->user()->locations()->toArray());
+
+        $allowed = implode(',',$keys);
+
+        $rules = [
+            'location' => 'required|in:'.$allowed, //list of supported languages of your application.
+        ];
+
+        return Validator::make($request->all(), $rules)->passes();
+    }
+
+    /**
+     * @param $location
+     */
+    public function setLocation($request)
+    {
+        dd(auth()->user()->locations()->toArray());
+        if($this->allowedLocation($request))
+        {
+            Session::put('location', $request->location);
+        }else{
+            Session::put('location', auth()->user()->locations()->toArray());
+        }
     }
 
     /**
@@ -61,24 +90,6 @@ class Location extends Model
      */
     public function locationSwitch($request)
     {
-        $rules = [
-            'language' => 'in:en,fr' //list of supported languages of your application.
-        ];
-
-        $location = $request->location; //lang is name of form select field.
-
-        $validator = Validator::make(compact($location), $rules);
-
-        if($validator->passes())
-        {
-            Session::put('location', $location);
-//            return redirect()->back();
-//            App::setLocale($language);
-        }
-        else
-        {
-            /**/
-            abort(403);
-        }
+        $this->setLocation($request);
     }
 }

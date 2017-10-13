@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Kiosk;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class KioskController extends Controller
 {
+    protected $kiosk;
+
+    public function __construct()
+    {
+        $this->kiosk = new Kiosk();
+        $this->kiosk = $this->kiosk->where('location_id', '=', $this->location());
+    }
+
+    public function location(){
+        return session('location');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,7 @@ class KioskController extends Controller
      */
     public function index()
     {
-        //
+        return view('staff.kiosk.index')->with('kiosks', $this->kiosk->get());
     }
 
     /**

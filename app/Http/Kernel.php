@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\ApiToken;
+use App\Http\Middleware\Location;
 use App\Http\Middleware\RedirectInvalidIPs;
 use App\Http\Middleware\UserRoles;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -18,8 +19,11 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
+
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
@@ -32,7 +36,6 @@ class Kernel extends HttpKernel
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
@@ -56,6 +59,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'firewall' => RedirectInvalidIPs::class,
         'kiosk.token' => ApiToken::class,
+        'location' => Location::class,
         'auth.role' => UserRoles::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

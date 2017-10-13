@@ -13,6 +13,6 @@ class LocationTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Location::class, 15)->create();
+        factory(App\Location::class, 5)->create();
     }
 }

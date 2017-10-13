@@ -10,14 +10,20 @@ class Role extends Model
 
     protected $fillable = ['role'];
 
+    public $timestamps = false;
+
+    public function userRole()
+    {
+        return $this->hasMany('App\UserRole', 'role_id', 'id');
+    }
+
     public static function UserRoles(){
         return collect([
+            'support',
             'staff',
-            'kok',
             'manager',
-            'baas',
+//            'baas',
         ]);
     }
 
-    public $timestamps = false;
 }

@@ -17,5 +17,4 @@ class fileRandom
         $file = array_rand($files);
         return $files[$file];
     }
-
 }

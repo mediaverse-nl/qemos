@@ -15,8 +15,12 @@ class Location
      */
     public function handle($request, Closure $next)
     {
+        $user = auth()->user();
 
-
+        if (!$request->session()->exists('location')){
+            // Specifying a default value if not set
+            session()->put('location', key($user->locations()->all()));
+        }
 
         return $next($request);
     }

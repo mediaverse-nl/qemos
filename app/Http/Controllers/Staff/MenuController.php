@@ -14,6 +14,8 @@ class MenuController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth.role:manager', ['only' => ['store', 'index']]);
+
         $this->menu = new Menu();
     }
 

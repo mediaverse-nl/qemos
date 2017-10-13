@@ -14,6 +14,6 @@ class Pin extends Model
 
     public function kiosk()
     {
-        return $this->hasMany('App\Kiosk', 'kiosk_id', 'id');
+        return $this->belongsTo('App\Kiosk', 'kiosk_id', 'id');
     }
 }

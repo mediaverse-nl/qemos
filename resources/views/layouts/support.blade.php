@@ -138,31 +138,31 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav in" id="side-menu">
                         <li>
-                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('support') ? : 'active' }}">
                                 <i class="fa fa-dashboard fa-fw" aria-hidden="true"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.location.index')}}" class="{{ !Request::is('staff/location*') ? : 'active' }}">
+                            <a href="{{route('support.location.index')}}" class="{{ !Request::is('support/location*') ? : 'active' }}">
                                 <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
                                 location
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.kiosk.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.kiosk.index')}}" class="{{ !Request::is('support/kiosk*') ? : 'active' }}">
                                 <i class="fa fa-tablet fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.pin.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.pin.index')}}" class="{{ !Request::is('support/pin*') ? : 'active' }}">
                                 <i class="fa fa-credit-card-alt fa-fw" aria-hidden="true"></i>
                                 pin
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('support.index')}}" class="{{ !Request::is('staff') ? : 'active' }}">
+                            <a href="{{route('support.index')}}" class="{{ !Request::is('support/ticket*') ? : 'active' }}">
                                 <i class="fa fa-comments fa-fw" aria-hidden="true"></i>
                                 ticket
                             </a>

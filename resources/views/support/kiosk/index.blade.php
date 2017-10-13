@@ -24,9 +24,9 @@
                     <td>{{$kiosk->api_key}}</td>
                     <td>{{$kiosk->model_nr}}</td>
                     <td>{{$kiosk->status}}</td>
-                    <td>{{$kiosk->location_id}}</td>
+                    <td>{{$kiosk->location ? $kiosk->location->adres : 'not registered'}}</td>
                     <td>
-                        <a class="btn btn-xs btn-default" href="{{route('support.kiosk.edit', 1)}}">
+                        <a class="btn btn-xs btn-default" href="{{route('support.kiosk.edit', $kiosk->id)}}">
                             edit
                         </a>
                     </td>

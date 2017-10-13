@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function userRole()
+    {
+        return $this->hasMany('App\UserRole', 'user_id', 'id');
+    }
+
     public function order()
     {
         return $this->hasMany('App\Order', 'user_id', 'id');
@@ -44,16 +49,12 @@ class User extends Authenticatable
 
     public function currentLocation()
     {
-//       todo set default location if not selected
-        session('location', $this->userLcation()->first()->location_id);
-
-        return session('location', 'default');
+        return session('location');
     }
 
     public function checkRole($roles)
     {
-//        $user = $this->role;
-        $user = ['admin', 'manager', 'developer', 'staff', 'support'];
+        $user = $this->userRole->pluck('role.role')->toArray();
 
         foreach ($roles as $role)
         {

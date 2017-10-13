@@ -28,7 +28,7 @@
     {{--<link href="http://cdn.oesmith.co.uk/morris-0.5.1.css" rel="stylesheet">--}}
 
     <!-- Custom Fonts -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css" rel="stylesheet">
 
     @stack('css')
@@ -40,91 +40,40 @@
         .panel-content{
             background: #FFFFFF;
         }
-
-
-        /*@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";*/
-        /*html {*/
-
-        /*-webkit-text-size-adjust: 100%;*/
-        /*-ms-text-size-adjust: 100%;*/
-        /*}*/
-        /*body {*/
-        /*margin: 0;*/
-        /*}*/
-
-        /*html, body {*/
-        /*width: 100%;*/
-        /*height: 100%*/
-        /*}*/
-        /*article, aside, details, figcaption, figure, footer, header, main, menu, nav, section, summary {*/
-        /*display: block;*/
-        /*}*/
-        /*audio, canvas, progress, video {*/
-        /*display: inline-block;*/
-        /*vertical-align: baseline;*/
-        /*}*/
-        /*audio:not([controls]) {*/
-        /*display: none;*/
-        /*height: 0;*/
-        /*}*/
-
-        /*a {*/
-        /*background-color: transparent;*/
-        /*text-decoration: none;*/
-        /*}*/
-        /*a:active, a:hover {*/
-        /*outline: 0;*/
-        /*}*/
-
-        /*h1,h2,h3,h4,h5,h6,p,ul,ol{ margin:0px; padding:0px;}*/
-
-
-        /*!***********************  TOP Bar ********************!*/
-        /*.sidebar{ width:220px;  background-color:#000;transition: all 0.5s  ease-in-out; }*/
-        /*.bg-defoult{background-color:#222;}*/
-        /*.sidebar ul{ list-style:none; margin:0px; padding:0px; }*/
-        /*.sidebar li a,.sidebar li a.collapsed.active{ display:block; padding:8px 12px; color:#fff;border-left:0px solid #dedede;  text-decoration:none}*/
-        /*.sidebar li a.active{background-color:#000;border-left:5px solid #dedede; transition: all 0.5s  ease-in-out}*/
-        /*.sidebar li a:hover{background-color:#000 !important;}*/
-        /*.sidebar li a i{ padding-right:5px;}*/
-        /*.sidebar ul li .sub-menu li a{ position:relative}*/
-        /*.sidebar ul li .sub-menu li a:before{*/
-            /*font-family: FontAwesome;*/
-            /*content: "\f105";*/
-            /*display: inline-block;*/
-            /*padding-left: 0px;*/
-            /*padding-right: 10px;*/
-            /*vertical-align: middle;*/
-        /*}*/
-        /*.sidebar ul li .sub-menu li a:hover:after {*/
-            /*content: "";*/
-            /*position: absolute;*/
-            /*left: -5px;*/
-            /*top: 0;*/
-            /*width: 5px;*/
-            /*background-color: #111;*/
-            /*height: 100%;*/
-        /*}*/
-        /*.sidebar ul li .sub-menu li a:hover{ background-color:#222; padding-left:20px; transition: all 0.5s  ease-in-out}*/
-        /*.sub-menu{ border-left:5px solid #dedede;}*/
-        /*.sidebar li a .nav-label,.sidebar li a .nav-label+span{ transition: all 0.5s  ease-in-out}*/
-
-
-        /*.sidebar.fliph li a .nav-label,.sidebar.fliph li a .nav-label+span{ display:none;transition: all 0.5s  ease-in-out}*/
-        /*.sidebar.fliph {*/
-            /*width: 42px;transition: all 0.5s  ease-in-out;*/
-
-        /*}*/
-
-        /*.sidebar.fliph li{ position:relative}*/
-        /*.sidebar.fliph .sub-menu {*/
-            /*position: absolute;*/
-            /*left: 39px;*/
-            /*top: 0;*/
-            /*background-color: #222;*/
-            /*width: 150px;*/
-            /*z-index: 100;*/
-        /*}*/
+        .navbar-static-top{
+            background: #222222 !important;
+            border-bottom: none;
+        }
+        .navbar-static-top .fa{
+            color: #FFFFFF !important;
+        }
+        .navbar-static-top .active {
+            background: #f5f8fa;
+        }
+        .navbar-static-top .active .fa,
+        .nav>li>a:focus,
+        .nav>li>a:hover{
+            color: #222222 !important;
+        }
+        .navbar-static-top .dropdown-menu .fa{
+            color: #222222 !important;
+        }
+        #side-menu a,
+        #side-menu .fa{
+            color: #222222 !important;
+        }
+        .breadcrumb{
+            border-radius: 0px;
+            border: none;
+            margin: 0 -15px;
+            background: #159F84;
+        }
+        .breadcrumb li a{
+            color: #222222 !important;
+        }
+        .breadcrumb > .active{
+            color: #FFFFFF !important;
+        }
     </style>
 
     <!-- Scripts -->
@@ -145,18 +94,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Staff Panel</a>
+                <a class="navbar-brand" href="{{route('staff.index')}}">Staff Panel</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    {{--<a>--}}
-                        <label style="display: inline-block;"> Location:</label>
-                        {{ Form::open(['route' => 'staff.location.switch', 'style' => 'display: inline-block;', 'method' => 'patch']) }}
-                        {{ Form::select('location',auth()->user()->locations(), session('location'), ['onchange'=>'submit()'])}}
-                        {{ Form::close()}}
-                    {{--</a>--}}
+                    {{ Form::open(['route' => 'staff.location.switch', 'style' => 'display: inline-block;', 'method' => 'patch']) }}
+                        <div class="input-group" style="min-width: 200px; width: 200px; margin-bottom: -12px ;">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                            </span>
+                            {{ Form::select('location',auth()->user()->locations(), session('location'),
+                            ['onchange'=>'submit()', 'class' => 'form-control', auth()->user()->locations()->count() == 1 ? 'disabled' : ''])}}
+                        </div>
+                    {{ Form::close()}}
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -236,7 +188,7 @@
                         </li>
                         <li>
                             <a href="{{route('staff.menu.index')}}" class="{{ !Request::is('staff/menu*') ? : 'active' }}">
-                                <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+                                <i class="fa fa-book fa-fw" aria-hidden="true"></i>
                                 Menu
                             </a>
                         </li>
@@ -265,20 +217,20 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
+                            <a href="{{route('staff.order.index')}}" class="{{ !Request::is('staff/order*') ? : 'active' }}">
                                 <i class="fa fa-shopping-basket fa-fw" aria-hidden="true"></i>
                                 orders
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
+                            <a href="{{route('staff.kiosk.index')}}" class="{{ !Request::is('staff/kiosk*') ? : 'active' }}">
                                 <i class="fa fa-tablet fa-fw" aria-hidden="true"></i>
                                 kiosk
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
-                                <i class="fa fa-book fa-fw" aria-hidden="true"></i>
+                            <a href="{{route('staff.booking.index')}}" class="{{ !Request::is('staff/booking*') ? : 'active' }}">
+                                <i class="fa fa-address-book-o fa-fw" aria-hidden="true"></i>
                                 reserveringen
                             </a>
                         </li>
@@ -292,10 +244,14 @@
     </div>
 
     <div id="page-wrapper">
-        {!! Breadcrumbs::render(Request::route()->getName()) !!}
+        <div class="row">
+            {!! Breadcrumbs::render(Request::route()->getName()) !!}
+        </div>
         <div class="container-fluid">
 
             <div class="row">
+                @include('errors.message')
+
                 @yield('content')
             </div>
             <!-- /.row -->
