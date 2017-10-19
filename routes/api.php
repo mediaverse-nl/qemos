@@ -28,6 +28,15 @@ $api->version('v1', ['middleware' => 'api.auth'], function ($api) {
     $api->get('token', 'App\Http\Controllers\Auth\AuthController@token');
 });
 
+Route::prefix('v1')->name('api.')->namespace('Api')->group(function ()
+//Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function()
+{
+    Route::resource('/product', 'ProductController');
+    Route::resource('/order', 'OrderController');
+    Route::resource('/location', 'LocationController');
+    Route::resource('/user', 'UserController');
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

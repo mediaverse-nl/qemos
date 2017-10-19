@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+//use Illuminate\Foundation\Http\FormRequest;
+
+use Dingo\Api\Http\FormRequest;
 
 class StoreProduct extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreProduct extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,10 +28,14 @@ class StoreProduct extends FormRequest
         return [
             'naam' => 'required',
             'bereidingsduur' => 'required',
+            'location_id' => 'required',
+            'menu_id' => 'required',
 //            'status' => 'required|in:['.implode(',',Product::status()->toArray()).']',
-            'status' => 'required',
+//            'status' => 'required',
             'beschrijving' => 'required|string|min:5|max:250',
-            'prijs' => 'required|numeric',
+            'prijs' => 'required',
         ];
     }
+
+//    public function re
 }

@@ -40,6 +40,7 @@ $factory->define(App\Location::class, function (Faker\Generator $faker) {
         'postcode' => $faker->postcode,
         'stad' => $faker->city,
         'lang' => $faker->countryCode,
+        'api_key' => str_random(30),
         'kvk' => str_random(9),
         'btw' => $faker->vat(false),
         'status' => array_random(\App\Location::status()->toArray()),

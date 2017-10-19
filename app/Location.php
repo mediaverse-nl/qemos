@@ -46,7 +46,7 @@ class Location extends Model
 
     public function menu()
     {
-        return $this->hasMany('App\Order', 'location_id', 'id');
+        return $this->hasMany('App\Menu', 'location_id', 'id');
     }
 
     public static function status(){
@@ -76,12 +76,12 @@ class Location extends Model
      */
     public function setLocation($request)
     {
-        dd(auth()->user()->locations()->toArray());
+//        dd(auth()->user()->locations()->toArray());
         if($this->allowedLocation($request))
         {
             Session::put('location', $request->location);
         }else{
-            Session::put('location', auth()->user()->locations()->toArray());
+//            Session::put('location', auth()->user()->locations()->toArray());
         }
     }
 

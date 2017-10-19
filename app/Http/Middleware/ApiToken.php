@@ -6,6 +6,13 @@ use Closure;
 
 class ApiToken
 {
+    protected $location;
+
+    public function __construct()
+    {
+        $this->location = new \App\Location();
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -17,17 +24,22 @@ class ApiToken
     {
         $bearer_token = $request->header('authorization');
         $url_token = $request->token;
+        $location = $this->location;
 
-        $token = '8b9257a19898f585a806f3759e0aa620';
-        return $next($request);
+//        return response()->json(['error' => $bearer_token])->setStatusCode(200);
 
-        if ($bearer_token || $url_token){
-            if ($bearer_token == 'Bearer '.$token || $url_token){
-                return $next($request);
-            }
-            return response()->json(['Token is not properly formatted or does not exists.'])->setStatusCode(200);
+        if ($bearer_token){
+            $location = $location->where('api_key', '=', $bearer_token);
+        }elseif ($url_token){
+            $location = $location->where('api_key', '=', $url_token);
         }else{
-            return response()->json(['Token not found.'])->setStatusCode(200);
+            return response()->json(['error' => 'Token not found.'])->setStatusCode(200);
         }
+
+        if (!$location->exists()){
+            return response()->json(['error' => '.Token is not properly formatted or does not exists'])->setStatusCode(200);
+        }
+
+        return $next($request);
     }
 }

@@ -45,7 +45,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
-            \Barryvdh\Cors\HandleCors::class,
+//            \Barryvdh\Cors\HandleCors::class,
         ],
     ];
 
@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'firewall' => RedirectInvalidIPs::class,
         'kiosk.token' => ApiToken::class,
+        'api.token' => ApiToken::class,
         'location' => Location::class,
         'auth.role' => UserRoles::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
