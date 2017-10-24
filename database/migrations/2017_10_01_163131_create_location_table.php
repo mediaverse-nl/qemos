@@ -23,6 +23,7 @@ class CreateLocationTable extends Migration
             $table->string('btw');
             $table->string('kvk');
             $table->string('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class CreateWhitelistTable extends Migration
             $table->string('ip_address', 45);
             $table->enum('status', ['offline', 'online'])->default('online');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

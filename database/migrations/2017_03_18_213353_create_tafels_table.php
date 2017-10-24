@@ -21,6 +21,7 @@ class CreateTafelsTable extends Migration
             $table->integer('tafel_nr');
             $table->boolean('bezet')->default(false);
             $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen']);
+            $table->softDeletes();
         });
     }
 

@@ -16,7 +16,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->product = new Product();
-//        $this->validate();
 //        $this->product = $this->product->where('', '', $request->header('Authorization'));
     }
 
@@ -29,7 +28,7 @@ class ProductController extends Controller
     {
         $product = $this->product->get();
 
-        return response()->json(['data' => $product]);
+        return response()->json(['data' => $product])->setStatusCode(200);
     }
 
     /**
@@ -52,7 +51,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return response()->json(['data' => $product], 200);
+        return response()->json(['data' => $product, 'message' => 'stored with success.'])->setStatusCode(200);;
     }
 
     /**
@@ -63,18 +62,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $product = $this->product->with(['productIngredient.ingredient', 'image', 'menu', 'productPeculiarity.peculiarity'])->findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json(['data' => $product])->setStatusCode(200);
     }
 
     /**
@@ -86,7 +76,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = $this->product->findOrFail($id);
+
+        $product->location_id = $request->location_id;
+        $product->menu_id = $request->menu_id;
+        $product->bereidingsduur = $request->bereidingsduur;
+        $product->naam = $request->naam;
+        $product->prijs = $request->prijs;
+        $product->beschrijving = $request->beschrijving;
+        $product->status = $request->status;
+
+        $product->save();
+
+        return response()->json(['data' => $product, 'message' => 'updated with success.'])->setStatusCode(200);
     }
 
     /**
@@ -97,6 +99,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = $this->product->findOrFail($id);
+
+        $product->delete();
+
+        return response()->json(['data' => $product, 'message' => 'delete with success.'])->setStatusCode(200);;
     }
 }

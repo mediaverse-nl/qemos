@@ -25,6 +25,7 @@ class CreateBookingsTable extends Migration
             $table->string('postcode', 6);
             $table->dateTime('datum_tijd');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,6 +18,7 @@ class CreateImagesTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
             $table->string('path', 20);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

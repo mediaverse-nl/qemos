@@ -21,6 +21,7 @@ class CreateKioskTable extends Migration
             $table->string('model_nr');
             $table->enum('status', \App\Kiosk::status());
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

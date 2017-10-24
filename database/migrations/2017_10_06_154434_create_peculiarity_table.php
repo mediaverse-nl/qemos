@@ -16,6 +16,7 @@ class CreatePeculiarityTable extends Migration
         Schema::create('peculiarity', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value');
+//            $table->softDeletes();
         });
     }
 

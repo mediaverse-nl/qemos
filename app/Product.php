@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'products';
 
     public $timestamps = true;
@@ -20,6 +23,11 @@ class Product extends Model
     public function productIngredient()
     {
         return $this->hasMany('App\ProductIngredient', 'product_id', 'id');
+    }
+
+    public function productPeculiarity()
+    {
+        return $this->hasMany('App\ProductPeculiarity', 'product_id', 'id');
     }
 
     public function menu()

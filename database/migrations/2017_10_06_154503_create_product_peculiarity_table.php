@@ -18,7 +18,6 @@ class CreateProductPeculiarityTable extends Migration
             $table->foreign('product_id')->references('id')->on('products');
             $table->integer('peculiarity_id')->nullable()->unsigned();
             $table->foreign('peculiarity_id')->references('id')->on('users');
-            $table->timestamps();
         });
     }
 

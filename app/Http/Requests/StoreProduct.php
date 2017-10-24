@@ -28,8 +28,8 @@ class StoreProduct extends FormRequest
         return [
             'naam' => 'required',
             'bereidingsduur' => 'required',
-            'location_id' => 'required',
-            'menu_id' => 'required',
+//            'location_id' => 'required',
+//            'menu_id' => 'required',
 //            'status' => 'required|in:['.implode(',',Product::status()->toArray()).']',
 //            'status' => 'required',
             'beschrijving' => 'required|string|min:5|max:250',

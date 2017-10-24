@@ -25,21 +25,25 @@
             //success data
             // console.log(data.bezonderheden);
             $('.ingredients').find('input[type=checkbox]').prop('checked', false);
+            $('.peculiarity').find('input[type=checkbox]').prop('checked', false);
 
             $('#row_id').val(data.id);
             $('#bereidingsduur').val(data.bereidingsduur);
-            $('#naam').val(data.naam);
+            $('#naam').val(data.naam).toString();
             $('#id').val(data.id);
             $('#status').val(data.status);
             $('#prijs').val(data.prijs);
             $('#beschrijving').val(data.beschrijving);
             $('#bezonderheden').val(data.bezonderheden);
             $('#menu').val(data.menu.id);
-            console.log(data.menu);
+            // console.log(data.menu);
 
-                // console.log(data.product_ingredient);
             $.each(data.product_ingredient, function(k, v) {
                 $('.ingredienten' + v.ingredient_id).prop('checked', true);
+            });
+
+            $.each(data.product_peculiarity, function(k, v) {
+                $('.peculiarity' + v.peculiarity_id).prop('checked', true);
             });
 
             $('#btn-save').val("update");
@@ -91,7 +95,6 @@
 
     //create new task / update existing task
     $("#btn-save").on('click', function (e) {
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -105,22 +108,27 @@
             ingredients[i] = $(this).val();
         });
 
+        var peculiarity = [];
+        $('.pecu:checked').each(function(i){
+            peculiarity[i] = $(this).val();
+        });
+
         var formData = {
-            bereidingsduur: $('#bereidingsduur').val(),
+            bereidingsduur: parseInt($('#bereidingsduur').val()),
             naam : $('#naam').val(),
             status : $('#status').val(),
-            // id : $('#id').val(),
+            id : parseInt($('#id').val()),
             prijs : $('#prijs').val(),
             beschrijving : $('#beschrijving').val(),
-            bezonderheden : $('#bezonderheden').val(),
+            // bezonderheden : $('#bezonderheden').val(),
             ingredients : ingredients,
-            menu : $('#menu').val(),
-            image : new FormData($("#frmTasks")[0])
+            peculiarity : peculiarity,
+            menu : parseInt($('#menu').val())
+            // image : $('#image')[0].files[0]
         };
-        // console.log($('input[name="ingredienten[]"]:checked'));
+
         console.log(formData);
 
-        // console.log(formData);
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
 
@@ -129,20 +137,17 @@
         var my_url = url;
 
         if (state == "update"){
-            type = "" +
-                "PATCH"; //for updating existing resource
+            type = "PATCH"; //for updating existing resource
             my_url += '/' + row_id;
         }
-
-        // $('input[type=checkbox]').attr('checked', false);
-
         $.ajax({
             type: type,
             url: my_url,
             data: formData,
             dataType: 'json',
-            success: function (data) {
-                // console.log(data);
+            cache : false,
+            success: function (data, textStatus, jqXHR) {
+                console.log(data, textStatus, jqXHR);
                 $("#successMsg").html( successMsg );
 
                 var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
@@ -159,7 +164,7 @@
 
                 createAutoClosingAlert('.alert', 1500);
             },
-            error: function (data) {
+            error: function (data, textStatus, jqXHR) {
                 $('.error').html('');
                 $('div.has-error').removeClass('has-error');
                 $.each( data.responseJSON, function( key, value ) {
@@ -168,12 +173,11 @@
 
                     $('div.error-' + key).addClass('has-error');
                     $('#error-' + key).html(inputErrorsHtml);
-                    // console.log(inputErrorsHtml);
+                    console.log(key, value);
                 });
                 // console.log('Error:', data);
-            },
+            }
             // cache: false,
-            // processData: false
         });
     });
 // });

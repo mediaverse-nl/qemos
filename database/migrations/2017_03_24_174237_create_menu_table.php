@@ -21,6 +21,7 @@ class CreateMenuTable extends Migration
             $table->string('description', 500);
             $table->string('status', 10);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

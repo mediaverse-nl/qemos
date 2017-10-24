@@ -105,6 +105,7 @@
             url: my_url,
             data: formData,
             dataType: 'json',
+            cache : false,
             success: function (data) {
                 // console.log(data);
                 $("#successMsg").html( successMsg );

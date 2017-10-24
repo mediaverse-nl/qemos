@@ -15,29 +15,48 @@ use Illuminate\Http\Request;
 class FileUpload
 {
     private $path;
+    private $request;
 
 //    private
 
-    public function __construct($path)
+    public function __construct($path, $request)
     {
         $this->path = $path;
+        $this->request = $request;
     }
 
-    public function fileUpload(Request $request)
+    public function fileUpload()
     {
-        $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        $data = [];
 
-        $image = $request->file('image');
+        return  $this->request;
+//        if ( $this->request->hasFile('image')){
+            $image = $request->file('image');
+            $ext = $image->getClientOriginalExtension();
+            $image->move('images/blog/', $image->getFilename().'.'.$ext);
+//
+//            $data['size'] = 0;
+//            $data['extension'] = $ext;
+//            $data['mime'] = $image->getClientMimeType();
+//            $data['real_name'] = $image->getClientOriginalName();
+//            $data['file_name'] = $image->getFilename().'.'.$ext;
+//        }
 
-//        dd($image);
+        return $data;
 
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-
-        $destinationPath = public_path($this->path);
-
-        $image->move($destinationPath, $input['imagename']);
+//        $this->validate($request, [
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//        ]);
+//
+//        $image = $request->file('image');
+//
+////        dd($image);
+//
+//        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+//
+//        $destinationPath = public_path($this->path);
+//
+//        $image->move($destinationPath, $input['imagename']);
 
 //        return back()->with('success','Image Upload successful');
 

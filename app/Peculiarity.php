@@ -10,6 +10,11 @@ class Peculiarity extends Model
 
     protected $fillable = ['value'];
 
+    public function productPeculiarity()
+    {
+        return $this->hasMany('App\ProductPeculiarity', 'peculiarity_id', 'id');
+    }
+
     public static function values(){
         return collect([
             'vega',

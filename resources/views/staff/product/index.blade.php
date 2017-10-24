@@ -55,7 +55,7 @@
         {!! Form::file('image', array('id' => 'image')) !!}
 
 
-        {{Form::hidden('id', null, ['class' => 'form-control'])}}
+        {{Form::hidden('id', null, ['class' => 'form-control', 'id' => 'id'])}}
         <div class="form-group error-naam" >
             {{Form::label('naam', 'naam')}}
             {{Form::text('naam', null, ['class' => 'form-control'])}}
@@ -66,35 +66,28 @@
             <div class="col-lg-6">
                 <div class="form-group error-bereidingsduur">
                     {{Form::label('bereidingsduur', 'bereidingsduur')}}
-                    {{Form::number('bereidingsduur', null, ['class' => 'form-control'])}}
+                    {{Form::number('bereidingsduur', 0, ['class' => 'form-control'])}}
                     <small id="error-bereidingsduur" class="error"></small>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group error-prijs">
                     {{Form::label('prijs', 'prijs')}}
-                    {{Form::text('prijs', null, ['class' => 'form-control'])}}
+                    {{Form::text('prijs', 0.00, ['class' => 'form-control'])}}
                     <small id="error-prijs" class="error"></small>
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="form-group error-status">
                     {{Form::label('status', 'Status')}}
                     {{Form::select('status', \App\Product::status(), null, ['class' => 'form-control'])}}
                     <small id="error-status" class="error"></small>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="form-group error-bezonderheden">
-                    {{Form::label('bezonderheden', 'bezonderheden')}}
-                    {{Form::select('bezonderheden', \App\Product::bezonderheden()->push('---', null), 0, ['class' => 'form-control'])}}
-                    <small id="error-bezonderheden" class="error"></small>
-                </div>
-            </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class="form-group error-Menu">
                     {{Form::label('menu', 'Menu')}}
                     {{Form::select('menu', collect(\App\Menu::all())->pluck('naam', 'id'), null, ['class' => 'form-control'])}}
@@ -118,6 +111,21 @@
                         {{--{{$ingredient}}--}}
                         {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id.' ingre']) !!}
                         {!! Form::label('ingredienten', $ingredient->ingredient) !!}
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+
+        <div class="form-group error-ingredienten">
+            {!! Form::label('peculiarity', 'bezonderheden') !!}<br>
+            <div class="row peculiarity">
+                {{--                                {{$ingredients}}--}}
+                @foreach($peculiarities as $peculiarity)
+                    <div class="col-lg-4" style="margin-bottom: 10px;">
+                        {{--{{$ingredient}}--}}
+                        {!! Form::checkbox('peculiarity[]', $peculiarity->id, null, ['class' => 'peculiarity'.$peculiarity->id.' pecu']) !!}
+                        {!! Form::label('peculiarity', $peculiarity->value) !!}
                     </div>
                 @endforeach
             </div>

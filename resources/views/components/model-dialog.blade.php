@@ -26,7 +26,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form id="frmTasks" name="frmTasks" class="" novalidate="">
+                <form id="frmTasks" name="frmTasks" class="" enctype="multipart/form-data">
                     {{$form}}
                 </form>
             </div>

@@ -6,12 +6,14 @@ use App\Helper\FileUpload;
 use App\Http\Controllers\Controller;
 
 
+use App\Http\Requests\StoreProduct;
 use App\Ingredient;
 use App\Menu;
+use App\Peculiarity;
 use App\Product;
-use Illuminate\Validation\Rule;
-use Validator;
-use Input;
+//use Illuminate\Validation\Rule;
+//use Validator;
+//use Input;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -19,11 +21,13 @@ class ProductController extends Controller
     protected $product;
     protected $ingredient;
     protected $menu;
+    protected $peculiarity;
 
     public function __construct()
     {
         $this->ingredient = new Ingredient();
         $this->menu = new Menu();
+        $this->peculiarity = new Peculiarity();
 
         $this->product = new Product();
         $this->product = $this->product->where('location_id', '=', $this->location());
@@ -43,6 +47,7 @@ class ProductController extends Controller
         return view('staff.product.index')
             ->with('products', $this->product->get())
             ->with('menu', $this->menu->get())
+            ->with('peculiarities', $this->peculiarity->get())
             ->with('ingredients', $this->ingredient->get());
     }
 
@@ -52,46 +57,30 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        $rules = [
-            'naam' => 'required',
-            'bereidingsduur' => 'required',
-            'status' => 'required',
-            'beschrijving' => 'required|string|min:5|max:250',
-            'prijs' => 'required|numeric',
-            'menu' => 'required|numeric',
-//            'bezonderheden' => '',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
-
         $product = $this->product;
-
         $product->bereidingsduur = $request->bereidingsduur;
         $product->naam = $request->naam;
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
         $product->status = $request->status;
         $product->menu_id = $request->menu;
-//        $product->bezonderheden = $request->bezonderheden;
-
         $product->save();
 
-//        $product->menu()->insert(['product_id' => $product->id, 'menu_id' => $request->menu]);
-//dd($request->ingredients);
         if(!empty($request->ingredients)){
             foreach ($request->ingredients as $ingredient){
                 $product->productIngredient()->insert([['product_id' => $product->id, 'ingredient_id' => $ingredient],]);
             }
         }
 
-        return response()->json($product, 200);
+        if(!empty($request->peculiarity)){
+            foreach ($request->peculiarity as $peculiarity){
+                $product->productPeculiarity()->insert([['product_id' => $product->id, 'peculiarity_id' => $peculiarity],]);
+            }
+        }
+
+        return response()->json($product);
     }
 
     /**
@@ -102,9 +91,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->with('productIngredient')->with('menu')->find($id);
+        $product = $this->product->with(['productIngredient', 'productPeculiarity', 'menu'])->find($id);
 
-        return response()->json($product);
+        return response()->json($product, 200);
     }
 
     /**
@@ -114,24 +103,16 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProduct $request, $id)
     {
-        $rules = [
-//            'naam' => 'required',
-//            'bereidingsduur' => 'required',
-//            'status' => 'required',
-//            'beschrijving' => 'required|string|min:5|max:250',
-//            'prijs' => 'required|numeric',
-////            'bezonderheden' => '',
-//            'menu' => 'required|numeric',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
+//        return response()->json($request);
+
+//        $image = $request->file('image');
+//        $ext = $image->getClientOriginalExtension();
+//        $image->move('images/text/', $image->getFilename().'.'.$ext);
+//        $abc = new FileUpload('/image', $request);
+//        return response()->json($request);
+//        return response()->json($request->);
 
         $product = $this->product->findOrFail($id);
 
@@ -141,17 +122,20 @@ class ProductController extends Controller
         $product->beschrijving = $request->beschrijving;
         $product->status = $request->status;
         $product->menu_id = $request->menu;
-//        $product->bezonderheden = $request->bezonderheden;
 
         $product->save();
-
-        $abc = new FileUpload('/image');
-
 
         if(!empty($request->ingredients)){
             $product->productIngredient()->where('product_id', $product->id)->delete();
             foreach ($request->ingredients as $ingredient){
                 $product->productIngredient()->insert([['product_id' => $product->id, 'ingredient_id' => $ingredient],]);
+            }
+        }
+
+        if(!empty($request->peculiarity)){
+            $product->productPeculiarity()->where('product_id', $product->id)->delete();
+            foreach ($request->peculiarity as $peculiarity){
+                $product->productPeculiarity()->insert([['product_id' => $product->id, 'peculiarity_id' => $peculiarity],]);
             }
         }
 

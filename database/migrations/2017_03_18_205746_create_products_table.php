@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->decimal('prijs', 16, 2);
             $table->string('beschrijving', 250);
             $table->enum('status', ['verwijdert', 'zichtbaar', 'verschuilen'])->default('zichtbaar');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
