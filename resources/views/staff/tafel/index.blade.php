@@ -10,10 +10,10 @@
         <div class="panel panel-default">
             <div class="panel-body" style="height: 500px;">
                 <div class="drop-target">
-                    <div class="drag-item">1</div>
-                    <div class="drag-item" style="left:87px;top:87px;">2</div>
+                    <div class="drag-item" data-table-id="1">1</div>
+                    <div class="drag-item" data-table-id="2" style="left:87px;top:87px;">2</div>
                 </div>
-                <div class="outside-drag-item">101</div>
+                <div class="outside-drag-item" data-table-id="2">101</div>
 
             </div>
         </div>
@@ -83,7 +83,10 @@
             $(".outside-drag-item").draggable({
                 snap: '.gridlines',
                 stop:function(event,ui) {
-                    console.log(event, ui);
+                    var el = event.target;
+                    console.log(ui.position.top, ui.position.left, el.attrs);
+
+//                    update to database
                 }
 //                helper: 'clone',
 //                appendTo: '.drop-target'
@@ -118,8 +121,8 @@
                     'width': 1,
                     'height': height
                 })
-                    .addClass('gridlines')
-                    .appendTo(sel);
+                .addClass('gridlines')
+                .appendTo(sel);
             }
 
             for (i = 0; i <= ratioH; i++) { // horizontal grid lines
@@ -129,8 +132,8 @@
                     'width': width,
                     'height': 1
                 })
-                    .addClass('gridlines')
-                    .appendTo(sel);
+                .addClass('gridlines')
+                .appendTo(sel);
             }
 
             $('.gridlines').show();
