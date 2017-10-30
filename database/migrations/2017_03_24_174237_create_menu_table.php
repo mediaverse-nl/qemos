@@ -17,9 +17,13 @@ class CreateMenuTable extends Migration
             $table->increments('id');
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('location');
-            $table->string('naam', 30)->unique();
+
+            $table->string('naam', 30);
             $table->string('description', 500);
             $table->string('status', 10);
+
+            $table->unique(['location_id', 'naam']);
+
             $table->timestamps();
             $table->softDeletes();
         });

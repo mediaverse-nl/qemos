@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\StoreIngredient;
 use App\Ingredient;
 use Validator;
 use Illuminate\Http\Request;
@@ -15,6 +16,11 @@ class IngredientController extends Controller
     public function __construct()
     {
         $this->ingredient = new Ingredient();
+        $this->ingredient = $this->ingredient->where('location_id', '=', $this->location());
+    }
+
+    public function location(){
+        return session('location');
     }
 
     /**
@@ -38,22 +44,12 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreIngredient $request)
     {
-        $rules = [
-            'ingredient' => 'required',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
-
-        $ingredient = $this->ingredient;
+        $ingredient = new Ingredient();
 
         $ingredient->ingredient = $request->ingredient;
+        $ingredient->location_id = $this->location();
 
         $ingredient->save();
 
@@ -80,20 +76,9 @@ class IngredientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreIngredient $request, $id)
     {
-        $rules = [
-            'ingredient' => 'required',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
-
-        $ingredient = $this->ingredient->find($id);
+        $ingredient = $this->ingredient->findOrFail($id);
 
         $ingredient->ingredient = $request->ingredient;
 

@@ -23,6 +23,7 @@
             //success data
             // console.log(data);
             $('#row_id').val(data.id);
+            $('#id').val(data.id);
             $('#ingredient').val(data.ingredient);
 
             $('#btn-save').val("update");
@@ -33,6 +34,7 @@
 
     //display modal form for creating new task
     $('#btn-add').click(function(){
+        $('#id').val(0);
         $('div.has-error').removeClass('has-error');
         $('.error').html('');
         $('#btn-save').val("add");
@@ -110,7 +112,7 @@
                 // console.log(data);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.ingredient + '</td>';
+                var task = '<tr id="task' + data.id + '"><td>' + data.ingredient + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

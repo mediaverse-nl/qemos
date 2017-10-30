@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\StoreMenu;
 use App\Menu;
-use Validator;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -17,6 +17,11 @@ class MenuController extends Controller
         $this->middleware('auth.role:manager', ['only' => ['store', 'index']]);
 
         $this->menu = new Menu();
+        $this->menu = $this->menu->where('location_id', '=', $this->location());
+    }
+
+    public function location(){
+        return session('location');
     }
 
     /**
@@ -35,22 +40,14 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMenu $request)
     {
-        $rules = [
-            'naam' => 'required',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
-
-        $menu = $this->menu;
+        $menu = new Menu();
 
         $menu->naam = $request->naam;
+        $menu->description = '';
+        $menu->status = 'online';
+        $menu->location_id = $this->location();
 
         $menu->save();
 
@@ -77,26 +74,15 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreMenu $request, $id)
     {
-        $rules = [
-            'naam' => 'required',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
-
-        $menu = $this->menu->find($id);
+        $menu = $this->menu->findOrFail($id);
 
         $menu->naam = $request->naam;
 
         $menu->save();
 
-        return response()->json($menu);
+        return response()->json($menu, 200);
     }
 
     /**
@@ -107,8 +93,10 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = $this->menu->destroy($id);
+        $menu = $this->menu->findOrFail($id);
 
-        return response()->json($menu);
+        $menu->destroy($id);
+
+        return response()->json($menu, 200);
     }
 }

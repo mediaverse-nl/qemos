@@ -1,7 +1,8 @@
+
 <div class="panel panel-content">
     <div class="panel-body">
         <div class="table-responsive">
-            <table class="table table-hover" style="margin-bottom: 0px !important;">
+            <table class="table table-hover">
                 <thead>
                     {{$thead}}
                 </thead>
@@ -12,4 +13,3 @@
         </div>
     </div>
 </div>
-

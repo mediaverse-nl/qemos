@@ -12,17 +12,15 @@
 
     //display modal form for task editing
     $('#tasks-list').on("click", ".open-modal", function(){
-        // console.log('asda');
+
         $('div.has-error').removeClass('has-error');
 
         var row_id = $(this).val();
 
-        // console.log(row_id);
-
         $.get(url + '/' + row_id, function (data) {
             //success data
-            // console.log(data);
             $('#row_id').val(data.id);
+            $('#id').val(data.id);
             $('#naam').val(data.naam);
 
             $('#btn-save').val("update");
@@ -33,6 +31,7 @@
 
     //display modal form for creating new task
     $('#btn-add').click(function(){
+        $('#id').val(0);
         $('div.has-error').removeClass('has-error');
         $('.error').html('');
         $('#btn-save').val("add");
@@ -88,6 +87,7 @@
             id : $('#id').val(),
         };
 
+        console.log(formData);
         //used to determine the http verb to use [add=POST], [update=PUT]
         var state = $('#btn-save').val();
 
@@ -96,7 +96,7 @@
         var my_url = url;
 
         if (state == "update"){
-            type = "PUT"; //for updating existing resource
+            type = "PATCH"; //for updating existing resource
             my_url += '/' + row_id;
         }
 
@@ -108,8 +108,9 @@
             success: function (data) {
                 // console.log(data);
                 $("#successMsg").html( successMsg );
-
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.naam + '</td>';
+                var task = '<tr id="task' + data.id + '">' +
+                    // '<td>' + data.id + '</td>' +
+                    '<td>' + data.naam + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

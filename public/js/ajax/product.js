@@ -150,7 +150,13 @@
                 console.log(data, textStatus, jqXHR);
                 $("#successMsg").html( successMsg );
 
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.bereidingsduur + '</td><td>' + data.naam + '</td><td>' + data.prijs + '</td><td>' + data.status + '</td>';
+                var task = '<tr id="task' + data.id + '">' +
+                    '<td>' + data.id + '</td>' +
+                    '<td>' + data.bereidingsduur + '</td>' +
+                    '<td>' + data.naam + '</td>' +
+                    '<td>' + data.menu.naam + '</td><' +
+                    'td>' + data.prijs + '</td>' +
+                    '<td>' + data.status + '</td>';
                 task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
                 task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
 

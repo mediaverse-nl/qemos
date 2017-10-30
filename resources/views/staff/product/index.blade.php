@@ -52,7 +52,7 @@
         {{--<form id="frmTasks" name="frmTasks" class="" novalidate="">--}}
 
         {{--<img src="C:\fakepath\_MG_1033.png">--}}
-        {!! Form::file('image', array('id' => 'image')) !!}
+{{--        {!! Form::file('image', array('id' => 'image')) !!}--}}
 
 
         {{Form::hidden('id', null, ['class' => 'form-control', 'id' => 'id'])}}
@@ -105,31 +105,25 @@
         <div class="form-group error-ingredienten">
             {!! Form::label('ingredienten', 'ingredienten') !!}<br>
             <div class="row ingredients">
-                {{--                                {{$ingredients}}--}}
                 @foreach($ingredients as $ingredient)
-                    <div class="col-lg-4" style="margin-bottom: 10px;">
-                        {{--{{$ingredient}}--}}
-                        {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id.' ingre']) !!}
-                        {!! Form::label('ingredienten', $ingredient->ingredient) !!}
+                    <div class="col-lg-4" style="margin-bottom: 0px;">
+                        {!! Form::checkbox('ingredienten[]', $ingredient->id, null, ['class' => 'ingredienten'.$ingredient->id.' ingre', 'id' => $ingredient->ingredient]) !!}
+                        {!! Form::label($ingredient->ingredient, $ingredient->ingredient) !!}
                     </div>
                 @endforeach
             </div>
-
         </div>
 
         <div class="form-group error-ingredienten">
             {!! Form::label('peculiarity', 'bezonderheden') !!}<br>
             <div class="row peculiarity">
-                {{--                                {{$ingredients}}--}}
                 @foreach($peculiarities as $peculiarity)
-                    <div class="col-lg-4" style="margin-bottom: 10px;">
-                        {{--{{$ingredient}}--}}
-                        {!! Form::checkbox('peculiarity[]', $peculiarity->id, null, ['class' => 'peculiarity'.$peculiarity->id.' pecu']) !!}
-                        {!! Form::label('peculiarity', $peculiarity->value) !!}
+                    <div class="col-lg-4" style="margin-bottom: 0px;">
+                        {!! Form::checkbox('peculiarity[]', $peculiarity->id, null, ['class' => 'peculiarity'.$peculiarity->id.' pecu', 'id' => $peculiarity->value]) !!}
+                        {!! Form::label($peculiarity->value, $peculiarity->value) !!}
                     </div>
                 @endforeach
             </div>
-
         </div>
         @endslot
 

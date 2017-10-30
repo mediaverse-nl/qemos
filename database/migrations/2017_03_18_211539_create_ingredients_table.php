@@ -16,6 +16,8 @@ class CreateIngredientsTable extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ingredient');
+            $table->integer('location_id')->unsigned();
+            $table->foreign('location_id')->references('id')->on('location');
             $table->softDeletes();
         });
     }

@@ -59,9 +59,10 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
-        $product = $this->product;
+        $product = new Product();
         $product->bereidingsduur = $request->bereidingsduur;
         $product->naam = $request->naam;
+        $product->location_id = $this->location();
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
         $product->status = $request->status;
@@ -80,7 +81,7 @@ class ProductController extends Controller
             }
         }
 
-        return response()->json($product);
+        return response()->json($product->with('menu')->findOrFail($product->id));
     }
 
     /**
@@ -139,7 +140,7 @@ class ProductController extends Controller
             }
         }
 
-        return response()->json($product);
+        return response()->json($product->with('menu')->findOrFail($id));
     }
 
     /**
