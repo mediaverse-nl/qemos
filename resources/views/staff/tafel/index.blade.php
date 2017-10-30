@@ -78,15 +78,33 @@
     <script>
         $(function () {
             $(".drag-item").draggable({
-                snap: '.gridlines'
+                snap: '.gridlines',
+                stop:function(event,ui) {
+                    var el = event.target;
+                    var po = ui.position;
+                    var elId = parseInt(el.getAttribute('data-table-id'));
+
+                    console.log(po.top, po.left, elId);
+
+//                    update to database
+
+
+
+                }
             });
             $(".outside-drag-item").draggable({
                 snap: '.gridlines',
                 stop:function(event,ui) {
                     var el = event.target;
-                    console.log(ui.position.top, ui.position.left, el.attrs);
+                    var po = ui.position;
+                    var elId = parseInt(el.getAttribute('data-table-id'));
+
+                    console.log(po.top, po.left, elId);
 
 //                    update to database
+
+
+
                 }
 //                helper: 'clone',
 //                appendTo: '.drop-target'
