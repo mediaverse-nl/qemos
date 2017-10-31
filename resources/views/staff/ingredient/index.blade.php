@@ -15,7 +15,6 @@
         @component('components.table-panel')
             @slot('thead')
                 <tr>
-                    <th>#</th>
                     <th>ingredient</th>
                     <th>opties</th>
                 </tr>

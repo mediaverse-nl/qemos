@@ -12,8 +12,10 @@
                 <div class="drop-target">
                     <div class="drag-item" data-table-id="1">1</div>
                     <div class="drag-item" data-table-id="2" style="left:87px;top:87px;">2</div>
+                    <p class="text-center" style="position: absolute; margin-bottom: -20px; bottom: 0 !important;">plattegrond: buiten</p>
+
                 </div>
-                <div class="outside-drag-item" data-table-id="2">101</div>
+                <div class="outside-drag-item" data-table-id="101">101</div>
 
             </div>
         </div>
@@ -85,13 +87,20 @@
                     var elId = parseInt(el.getAttribute('data-table-id'));
 
                     console.log(po.top, po.left, elId);
-
 //                    update to database
+                },
 
-
-
+                drag: function( event, ui ) {
+                    var el = event.target.getAttribute;
+                    console.log(el, ui.position.left);
                 }
-            });
+//                greedy: true,
+//                tolerance: 'touch',
+//                drop: function(event,ui){
+//                    ui.draggable.draggable('option','revert',true);
+//                    console.log(ui.draggable.draggable('option','revert',true));
+//                }
+            }, "containment" );
             $(".outside-drag-item").draggable({
                 snap: '.gridlines',
                 stop:function(event,ui) {
@@ -100,11 +109,7 @@
                     var elId = parseInt(el.getAttribute('data-table-id'));
 
                     console.log(po.top, po.left, elId);
-
 //                    update to database
-
-
-
                 }
 //                helper: 'clone',
 //                appendTo: '.drop-target'
@@ -112,7 +117,7 @@
 //                helper: function (e, ui) {
 //                    return $(this).clone(true);
 //                }
-            });
+            }, "containment" );
             $(".drop-target").droppable({
                 accept: ".drag-item"
 //                ,
@@ -121,7 +126,7 @@
 ////                    console.log(2);
 //                }
 
-            });
+            }, "containment", "parent" );
         });
 
         function createGrid(size) {
@@ -163,7 +168,6 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
 
     <script type="text/javascript" src="{{ asset('js/ajax/tafel.js') }}"></script>
-
 
 @endpush
 
