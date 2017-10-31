@@ -5,7 +5,7 @@
     <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
     <hr>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
 
         <div class="panel panel-default">
             <div class="panel-body" style="height: 500px;">
@@ -16,6 +16,25 @@
 
                 </div>
                 <div class="outside-drag-item" data-table-id="101">101</div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="panel panel-default">
+            <div class="panel-body" style="height: 500px;">
+                <div id="drop" class="drop">
+                    <div class="drag"></div>
+                    <div class="drag"></div>
+                    <div class="drag"></div>
+                    <div class="drag"></div>
+                    <div class="drag"></div>
+                </div>
+                <div class="drag"></div>
+
 
             </div>
         </div>
@@ -78,29 +97,52 @@
 
 @push('js')
     <script>
+        $('.drop').droppable({
+            tolerance: 'fit'
+        });
+
+        $('.drag').draggable({
+            revert: 'invalid',
+            stop: function(){
+                $(this).draggable('option','revert','invalid');
+            }
+        });
+
+        $('.drag').droppable({
+            greedy: true,
+            tolerance: 'touch',
+            drop: function(event,ui){
+                ui.draggable.draggable('option','revert',true);
+            },
+            containment: "#drop"
+        });
+
         $(function () {
             $(".drag-item").draggable({
                 snap: '.gridlines',
+                revert: 'invalid',
                 stop:function(event,ui) {
                     var el = event.target;
                     var po = ui.position;
                     var elId = parseInt(el.getAttribute('data-table-id'));
 
+                    $(this).draggable('option','revert','invalid');
+
                     console.log(po.top, po.left, elId);
 //                    update to database
                 },
-
                 drag: function( event, ui ) {
-                    var el = event.target.getAttribute;
+                    var el = event.target;
                     console.log(el, ui.position.left);
+                },
+                greedy: true,
+                drop: function(event,ui){
+
+                    console.log(event, ui);
+
+                    ui.draggable.draggable('option','revert',true);
                 }
-//                greedy: true,
-//                tolerance: 'touch',
-//                drop: function(event,ui){
-//                    ui.draggable.draggable('option','revert',true);
-//                    console.log(ui.draggable.draggable('option','revert',true));
-//                }
-            }, "containment" );
+            });
             $(".outside-drag-item").draggable({
                 snap: '.gridlines',
                 stop:function(event,ui) {
@@ -111,22 +153,10 @@
                     console.log(po.top, po.left, elId);
 //                    update to database
                 }
-//                helper: 'clone',
-//                appendTo: '.drop-target'
-//                ,
-//                helper: function (e, ui) {
-//                    return $(this).clone(true);
-//                }
-            }, "containment" );
+            });
             $(".drop-target").droppable({
                 accept: ".drag-item"
-//                ,
-//                drop: function (event, ui) {
-//                    ui.draggable.clone().appendTo($(this)).draggable();
-////                    console.log(2);
-//                }
-
-            }, "containment", "parent" );
+            });
         });
 
         function createGrid(size) {
@@ -173,6 +203,12 @@
 
 @push('css')
     <style>
+        .drop { display:inline-block; width:300px; height:200px; border:1px solid silver; background-color:whitesmoke; padding:10px; }
+
+        .drag { display:inline-block; width:30px; height:30px; border:1px solid silver; background-color:white; }
+
+
+
         .gridlines {
             display: none;
             position:absolute;
