@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Staff;
 
+use App\Http\Requests\StoreTafel;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
 use App\Tafel;
-use Validator;
 
 class TafelController extends Controller
 {
@@ -16,7 +16,13 @@ class TafelController extends Controller
     public function __construct()
     {
         $this->tafel = new Tafel();
+        $this->tafel = $this->tafel->where('location_id', '=', $this->location());
     }
+
+    public function location(){
+        return session('location');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -34,24 +40,15 @@ class TafelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTafel $request)
     {
-        $rules = [
-            'aantal_plaatsen' => 'required',
-            'status' => 'required',
-        ];
-//
-        $validator = Validator::make($request->all(), $rules);
-//
-        if ($validator->fails())
-        {
-            return  response()->json($validator->getMessageBag()->toArray(), 422); // 400 being the HTTP code for an invalid request.
-        }
+        $tafel = new Tafel();
 
-        $tafel = $this->tafel;
-
-        $tafel->aantal_plaatsen = $request->aantal_plaatsen;
-        $tafel->status = $request->status;
+        $tafel->tafel_nr = $request->tafel_nr;
+        $tafel->location_id = $this->location();
+        $tafel->aantal_plaatsen = 0;
+//        $tafel->status = $request->status;
+        $tafel->status =  'zichtbaar';
 
         $tafel->save();
 

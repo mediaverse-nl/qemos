@@ -17,6 +17,16 @@ class Tafel extends Model
         return $this->hasMany('App\Order', 'tafel_id', 'id');
     }
 
+    public function location()
+    {
+        return $this->belongsTo('App\Location', 'location_id', 'id');
+    }
+
+    public function floor()
+    {
+        return $this->belongsTo('App\Floor', 'floor_id', 'id');
+    }
+
     public static function status(){
         return collect([
             'zichtbaar' => 'zichtbaar',

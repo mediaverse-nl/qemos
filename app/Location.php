@@ -42,6 +42,11 @@ class Location extends Model
         return $this->hasMany('App\Tafel', 'location_id', 'id');
     }
 
+    public function floor()
+    {
+        return $this->hasMany('App\Floor', 'location_id', 'id');
+    }
+
     public function order()
     {
         return $this->hasMany('App\Order', 'location_id', 'id');

@@ -26,16 +26,12 @@ class StoreProduct extends FormRequest
     public function rules()
     {
         return [
-            'naam' => 'required|string|max:70',
+            'naam' => 'required|string|max:70|unique:products,naam,'.$this->id.',id,location_id,'.session('location'),
             'bereidingsduur' => 'required|integer',
-//            'location_id' => 'required',
             'menu' => 'required|integer',
-//            'status' => 'required|in:['.implode(',',Product::status()->toArray()).']',
             'status' => 'required',
             'beschrijving' => 'required|string|min:5|max:250',
             'prijs' => "required|regex:/^\d*(\.\d{1,2})?$/",
         ];
     }
-
-//    public function re
 }

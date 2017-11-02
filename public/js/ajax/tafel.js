@@ -23,7 +23,9 @@
             //success data
             // console.log(data);
             $('#row_id').val(data.id);
+            $('#id').val(data.id);
             $('#aantal_plaatsen').val(data.aantal_plaatsen);
+            $('#tafel_nr').val(data.tafel_nr);
             $('#status').val(data.status);
 
             $('#btn-save').val("update");
@@ -34,6 +36,7 @@
 
     //display modal form for creating new task
     $('#btn-add').click(function(){
+        $('#id').val(0);
         $('div.has-error').removeClass('has-error');
         $('.error').html('');
         $('#btn-save').val("add");
@@ -85,6 +88,7 @@
         e.preventDefault();
 
         var formData = {
+            tafel_nr : $('#tafel_nr').val(),
             aantal_plaatsen : $('#aantal_plaatsen').val(),
             status : $('#status').val(),
             id : $('#id').val(),

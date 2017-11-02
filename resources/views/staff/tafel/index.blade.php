@@ -10,7 +10,9 @@
         <div class="panel panel-default">
             <div class="panel-body" style="height: 500px;">
                 <div class="drop-target">
-                    <div class="drag-item" data-table-id="1">1</div>
+
+
+
                     <div class="drag-item" data-table-id="2" style="left:87px;top:87px;">2</div>
                     <p class="text-center" style="position: absolute; margin-bottom: -20px; bottom: 0 !important;">plattegrond: buiten</p>
 
@@ -27,11 +29,9 @@
         <div class="panel panel-default">
             <div class="panel-body" style="height: 500px;">
                 <div id="drop" class="drop">
-                    <div class="drag"></div>
-                    <div class="drag"></div>
-                    <div class="drag"></div>
-                    <div class="drag"></div>
-                    <div class="drag"></div>
+                    @foreach($tafels as $t)
+                        <div class="drag" data-table-id="{{$t->id}}">{{$t->tafel_nr}}</div>
+                    @endforeach
                 </div>
                 <div class="drag"></div>
 
@@ -56,7 +56,7 @@
             @slot('tbody')
                 @foreach($tafels as $tafel)
                     <tr id="task{{$tafel->id}}">
-                        <td>{{$tafel->id}}</td>
+                        <td>{{$tafel->tafel_nr}}</td>
                         <td>{{$tafel->aantal_plaatsen}}</td>
                         <td>{{$tafel->status}}</td>
                         <td>
@@ -77,11 +77,64 @@
 
             {{Form::hidden('id', null, ['class' => 'form-control', 'id' => 'id'])}}
 
-            <div class="form-group error-aantal_plaatsen" >
-                {{Form::label('aantal_plaatsen', 'aantal plaatsen')}}
-                {{Form::number('aantal_plaatsen', null, ['class' => 'form-control'])}}
-                <small id="error-aantal_plaatsen" class="error"></small>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group error-aantal_plaatsen" >
+                        {{Form::label('aantal_plaatsen', 'aantal plaatsen')}}
+                        {{Form::number('aantal_plaatsen', null, ['class' => 'form-control'])}}
+                        <small id="error-aantal_plaatsen" class="error"></small>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group error-tafel_nr" >
+                        {{Form::label('tafel_nr', 'tafel nr')}}
+                        {{Form::number('tafel_nr', null, ['class' => 'form-control'])}}
+                        <small id="error-tafel_nr" class="error"></small>
+                    </div>
+                </div>
+
+                {{--<div class="col-md-3">--}}
+                    {{--<div class="form-group error-x" >--}}
+                        {{--{{Form::label('x', 'x')}} <i class='fa fa-long-arrow-up' aria-hidden='true'></i>--}}
+                        {{--{{Form::number('x', null, ['class' => 'form-control'])}}--}}
+                        {{--<small id="error-x" class="error"></small>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-md-3">--}}
+                    {{--<div class="form-group error-y" >--}}
+                        {{--{{Form::label('y', 'y')}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i>--}}
+                        {{--{{Form::number('y', null, ['class' => 'form-control'])}}--}}
+                        {{--<small id="error-y" class="error"></small>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
+                {{--<div class="col-md-3">--}}
+                    {{--<div class="form-group error-height" >--}}
+                        {{--{{Form::label('height', "height")}} <i class='fa fa-long-arrow-up' aria-hidden='true'></i>--}}
+                        {{--{{Form::number('height', null, ['class' => 'form-control'])}}--}}
+                        {{--<small id="error-height" class="error"></small>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-md-3">--}}
+                    {{--<div class="form-group error-width" >--}}
+                        {{--{{Form::label('width', 'width')}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i>--}}
+                        {{--{{Form::number('width', null, ['class' => 'form-control'])}}--}}
+                        {{--<small id="error-width" class="error"></small>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+
             </div>
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="form-group error-status" >
                 {{Form::label('status', 'status')}}

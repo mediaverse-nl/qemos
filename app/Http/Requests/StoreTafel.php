@@ -24,7 +24,9 @@ class StoreTafel extends FormRequest
     public function rules()
     {
         return [
-            'tafel_nr' => 'unique:tafel,tafel_nr,NULL,id,building_id,'.$this->tafel_nr,
+//            'tafel_nr' => 'unique:tafel,tafel_nr,NULL,id,building_id,'.$this->tafel_nr,
+            'tafel_nr' => 'required|unique:tafels,tafel_nr,'.$this->id.',id,location_id,'.session('location'),
+
         ];
     }
 }
