@@ -5,68 +5,75 @@
     <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
     <hr>
 
-    <div class="col-md-6">
+    {{--<div class="col-md-6">--}}
 
-        <div class="panel panel-default">
-            <div class="panel-body" style="height: 500px;">
-                <div class="drop-target">
+        {{--<div class="panel panel-default">--}}
+            {{--<div class="panel-body" style="height: 500px;">--}}
+                {{--<div class="drop-target">--}}
 
+                    {{--<div class="drag-item" data-table-id="2" style="left:87px;top:87px;">2</div>--}}
+                    {{--<p class="text-center" style="position: absolute; margin-bottom: -20px; bottom: 0 !important;">plattegrond: buiten</p>--}}
 
+                {{--</div>--}}
+                {{--<div class="outside-drag-item" data-table-id="101">101</div>--}}
 
-                    <div class="drag-item" data-table-id="2" style="left:87px;top:87px;">2</div>
-                    <p class="text-center" style="position: absolute; margin-bottom: -20px; bottom: 0 !important;">plattegrond: buiten</p>
+            {{--</div>--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-body" style="height: 500px;">
+                    <div id="drop" class="drop">
+                        @foreach($tafels as $t)
+                            <div class="drag" data-table-id="{{$t->id}}" style="
+                                position: relative;
+                                width: 30px;
+                                right: auto;
+                                height: 30px;
+                                bottom: auto;
+                                top: {{$t->x}}px;
+                                left: {{$t->y}}px;
+                            ">{{$t->tafel_nr}}</div>
+                        @endforeach
+                    </div>
+                    <div class="drag"></div>
+
 
                 </div>
-                <div class="outside-drag-item" data-table-id="101">101</div>
-
             </div>
+
         </div>
 
-    </div>
+        <div class="col-md-6">
 
-    <div class="col-md-6">
-
-        <div class="panel panel-default">
-            <div class="panel-body" style="height: 500px;">
-                <div id="drop" class="drop">
-                    @foreach($tafels as $t)
-                        <div class="drag" data-table-id="{{$t->id}}">{{$t->tafel_nr}}</div>
-                    @endforeach
-                </div>
-                <div class="drag"></div>
-
-
-            </div>
-        </div>
-
-    </div>
-    <hr>
-
-    <div class="col-md-12">
-
-        @component('components.table-panel')
-            @slot('thead')
-                <tr>
-                    <th>#</th>
-                    <th>aantal plaatsen</th>
-                    <th>status</th>
-                    <th>opties</th>
-                </tr>
-            @endslot
-            @slot('tbody')
-                @foreach($tafels as $tafel)
-                    <tr id="task{{$tafel->id}}">
-                        <td>{{$tafel->tafel_nr}}</td>
-                        <td>{{$tafel->aantal_plaatsen}}</td>
-                        <td>{{$tafel->status}}</td>
-                        <td>
-                            <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$tafel->id}}">wijzigen</button>
-                            <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$tafel->id}}">verwijderen</button>
-                        </td>
+            @component('components.table-panel')
+                @slot('thead')
+                    <tr>
+                        <th>#</th>
+                        <th>aantal plaatsen</th>
+                        <th>status</th>
+                        <th>opties</th>
                     </tr>
-                @endforeach
-            @endslot
-        @endcomponent
+                @endslot
+                @slot('tbody')
+                    @foreach($tafels as $tafel)
+                        <tr id="task{{$tafel->id}}">
+                            <td>{{$tafel->tafel_nr}}</td>
+                            <td>{{$tafel->aantal_plaatsen}}</td>
+                            <td>{{$tafel->status}}</td>
+                            <td>
+                                <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$tafel->id}}">wijzigen</button>
+                                <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$tafel->id}}">verwijderen</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endslot
+            @endcomponent
+        </div>
     </div>
 
     @component('components.model-dialog')
@@ -150,102 +157,147 @@
 
 @push('js')
     <script>
+
+        function setPosition(id, x, y, h, w) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+            var my_url = "{!! route('staff.tafel.position') !!}/" + id;
+
+            $.ajax({
+                type: "PATCH",
+                url: my_url,
+                data: {'x':x,'y':y,'h':h,'w':w},
+                dataType: 'json',
+                success: function (data) {
+                    console.log('updated record');
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        };
+
         $('.drop').droppable({
-            tolerance: 'fit'
+            tolerance: 'fit',
+            accept: function (e, u) {
+                console.log('special dalivery' , e, u)
+            },
+
         });
 
         $('.drag').draggable({
             revert: 'invalid',
-            stop: function(){
-                $(this).draggable('option','revert','invalid');
-            }
-        });
-
-        $('.drag').droppable({
-            greedy: true,
-            tolerance: 'touch',
-            drop: function(event,ui){
-                ui.draggable.draggable('option','revert',true);
+            accept: function (e, u) {
+                console.log('special dalivery' , e, u)
             },
-            containment: "#drop"
+            stop: function(event,ui){
+                var el = event.target;
+                var po = ui.position;
+                var elId = parseInt(el.getAttribute('data-table-id'));
+
+//                console.log(po.top, po.left, elId);
+                $(this).draggable('option','revert','invalid');
+
+                setPosition(elId, po.top, po.left, 2, 2);
+
+            }
         });
 
-        $(function () {
-            $(".drag-item").draggable({
-                snap: '.gridlines',
-                revert: 'invalid',
-                stop:function(event,ui) {
-                    var el = event.target;
-                    var po = ui.position;
-                    var elId = parseInt(el.getAttribute('data-table-id'));
+//        $('.drag').droppable({
+//            greedy: true,
+//            tolerance: 'touch',
+//            drop: function(event,ui){
+//                var el = event.target;
+//                var po = ui.position;
+//                var elId = parseInt(el.getAttribute('data-table-id'));
+//
+//                ui.draggable.draggable('option','revert',true);
+//
+//                setPosition(elId, po.top, po.left, 2, 2);
+//            },
+//            containment: "#drop"
+//        });
+//
+//        $(function () {
+//            $(".drag-item").draggable({
+//                snap: '.gridlines',
+//                revert: 'invalid',
+//                stop:function(event,ui) {
+//                    var el = event.target;
+//                    var po = ui.position;
+//                    var elId = parseInt(el.getAttribute('data-table-id'));
+//
+//                    $(this).draggable('option','revert','invalid');
+//
+//                    console.log(po.top, po.left, elId);
+////                    update to database
+//                },
+//                drag: function( event, ui ) {
+//                    var el = event.target;
+//                    console.log(el, ui.position.left);
+//                },
+//                greedy: true,
+//                drop: function(event,ui){
+//
+//                    console.log(event, ui);
+//
+//                    ui.draggable.draggable('option','revert',true);
+//                }
+//            });
+//            $(".outside-drag-item").draggable({
+//                snap: '.gridlines',
+//                stop:function(event,ui) {
+//                    var el = event.target;
+//                    var po = ui.position;
+//                    var elId = parseInt(el.getAttribute('data-table-id'));
+//
+//                    console.log(po.top, po.left, elId);
+////                    update to database
+//                }
+//            });
+//            $(".drop-target").droppable({
+//                accept: ".drag-item"
+//            });
+//        });
 
-                    $(this).draggable('option','revert','invalid');
+//        function createGrid(size) {
+//            var i,
+//                sel = $('.drop-target'),
+//                height = sel.height(),
+//                width = sel.width(),
+//                ratioW = Math.floor(width / size),
+//                ratioH = Math.floor(height / size);
+//
+//            for (i = 0; i <= ratioW; i++) { // vertical grid lines
+//                $('<div />').css({
+//                    'top': 0,
+//                    'left': i * size,
+//                    'width': 1,
+//                    'height': height
+//                })
+//                .addClass('gridlines')
+//                .appendTo(sel);
+//            }
+//
+//            for (i = 0; i <= ratioH; i++) { // horizontal grid lines
+//                $('<div />').css({
+//                    'top': i * size,
+//                    'left': 0,
+//                    'width': width,
+//                    'height': 1
+//                })
+//                .addClass('gridlines')
+//                .appendTo(sel);
+//            }
+//
+//            $('.gridlines').show();
+//        }
 
-                    console.log(po.top, po.left, elId);
-//                    update to database
-                },
-                drag: function( event, ui ) {
-                    var el = event.target;
-                    console.log(el, ui.position.left);
-                },
-                greedy: true,
-                drop: function(event,ui){
-
-                    console.log(event, ui);
-
-                    ui.draggable.draggable('option','revert',true);
-                }
-            });
-            $(".outside-drag-item").draggable({
-                snap: '.gridlines',
-                stop:function(event,ui) {
-                    var el = event.target;
-                    var po = ui.position;
-                    var elId = parseInt(el.getAttribute('data-table-id'));
-
-                    console.log(po.top, po.left, elId);
-//                    update to database
-                }
-            });
-            $(".drop-target").droppable({
-                accept: ".drag-item"
-            });
-        });
-
-        function createGrid(size) {
-            var i,
-                sel = $('.drop-target'),
-                height = sel.height(),
-                width = sel.width(),
-                ratioW = Math.floor(width / size),
-                ratioH = Math.floor(height / size);
-
-            for (i = 0; i <= ratioW; i++) { // vertical grid lines
-                $('<div />').css({
-                    'top': 0,
-                    'left': i * size,
-                    'width': 1,
-                    'height': height
-                })
-                .addClass('gridlines')
-                .appendTo(sel);
-            }
-
-            for (i = 0; i <= ratioH; i++) { // horizontal grid lines
-                $('<div />').css({
-                    'top': i * size,
-                    'left': 0,
-                    'width': width,
-                    'height': 1
-                })
-                .addClass('gridlines')
-                .appendTo(sel);
-            }
-
-            $('.gridlines').show();
-        }
-
-        createGrid(1);
+//        createGrid(1);
     </script>
 
     <meta name="_token" content="{!! csrf_token() !!}" />

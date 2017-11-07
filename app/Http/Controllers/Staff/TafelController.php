@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Requests\StoreTafel;
+use App\Http\Requests\TafelPosistion;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
@@ -13,6 +14,9 @@ class TafelController extends Controller
 {
     protected $tafel;
 
+    /**
+     * TafelController constructor.
+     */
     public function __construct()
     {
         $this->tafel = new Tafel();
@@ -112,4 +116,25 @@ class TafelController extends Controller
 
         return response()->json($tafel);
     }
+
+    /**
+     * @param TafelPosistion $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setPosition(Request $request, $id)
+    {
+        $tafel = $this->tafel->findOrFail($id);
+
+        $tafel->x = $request->x;
+        $tafel->y = $request->y;
+        $tafel->height = $request->h;
+        $tafel->width = $request->w;
+
+        $tafel->save();
+
+        return response()->json($tafel, 200);
+
+    }
+
 }

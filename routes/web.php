@@ -49,7 +49,9 @@ Route::middleware(['web', 'auth.role:staff', 'location'])->prefix('staff')->name
 
     Route::patch('/location-switch', 'LocationController@switchLocation')->name('location.switch');
 
-    Route::get('register/verify/{confirmationCode}', ['as' => 'user.confirm', 'uses' => 'UserController@confirm']);
+    Route::get('register/verify/{confirmationCode}', ['uses' => 'UserController@confirm'])->name('user.confirm');
+    Route::patch('table-position/{id?}', ['uses' => 'TafelController@setPosition'])->name('tafel.position');
+
 });
 
 //kiosk panel

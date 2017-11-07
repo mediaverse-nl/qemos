@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTafel extends FormRequest
+class TafelPosistion extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,11 @@ class StoreTafel extends FormRequest
     public function rules()
     {
         return [
-            'tafel_nr' => 'required|unique:tafels,tafel_nr,'.$this->id.',id,location_id,'.session('location'),
-
+            'id' => 'required|integer',
+            'x' => 'required|integer',
+            'y' => 'required|integer',
+            'h' => 'required|integer',
+            'w' => 'required|integer',
         ];
     }
 }
