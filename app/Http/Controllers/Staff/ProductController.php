@@ -10,6 +10,7 @@ use App\Http\Requests\StoreProduct;
 use App\Ingredient;
 use App\Menu;
 use App\Peculiarity;
+use App\Permission;
 use App\Product;
 //use Illuminate\Validation\Rule;
 //use Validator;
@@ -44,6 +45,11 @@ class ProductController extends Controller
      */
     public function index()
     {
+         $permission = new Permission();
+
+
+//         dd($permission->routes());
+
         return view('staff.product.index')
             ->with('products', $this->product->get())
             ->with('menu', $this->menu->get())

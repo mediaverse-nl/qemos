@@ -17,7 +17,7 @@ class CreateTafelsTable extends Migration
             $table->increments('id');
             $table->integer('location_id')->unsigned();
             $table->foreign('location_id')->references('id')->on('location');
-            $table->integer('floor_id')->unsigned();
+            $table->integer('floor_id')->nullable()->unsigned();
             $table->foreign('floor_id')->references('id')->on('floor');
             $table->integer('aantal_plaatsen');
             $table->integer('tafel_nr');

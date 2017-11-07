@@ -110,26 +110,26 @@
                         </div>
                     {{ Form::close()}}
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <a href="#">
-                                <div>
-                                    <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                                </div>
-                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
+                {{--<li class="dropdown">--}}
+                    {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                        {{--<i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>--}}
+                    {{--</a>--}}
+                    {{--<ul class="dropdown-menu dropdown-messages">--}}
+                        {{--<li>--}}
+                            {{--<a href="#">--}}
+                                {{--<div>--}}
+                                    {{--<strong>John Smith</strong>--}}
+                                    {{--<span class="pull-right text-muted">--}}
+                                        {{--<em>Yesterday</em>--}}
+                                    {{--</span>--}}
+                                {{--</div>--}}
+                                {{--<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="divider"></li>--}}
+                    {{--</ul>--}}
+                    {{--<!-- /.dropdown-messages -->--}}
+                {{--</li>--}}
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -198,12 +198,14 @@
                                 Ingredient
                             </a>
                         </li>
-                        <li>
-                            <a href="{{route('staff.product.index')}}" class="{{ !Request::is('staff/product*') ? : 'active' }}">
-                                <i class="fa fa-tag fa-fw" aria-hidden="true"></i>
-                                Producten
-                            </a>
-                        </li>
+                        @can('product.view')
+                            <li>
+                                <a href="{{route('staff.product.index')}}" class="{{ !Request::is('staff/product*') ? : 'active' }}">
+                                    <i class="fa fa-tag fa-fw" aria-hidden="true"></i>
+                                    Producten
+                                </a>
+                            </li>
+                        @endcan
                         <li>
                             <a href="{{route('staff.tafel.index')}}" class="{{ !Request::is('staff/tafel*') ? : 'active' }}">
                                 <i class="fa fa-cutlery fa-fw" aria-hidden="true"></i>
@@ -228,12 +230,12 @@
                                 kiosk
                             </a>
                         </li>
-                        <li>
-                            <a href="{{route('staff.booking.index')}}" class="{{ !Request::is('staff/booking*') ? : 'active' }}">
-                                <i class="fa fa-address-book-o fa-fw" aria-hidden="true"></i>
-                                reserveringen
-                            </a>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="{{route('staff.booking.index')}}" class="{{ !Request::is('staff/booking*') ? : 'active' }}">--}}
+                                {{--<i class="fa fa-address-book-o fa-fw" aria-hidden="true"></i>--}}
+                                {{--reserveringen--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

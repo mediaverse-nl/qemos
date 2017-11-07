@@ -72,31 +72,33 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
-                <a href="{{route('staff.product.index')}}">
-                    <div class="panel-body">
-                        <div class="text-center">
-                            <i class="fa fa-tag fa-5x" style="" aria-hidden="true"></i>
+        @can('product.view')
+            <div class="col-lg-2">
+                <div class="panel panel-content">
+                    <a href="{{route('staff.product.index')}}">
+                        <div class="panel-body">
+                            <div class="text-center">
+                                <i class="fa fa-tag fa-5x" style="" aria-hidden="true"></i>
+                            </div>
+                            <h1 class="text-center">Producten</h1>
                         </div>
-                        <h1 class="text-center">Producten</h1>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endcan
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        {{--<div class="col-lg-2">--}}
+            {{--<div class="panel panel-content">--}}
                 {{--<a href="{{route('staff.booking.index')}}">--}}
-                    <div class="panel-body">
-                        <div class="text-center">
-                            <i class="fa fa-address-book-o fa-5x" style="" aria-hidden="true"></i>
-                        </div>
-                        <h1 class="text-center">Reservaties</h1>
-                    </div>
-                </a>
-            </div>
-        </div>
+                    {{--<div class="panel-body">--}}
+                        {{--<div class="text-center">--}}
+                            {{--<i class="fa fa-address-book-o fa-5x" style="" aria-hidden="true"></i>--}}
+                        {{--</div>--}}
+                        {{--<h1 class="text-center">Reservaties</h1>--}}
+                    {{--</div>--}}
+                {{--</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
 
         <div class="col-lg-2">
             <div class="panel panel-content">

@@ -46,6 +46,7 @@ class TafelController extends Controller
 
         $tafel->tafel_nr = $request->tafel_nr;
         $tafel->location_id = $this->location();
+        $tafel->floor_id = 1;
         $tafel->aantal_plaatsen = 0;
 //        $tafel->status = $request->status;
         $tafel->status =  'zichtbaar';

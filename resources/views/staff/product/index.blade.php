@@ -1,11 +1,15 @@
 @extends('layouts.staff')
 
 @section('content')
+
+    @can('product.create')
+
+        <hr>
+
+        <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
+    @endcan
     <hr>
 
-    <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
-
-    <hr>
 
     <div id="successMsg"></div>
 
@@ -33,7 +37,10 @@
                     <td>{{$product->status}}</td>
                     <td>
                         <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$product->id}}">wijzigen</button>
-                        <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$product->id}}">verwijderen</button>
+                        @can('product.delete', $product)
+                            <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$product->id}}">verwijderen</button>
+                        @endcan
+
                     </td>
                 </tr>
             @endforeach
