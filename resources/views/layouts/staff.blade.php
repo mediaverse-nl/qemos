@@ -94,7 +94,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{route('staff.index')}}">Staff Panel</a>
+                <a class="navbar-brand" href="{{route('staff.index')}}">Qemos - v1.2</a>
             </div>
             <!-- /.navbar-header -->
 

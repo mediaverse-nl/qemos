@@ -29,15 +29,7 @@
                 <div class="panel-body" style="height: 500px;">
                     <div id="drop" class="drop">
                         @foreach($tafels as $t)
-                            <div class="drag" data-table-id="{{$t->id}}" style="
-                                position: relative;
-                                width: 30px;
-                                right: auto;
-                                height: 30px;
-                                bottom: auto;
-                                top: {{$t->x}}px;
-                                left: {{$t->y}}px;
-                            ">{{$t->tafel_nr}}</div>
+                            <div class="drag text-center {{$t->bezet ? "taken":''}}" data-table-id="{{$t->id}}" style="position: relative;width: 30px;right: auto;height: 30px;bottom: auto;top: {{$t->x}}px;left:{{$t->y}}px;">{{$t->tafel_nr}}</div>
                         @endforeach
                     </div>
                     <div class="drag"></div>
@@ -183,121 +175,30 @@
 
         $('.drop').droppable({
             tolerance: 'fit',
-            accept: function (e, u) {
-                console.log('special dalivery' , e, u)
+            accept: function (e) {
+                console.log(e);
             },
+//            accept: function (e, u) {
+//                console.log('special dalivery' , e, u)
+//            },
 
         });
 
         $('.drag').draggable({
-            revert: 'invalid',
-            accept: function (e, u) {
-                console.log('special dalivery' , e, u)
-            },
+//            revert: 'invalid',
+            containment: ".drop",
             stop: function(event,ui){
                 var el = event.target;
                 var po = ui.position;
                 var elId = parseInt(el.getAttribute('data-table-id'));
 
 //                console.log(po.top, po.left, elId);
-                $(this).draggable('option','revert','invalid');
+//                $(this).draggable('option','revert','invalid');
 
                 setPosition(elId, po.top, po.left, 2, 2);
 
             }
         });
-
-//        $('.drag').droppable({
-//            greedy: true,
-//            tolerance: 'touch',
-//            drop: function(event,ui){
-//                var el = event.target;
-//                var po = ui.position;
-//                var elId = parseInt(el.getAttribute('data-table-id'));
-//
-//                ui.draggable.draggable('option','revert',true);
-//
-//                setPosition(elId, po.top, po.left, 2, 2);
-//            },
-//            containment: "#drop"
-//        });
-//
-//        $(function () {
-//            $(".drag-item").draggable({
-//                snap: '.gridlines',
-//                revert: 'invalid',
-//                stop:function(event,ui) {
-//                    var el = event.target;
-//                    var po = ui.position;
-//                    var elId = parseInt(el.getAttribute('data-table-id'));
-//
-//                    $(this).draggable('option','revert','invalid');
-//
-//                    console.log(po.top, po.left, elId);
-////                    update to database
-//                },
-//                drag: function( event, ui ) {
-//                    var el = event.target;
-//                    console.log(el, ui.position.left);
-//                },
-//                greedy: true,
-//                drop: function(event,ui){
-//
-//                    console.log(event, ui);
-//
-//                    ui.draggable.draggable('option','revert',true);
-//                }
-//            });
-//            $(".outside-drag-item").draggable({
-//                snap: '.gridlines',
-//                stop:function(event,ui) {
-//                    var el = event.target;
-//                    var po = ui.position;
-//                    var elId = parseInt(el.getAttribute('data-table-id'));
-//
-//                    console.log(po.top, po.left, elId);
-////                    update to database
-//                }
-//            });
-//            $(".drop-target").droppable({
-//                accept: ".drag-item"
-//            });
-//        });
-
-//        function createGrid(size) {
-//            var i,
-//                sel = $('.drop-target'),
-//                height = sel.height(),
-//                width = sel.width(),
-//                ratioW = Math.floor(width / size),
-//                ratioH = Math.floor(height / size);
-//
-//            for (i = 0; i <= ratioW; i++) { // vertical grid lines
-//                $('<div />').css({
-//                    'top': 0,
-//                    'left': i * size,
-//                    'width': 1,
-//                    'height': height
-//                })
-//                .addClass('gridlines')
-//                .appendTo(sel);
-//            }
-//
-//            for (i = 0; i <= ratioH; i++) { // horizontal grid lines
-//                $('<div />').css({
-//                    'top': i * size,
-//                    'left': 0,
-//                    'width': width,
-//                    'height': 1
-//                })
-//                .addClass('gridlines')
-//                .appendTo(sel);
-//            }
-//
-//            $('.gridlines').show();
-//        }
-
-//        createGrid(1);
     </script>
 
     <meta name="_token" content="{!! csrf_token() !!}" />
@@ -308,32 +209,27 @@
 
 @push('css')
     <style>
-        .drop { display:inline-block; width:300px; height:200px; border:1px solid silver; background-color:whitesmoke; padding:10px; }
-
-        .drag { display:inline-block; width:30px; height:30px; border:1px solid silver; background-color:white; }
-
-
-
-        .gridlines {
-            display: none;
-            position:absolute;
-            background-color:#ccc;
+        .drop {
+            display:inline-block;
+            width:300px;
+            height:200px;
+            border:1px solid silver;
+            background-color:whitesmoke;
+            padding:5px;
         }
-        .drag-item, .outside-drag-item {
-            position:absolute;
-            z-index: 999;
-            background:red;
+
+        .taken{
+            background: red !important;
+        }
+
+        .drag {
+            padding: 4px 0px;
+            border-radius: 5px;
+            display:inline-block;
             width:30px;
             height:30px;
-            cursor:move;
-        }
-        .drop-target {
-            position:absolute;
-            left:100px;
-            top:100px;
-            width:300px;
-            height:300px;
-            border:dashed 1px orange;
+            border:1px solid silver;
+            background-color:white;
         }
     </style>
 @endpush
