@@ -7,8 +7,8 @@
     <br>
     <br>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.tafel.index')}}">
                     <div class="panel-body">
                         <div class="text-center">
@@ -20,8 +20,8 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.user.index')}}">
                     <div class="panel-body">
                         <div class="text-center">
@@ -33,8 +33,8 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.ingredient.index')}}">
                     <div class="panel-body">
                         <div class="text-center">
@@ -46,8 +46,8 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.menu.index')}}">
                     <div class="panel-body">
                         <div class="text-center">
@@ -59,8 +59,8 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.order.index')}}">
                     <div class="panel-body">
                         <div class="text-center">
@@ -73,8 +73,8 @@
         </div>
 
         @can('product.view')
-            <div class="col-lg-2">
-                <div class="panel panel-content">
+            <div class="col-lg-3">
+                <div class="panel panel-content box box-success">
                     <a href="{{route('staff.product.index')}}">
                         <div class="panel-body">
                             <div class="text-center">
@@ -100,8 +100,8 @@
             {{--</div>--}}
         {{--</div>--}}
 
-        <div class="col-lg-2">
-            <div class="panel panel-content">
+        <div class="col-lg-3">
+            <div class="panel panel-content box box-success">
                 <a href="{{route('staff.kiosk.index')}}">
                     <div class="panel-body">
                         <div class="text-center">

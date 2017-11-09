@@ -1,5 +1,5 @@
 
-<div class="panel panel-content">
+<div class="panel panel-content box box-success">
     <div class="panel-body">
         <div class="table-responsive">
             <table class="table table-hover">

@@ -7,31 +7,39 @@
     <div id="successMsg"></div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             @component('components.table-panel')
                 @slot('thead')
                     <tr>
-                        <th>#</th>
+                        {{--<th>#</th>--}}
                         <th>naam</th>
                         <th>email</th>
                         {{--<th>locatie</th>--}}
                         <th>role</th>
                         <th>status</th>
-                        <th>opties</th>
+                        <th class="no-sort">opties</th>
                     </tr>
                 @endslot
                 @slot('tbody')
                     @foreach($users as $user)
                         <tr id="task{{$user->id}}">
-                            <td>{{$user->id}}</td>
+                            {{--<td>{{$user->id}}</td>--}}
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
-                            <td>{{$user->userRole->pluck('role.role')}}</td>
+                            <td>
+                                @foreach($user->userRole->pluck('role.role')->unique() as $item)
+                                    <small class="badge">{{$item}}</small>
+                                @endforeach
+                            </td>
                             <td>{{$user->confirmed ? 'activated':'unactivated'}}</td>
                             {{--<td>{{$user->status}}</td>--}}
                             <td>
-                                <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$user->id}}">wijzigen</button>
-                                <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$user->id}}">verwijderen</button>
+                                <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$user->id}}">
+                                    <i class="fa fa-pencil" aria-hidden="true" title="wijzigen"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs btn-delete delete-task" value="{{$user->id}}">
+                                    <i class="fa fa-trash" aria-hidden="true" title="verwijderen"></i>
+                                </button>
                             </td>
                         </tr>
                     @endforeach

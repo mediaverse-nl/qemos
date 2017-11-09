@@ -39,6 +39,35 @@
         }
         .panel-content{
             background: #FFFFFF;
+            border: 0px;
+            position: relative;
+            z-index: 999;
+        }
+
+        /*.panel-content:before {*/
+            /*content: "\f00a";*/
+            /*font-family: FontAwesome;*/
+            /*font-style: normal;*/
+            /*font-weight: normal;*/
+            /*text-decoration: inherit;*/
+            /*position: absolute;*/
+            /*font-size: 100%;*/
+            /*color: lightblue;*/
+            /*top: 50%;*/
+            /*left: 50%;*/
+            /*!*margin: -300px 0 0 -200px;*!*/
+            /*z-index: 1;*/
+        /*}*/
+
+        #DataTables_Table_0_wrapper .row:first-child{
+            border-bottom: 1px solid #DDDDDD;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+        }
+        #DataTables_Table_0_wrapper .row:last-child{
+            border-top: 1px solid #DDDDDD;
+            margin-top: 15px;
+            padding-top: 15px;
         }
         .navbar-static-top{
             background: #222222 !important;
@@ -49,6 +78,7 @@
         }
         .navbar-static-top .active {
             background: #f5f8fa;
+            border-left: 5px solid #00A65A;
         }
         .navbar-static-top .active .fa,
         .nav>li>a:focus,
@@ -74,6 +104,34 @@
         .breadcrumb > .active{
             color: #FFFFFF !important;
         }
+
+        .box {
+            /*padding-left: 20px;*/
+            position: relative;
+            /*border-radius: 1px;*/
+            background: #ffffff;
+            border-left: 4px solid #d2d6de;
+            /*margin-bottom: 20px;*/
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .box.box-warning {
+            border-left-color: #F39C12;
+        }
+        .box.box-danger {
+            border-left-color: #dd4b39;
+        }
+        .box.box-success {
+            border-left-color: #00a65a;
+        }
+        .box.box-info {
+            border-left-color: #00c0ef;
+        }
+
+        .no-sort::after { display: none!important; }
+
+        .no-sort { pointer-events: none!important; cursor: default!important; }
     </style>
 
     <!-- Scripts -->
