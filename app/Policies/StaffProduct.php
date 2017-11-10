@@ -2,11 +2,12 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Product;
+use App\User;
+
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostProduct
+class StaffProduct
 {
     use HandlesAuthorization;
 
@@ -42,7 +43,8 @@ class PostProduct
      */
     public function update(User $user, Product $product)
     {
-        if (!in_array($product->location_id,  $user->locations())){
+        if (!in_array($product->location_id, $user->locationIds()))
+        {
             return false;
         }
 

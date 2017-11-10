@@ -13,9 +13,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    {{--load style sheet for databasetables--}}
-    {{--<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">--}}
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    {{--load style sheet for databasetables--}}
+    <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet">
+
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.2/css/metismenu.min.css">
@@ -25,7 +27,6 @@
 
     <!-- Morris Charts CSS -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-    {{--<link href="http://cdn.oesmith.co.uk/morris-0.5.1.css" rel="stylesheet">--}}
 
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -34,6 +35,31 @@
     @stack('css')
 
     <style>
+        .pagination  span:active,
+        .pagination  span:focus,
+        .pagination  a:active,
+        .pagination  a:focus{
+            outline: none !important;
+        }
+
+        #table_previous{ color: #333333 !important}
+        #table_next{ color: #333333 !important}
+
+        .pagination > .disabled > span,
+        .pagination > .disabled > span:hover,
+        .pagination > .disabled > span:focus,
+        .pagination > .disabled > a,
+        .pagination > .disabled > a:hover,
+        .pagination > .disabled > a:focus{
+            background-color: #d8d8d8;
+            border-color: #ddd;
+        }
+
+       .table-pagination-btn > a,
+       .table-pagination-btn > span{
+            padding: 1px 8px !important;
+        }
+
         #page-wrapper{
             background: #E5E0E6 !important;
         }
@@ -110,7 +136,7 @@
             position: relative;
             /*border-radius: 1px;*/
             background: #ffffff;
-            border-left: 4px solid #d2d6de;
+            border-left: 3px solid #d2d6de;
             /*margin-bottom: 20px;*/
             width: 100%;
             box-shadow: 0 1px 1px rgba(0,0,0,0.1);
@@ -119,13 +145,25 @@
         .box.box-warning {
             border-left-color: #F39C12;
         }
+        .btn-success{
+            border-left-color: #F39C12;
+        }
         .box.box-danger {
+            border-left-color: #dd4b39;
+        }
+        .btn-success{
             border-left-color: #dd4b39;
         }
         .box.box-success {
             border-left-color: #00a65a;
         }
+        .btn-success{
+            border-left-color: #00a65a;
+        }
         .box.box-info {
+            border-left-color: #00c0ef;
+        }
+        .btn-success{
             border-left-color: #00c0ef;
         }
 
@@ -168,27 +206,7 @@
                         </div>
                     {{ Form::close()}}
                 </li>
-                {{--<li class="dropdown">--}}
-                    {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
-                        {{--<i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>--}}
-                    {{--</a>--}}
-                    {{--<ul class="dropdown-menu dropdown-messages">--}}
-                        {{--<li>--}}
-                            {{--<a href="#">--}}
-                                {{--<div>--}}
-                                    {{--<strong>John Smith</strong>--}}
-                                    {{--<span class="pull-right text-muted">--}}
-                                        {{--<em>Yesterday</em>--}}
-                                    {{--</span>--}}
-                                {{--</div>--}}
-                                {{--<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="divider"></li>--}}
-                    {{--</ul>--}}
-                    {{--<!-- /.dropdown-messages -->--}}
-                {{--</li>--}}
-                <!-- /.dropdown -->
+
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -256,7 +274,7 @@
                                 Ingredient
                             </a>
                         </li>
-                        @can('product.view')
+                        @can('staff-product.view')
                             <li>
                                 <a href="{{route('staff.product.index')}}" class="{{ !Request::is('staff/product*') ? : 'active' }}">
                                     <i class="fa fa-tag fa-fw" aria-hidden="true"></i>
@@ -310,6 +328,7 @@
         <div class="container-fluid">
 
             <div class="row">
+                <br>
                 <div id="successMsg"></div>
                 @include('errors.message')
 
@@ -332,6 +351,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
 
     <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.2/js/metismenu.min.js"></script>
@@ -348,9 +368,14 @@
             });
         });
 
-        $(document).ready(function(){
-            $('.table ').DataTable();
-        });
+//        table = $(document).ready(function(){
+//            $('.table ').DataTable({
+//                dom: '<"toolbar">frtip',
+//            });
+//        });
+//
+//        $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+
     </script>
 
     @stack('js')

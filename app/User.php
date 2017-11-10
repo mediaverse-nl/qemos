@@ -42,9 +42,26 @@ class User extends Authenticatable
         return $this->hasMany('App\UserLocation');
     }
 
-    public function locations()
+    public function locations($transformArr = false)
     {
-        return $this->userLocation()->with('location')->get()->pluck('location.adres', 'location.id');
+        $locations = $this->userLocation()->with('location')->get()->pluck('location.adres', 'location.id');
+
+        if($transformArr){
+            $a = [];
+            foreach ($locations as $i => $v){
+                $a[] = [
+                    'id' => $i,
+                    'location' => $v,
+                ];
+            }
+            return $a;
+        }
+
+        return $locations;
+    }
+
+    public function locationIds(){
+        return collect($this->locations(true))->pluck('id')->toArray();
     }
 
     public function currentLocation()

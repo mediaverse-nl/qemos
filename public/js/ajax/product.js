@@ -53,7 +53,7 @@
     });
 
     //display modal form for creating new task
-    $('#btn-add').click(function(){
+    $(document).on('click', '#btn-add', function(){
         $('div.has-error').removeClass('has-error');
         $('.error').html('');
         $('#btn-save').val("add");

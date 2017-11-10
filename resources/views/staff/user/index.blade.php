@@ -88,8 +88,6 @@
         </div>
     </div>
 
-    {{--<hr>--}}
-
     {{--Model--}}
     {{--@component('components.model-dialog')--}}
         {{--@slot('title')--}}
@@ -130,10 +128,34 @@
         {{--@endslot--}}
     {{--@endcomponent--}}
 
+    <style>
+        .toolbar{
+            float: left;
+        }
+    </style>
 @endsection
 
 @push('js')
     <meta name="_token" content="{!! csrf_token() !!}" />
+
+    <script>
+        $(document).ready(function() {
+//            test = $('#example').DataTable();
+
+            $.fn.dataTableExt.oStdClasses.sPageButton = "table-pagination-btn";
+
+            $('#table').DataTable({
+                // ... skipped ...
+//                dom: 'l<"dataTables_length">frtip',
+                initComplete: function(){
+                    $("div.dataTables_length").html(
+                        '<a class="btn btn-xs btn-default btn-success" title="aanmaken"><i class="fa fa-plus" aria-hidden="true"></i></a>'
+                    );
+                }
+            });
+
+        });
+    </script>
 
     <script type="text/javascript" src="{{ asset('js/ajax/user.js') }}"></script>
 @endpush

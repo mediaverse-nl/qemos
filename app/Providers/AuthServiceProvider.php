@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Policies\PostProduct;
-use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,8 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-        User::class => PostProduct::class,
+        'Model' => 'App\Policies\ModelPolicy',
+        'Product' => 'App\Policies\StaffProduct',
     ];
 
     /**
@@ -28,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::resource('product', 'App\Policies\PostProduct');
+        Gate::resource('staff-product', 'App\Policies\StaffProduct');
 
     }
 }
