@@ -60,8 +60,8 @@ class StaffProduct
      */
     public function delete(User $user, Product $product)
     {
-//        dd($user->locations());
-//        if (!in_array($product->location_id,  $user->locations())){
+//        if (!in_array($product->location_id, $user->locationIds()))
+//        {
 //            return false;
 //        }
 

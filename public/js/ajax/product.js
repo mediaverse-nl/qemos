@@ -1,5 +1,5 @@
 
-    var url = "/staff/product" ;
+    var url = "/staff/product";
 
     var successMsg =  '<div class="alert alert-success">';
         successMsg += ' <strong>Gelukt!</strong> Het is opgeslagen.';
@@ -151,14 +151,20 @@
                 $("#successMsg").html( successMsg );
 
                 var task = '<tr id="task' + data.id + '">' +
-                    '<td>' + data.id + '</td>' +
-                    '<td>' + data.bereidingsduur + '</td>' +
+                    // '<td>' + data.id + '</td>' +
                     '<td>' + data.naam + '</td>' +
-                    '<td>' + data.menu.naam + '</td><' +
-                    'td>' + data.prijs + '</td>' +
-                    '<td>' + data.status + '</td>';
-                task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">wijzigen</button>';
-                task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">verwijderen</button></td></tr>';
+                    '<td>' + data.bereidingsduur + ' min</td>' +
+                    '<td>' + data.menu.naam + '</td>' +
+                    '<td>€ ' + data.prijs + '</td>' +
+                    '<td id="task-controls">' +
+                        '<button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '" style="margin-right: 4px;">' +
+                            '<i class="fa fa-pencil" aria-hidden="true" title="wijzigen"></i>' +
+                        '</button>' +
+                        '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">' +
+                            '<i class="fa fa-trash" aria-hidden="true" title="verwijderen"></i>' +
+                        '</button>' +
+                    '</td>' +
+                '</tr>';
 
                 if (state == "add"){ //if user added a new record
                     $('#tasks-list').append(task);

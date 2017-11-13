@@ -43,15 +43,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-         $permission = new Permission();
+        $this->authorize('staff-product.view');
 
-
-//         dd($permission->routes());
+//        $product = $request->get('trash') ? $this->product->withTrashed()->get() : $this->product->get();
+        $product = $this->product->withTrashed()->get();
 
         return view('staff.product.index')
-            ->with('products', $this->product->get())
+            ->with('products', $product)
             ->with('menu', $this->menu->get())
             ->with('peculiarities', $this->peculiarity->get())
             ->with('ingredients', $this->ingredient->get());
@@ -65,13 +65,15 @@ class ProductController extends Controller
      */
     public function store(StoreProduct $request)
     {
+        $this->authorize('staff-product.create');
+
         $product = new Product();
         $product->bereidingsduur = $request->bereidingsduur;
         $product->naam = $request->naam;
         $product->location_id = $this->location();
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
-        $product->status = $request->status;
+//        $product->status = $request->status;
         $product->menu_id = $request->menu;
         $product->save();
 
@@ -98,6 +100,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('staff-product.view');
+
         $product = $this->product->with(['productIngredient', 'productPeculiarity', 'menu'])->find($id);
 
         return response()->json($product, 200);
@@ -112,14 +116,7 @@ class ProductController extends Controller
      */
     public function update(StoreProduct $request, $id)
     {
-//        return response()->json($request);
-
-//        $image = $request->file('image');
-//        $ext = $image->getClientOriginalExtension();
-//        $image->move('images/text/', $image->getFilename().'.'.$ext);
-//        $abc = new FileUpload('/image', $request);
-//        return response()->json($request);
-//        return response()->json($request->);
+        $this->authorize('staff-product.update', $this->product);
 
         $product = $this->product->findOrFail($id);
 
@@ -127,7 +124,7 @@ class ProductController extends Controller
         $product->naam = $request->naam;
         $product->prijs = $request->prijs;
         $product->beschrijving = $request->beschrijving;
-        $product->status = $request->status;
+//        $product->status = $request->status;
         $product->menu_id = $request->menu;
 
         $product->save();
@@ -157,8 +154,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $task = $this->product->destroy($id);
+        $this->authorize('staff-product.delete', $this->product->findOrFail($id));
 
-        return response()->json($task);
+        $product = $this->product->findOrFail($id);
+
+        $product->destroy($id);
+
+        return response()->json($product, 200);
     }
 }

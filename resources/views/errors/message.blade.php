@@ -1,6 +1,8 @@
 
 <div class="container" style="">
     <div class="col-md-12">
+        <div id="successMsg"></div>
+
         @if($errors->any())
         {{--<div class="container">--}}
             <div class="alert alert-danger">

@@ -35,15 +35,39 @@
     @stack('css')
 
     <style>
-        .pagination  span:active,
-        .pagination  span:focus,
-        .pagination  a:active,
-        .pagination  a:focus{
+        a{
+            text-decoration: none !important;
             outline: none !important;
         }
 
-        #table_previous{ color: #333333 !important}
-        #table_next{ color: #333333 !important}
+        :root {
+            --bl-color:#0A5E9A;
+            --gr-color:#00A65B;
+            --re-color:#F04100;
+            --or-color:#F08800;
+            --wh-color:#FFFFFF;
+            --blk-color:#222222;
+            --blk-3-color:#33333;
+        }
+
+        .pagination span:active,
+        .pagination span:focus,
+        .pagination a:active,
+        .pagination a:focus{
+            outline: none !important;
+        }
+        .pagination a{
+            color: var(--blk-3-color) !important;
+            font-weight: 400 !important;
+        }
+        .pagination .active a{
+            background-color: var(--bl-color) !important;
+            border: 1px solid var(--bl-color) !important;
+            color: var(--wh-color) !important;
+        }
+
+        #table_previous{ color: var(--blk-3-color)!important}
+        #table_next{ color: var(--blk-3-color) !important}
 
         .pagination > .disabled > span,
         .pagination > .disabled > span:hover,
@@ -51,7 +75,7 @@
         .pagination > .disabled > a,
         .pagination > .disabled > a:hover,
         .pagination > .disabled > a:focus{
-            background-color: #d8d8d8;
+            background-color: #eee;
             border-color: #ddd;
         }
 
@@ -64,26 +88,15 @@
             background: #E5E0E6 !important;
         }
         .panel-content{
-            background: #FFFFFF;
+            background: var(--wh-color);
             border: 0px;
             position: relative;
             z-index: 999;
+            /*background: #ff6666 !important;*/
         }
-
-        /*.panel-content:before {*/
-            /*content: "\f00a";*/
-            /*font-family: FontAwesome;*/
-            /*font-style: normal;*/
-            /*font-weight: normal;*/
-            /*text-decoration: inherit;*/
-            /*position: absolute;*/
-            /*font-size: 100%;*/
-            /*color: lightblue;*/
-            /*top: 50%;*/
-            /*left: 50%;*/
-            /*!*margin: -300px 0 0 -200px;*!*/
-            /*z-index: 1;*/
-        /*}*/
+        .panel-content .fa{
+            /*color: #333333 !important;*/
+        }
 
         #DataTables_Table_0_wrapper .row:first-child{
             border-bottom: 1px solid #DDDDDD;
@@ -96,79 +109,73 @@
             padding-top: 15px;
         }
         .navbar-static-top{
-            background: #222222 !important;
+            background: var(--blk-color) !important;
             border-bottom: none;
         }
         .navbar-static-top .fa{
-            color: #FFFFFF !important;
+            color: var(--wh-color) !important;
         }
-        .navbar-static-top .active {
-            background: #f5f8fa;
-            border-left: 5px solid #00A65A;
-        }
+
         .navbar-static-top .active .fa,
         .nav>li>a:focus,
         .nav>li>a:hover{
-            color: #222222 !important;
+            color: var(--blk-color) !important;
         }
         .navbar-static-top .dropdown-menu .fa{
-            color: #222222 !important;
+            color: var(--blk-color) !important;
         }
+        #side-menu {transition: width 2s linear 1s}
         #side-menu a,
         #side-menu .fa{
-            color: #222222 !important;
+            color: var(--blk-color) !important;
         }
+        #side-menu .active{
+            background: #f5f8fa;
+            border-left: 5px solid var(--gr-color);
+        }
+        #side-menu a:hover {
+            border-left: 5px solid var(--or-color);
+        }
+        /*#side-menu .nav>li>a:focus,*/
+        /*#side-menu .nav>li>a:hover {*/
+            /*border-left: 5px solid #00A65A;*/
+            /*color: var(--blk-color) !important;*/
+        /*}*/
         .breadcrumb{
             border-radius: 0px;
             border: none;
             margin: 0 -15px;
-            background: #159F84;
+            background: var(--gr-color);
         }
         .breadcrumb li a{
-            color: #222222 !important;
+            color: var(--blk-color) !important;
         }
         .breadcrumb > .active{
-            color: #FFFFFF !important;
+            color: var(--wh-color) !important;
         }
 
         .box {
             /*padding-left: 20px;*/
             position: relative;
             /*border-radius: 1px;*/
-            background: #ffffff;
+            background: var(--wh-color);
             border-left: 3px solid #d2d6de;
             /*margin-bottom: 20px;*/
             width: 100%;
             box-shadow: 0 1px 1px rgba(0,0,0,0.1);
         }
 
-        .box.box-warning {
-            border-left-color: #F39C12;
-        }
-        .btn-success{
-            border-left-color: #F39C12;
-        }
-        .box.box-danger {
-            border-left-color: #dd4b39;
-        }
-        .btn-success{
-            border-left-color: #dd4b39;
-        }
-        .box.box-success {
-            border-left-color: #00a65a;
-        }
-        .btn-success{
-            border-left-color: #00a65a;
-        }
-        .box.box-info {
-            border-left-color: #00c0ef;
-        }
-        .btn-success{
-            border-left-color: #00c0ef;
-        }
+        .box.box-warning { border-left-color: var(--or-color) !important; }
+        .box.box-danger { border-left-color: var(--re-color) !important; }
+        .box.box-success { border-left-color: var(--gr-color) !important; }
+        .box.box-primary { border-left-color: var(--bl-color) !important; }
+
+        .btn-warning{ background-color: var(--or-color) !important; }
+        .btn-danger{ background-color: var(--re-color) !important; }
+        .btn-success{ background-color: var(--gr-color) !important; }
+        .btn-primary{ background-color: var(--bl-color) !important; }
 
         .no-sort::after { display: none!important; }
-
         .no-sort { pointer-events: none!important; cursor: default!important; }
     </style>
 
@@ -329,7 +336,6 @@
 
             <div class="row">
                 <br>
-                <div id="successMsg"></div>
                 @include('errors.message')
 
                 @yield('content')
@@ -361,20 +367,6 @@
         $("#side-menu").metisMenu();
         $(".nav").metisMenu();
 //        $(".navbar-top-links").metisMenu();
-
-        $(document).ready(function() {
-            $('#dataTables').DataTable({
-                responsive: true
-            });
-        });
-
-//        table = $(document).ready(function(){
-//            $('.table ').DataTable({
-//                dom: '<"toolbar">frtip',
-//            });
-//        });
-//
-//        $("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
 
     </script>
 

@@ -1,11 +1,9 @@
 @extends('layouts.staff')
 
 @section('content')
-{{--<div class="container">--}}
+    <br>
 
-    {{--<div class="row">--}}
-    <br>
-    <br>
+    <div class="row">
 
         <div class="col-lg-3">
             <div class="panel panel-content box box-success">
@@ -72,7 +70,7 @@
             </div>
         </div>
 
-        @can('product.view')
+        @can('staff-product.view')
             <div class="col-lg-3">
                 <div class="panel panel-content box box-success">
                     <a href="{{route('staff.product.index')}}">
@@ -87,19 +85,6 @@
             </div>
         @endcan
 
-        {{--<div class="col-lg-2">--}}
-            {{--<div class="panel panel-content">--}}
-                {{--<a href="{{route('staff.booking.index')}}">--}}
-                    {{--<div class="panel-body">--}}
-                        {{--<div class="text-center">--}}
-                            {{--<i class="fa fa-address-book-o fa-5x" style="" aria-hidden="true"></i>--}}
-                        {{--</div>--}}
-                        {{--<h1 class="text-center">Reservaties</h1>--}}
-                    {{--</div>--}}
-                {{--</a>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-
         <div class="col-lg-3">
             <div class="panel panel-content box box-success">
                 <a href="{{route('staff.kiosk.index')}}">
@@ -113,18 +98,20 @@
             </div>
         </div>
 
-        {{--<div class="col-lg-4">--}}
+        {{--<div class="col-lg-2">--}}
             {{--<div class="panel panel-content">--}}
-                {{--<a href="{{route('tafel.index')}}">--}}
+                {{--<a href="{{route('staff.booking.index')}}">--}}
                     {{--<div class="panel-body">--}}
-                        {{--<h1 class="text-center">tafels</h1>--}}
+                        {{--<div class="text-center">--}}
+                            {{--<i class="fa fa-address-book-o fa-5x" style="" aria-hidden="true"></i>--}}
+                        {{--</div>--}}
+                        {{--<h1 class="text-center">Reservaties</h1>--}}
                     {{--</div>--}}
                 {{--</a>--}}
             {{--</div>--}}
         {{--</div>--}}
 
-    {{--</div>--}}
-{{--</div>--}}
+    </div>
 @endsection
 
 @push('css')

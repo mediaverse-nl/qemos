@@ -4,6 +4,7 @@
 
     <div class="row">
         <div class="col-md-8">
+{{--            {{dd(Route::input('trash'))}}--}}
             @component('components.table-panel')
                 @slot('thead')
                     <tr>
@@ -11,20 +12,20 @@
                         <th>bereidingsduur</th>
                         <th>menu</th>
                         <th>prijs</th>
-                        <th>status</th>
+                        {{--<th>status</th>--}}
                         <th class="no-sort">opties</th>
                     </tr>
                 @endslot
                 @slot('tbody')
                     @foreach($products as $product)
-                        <tr id="task{{$product->id}}">
+                        <tr id="task{{$product->id}}" class="{{$product->trashed() ? 'danger' : ''}}">
                             {{--<td>{{$product->id}}</td>--}}
                             <td>{{$product->naam}}</td>
                             <td>{{$product->bereidingsduur}} min</td>
                             <td>{{($product->menu) ? $product->menu->naam : 'No winner'}}</td>
                             <td>€ {{$product->prijs}}</td>
-                            <td>{{$product->status}}</td>
-                            <td>
+                            {{--<td>{{$product->status}}</td>--}}
+                            <td id="task-controls">
                                 {{--{{dd($product)}}--}}
                                 @can('staff-product.update', $product)
                                     <button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$product->id}}">
@@ -57,29 +58,25 @@
                 <small id="error-naam" class="error"></small>
             </div>
 
+            <div class="form-group error-beschrijving">
+                {{Form::label('beschrijving', 'beschrijving')}}
+                {{Form::textarea('beschrijving', null, ['class' => 'form-control', 'rows' => '3'])}}
+                <small id="error-beschrijving" class="error"></small>
+            </div>
+
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                     <div class="form-group error-bereidingsduur">
                         {{Form::label('bereidingsduur', 'bereidingsduur')}}
                         {{Form::number('bereidingsduur', 0, ['class' => 'form-control'])}}
                         <small id="error-bereidingsduur" class="error"></small>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                     <div class="form-group error-prijs">
                         {{Form::label('prijs', 'prijs')}}
                         {{Form::text('prijs', 0.00, ['class' => 'form-control'])}}
                         <small id="error-prijs" class="error"></small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group error-status">
-                        {{Form::label('status', 'Status')}}
-                        {{Form::select('status', \App\Product::status(), null, ['class' => 'form-control'])}}
-                        <small id="error-status" class="error"></small>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -89,12 +86,6 @@
                         <small id="error-Menu" class="error"></small>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group error-beschrijving">
-                {{Form::label('beschrijving', 'beschrijving')}}
-                {{Form::textarea('beschrijving', null, ['class' => 'form-control', 'rows' => '3'])}}
-                <small id="error-beschrijving" class="error"></small>
             </div>
 
             <div class="form-group error-ingredienten">
@@ -126,8 +117,6 @@
 @endsection
 
 @push('js')
-    <meta name="_token" content="{!! csrf_token() !!}" />
-
     <script>
         $(document).ready(function() {
 //            test = $('#example').DataTable();
@@ -136,13 +125,20 @@
 
             $('#table').DataTable({
                 // ... skipped ...
+                responsive: true,
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Dutch.json"
+                },
+
 //                dom: 'l<"dataTables_length">frtip',
                 @can('staff-product.create', $product)
                     initComplete: function(){
                         $("div.dataTables_length").prepend(
-                            '<button id="btn-add" name="btn-add" class="btn btn-xs btn-default btn-success" title="aanmaken" style="margin-right: 10px;"><i class="fa fa-plus" aria-hidden="true"></i></button>'
+                            '<button id="btn-add" name="btn-add" class="btn btn-xs btn-default btn-success" title="aanmaken" style="margin-right: 10px;">' +
+                            '<i class="fa fa-plus" aria-hidden="true"></i>'+
+                            '</button>'
                         );
-                    }
+                    },
                 @endcan
             });
 //            <button id="btn-add" name="btn-add" class="btn btn-default btn-xs">Nieuw</button>
