@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = $this->product->get();
+        $product = $this->product->with(['menu.banner', 'productPeculiarity.Peculiarity', 'productIngredient.Ingredient', 'image'])->get();
 
         return response()->json(['data' => $product])->setStatusCode(200);
     }
