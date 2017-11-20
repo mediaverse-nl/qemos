@@ -116,7 +116,7 @@ class ProductController extends Controller
      */
     public function update(StoreProduct $request, $id)
     {
-        $this->authorize('staff-product.update', $this->product);
+//        $this->authorize('staff-product.update', Product::class);
 
         $product = $this->product->findOrFail($id);
 

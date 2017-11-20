@@ -64,7 +64,7 @@ class ProductController extends Controller
     {
         $product = $this->product->with(['productIngredient.ingredient', 'image', 'menu', 'productPeculiarity.peculiarity'])->findOrFail($id);
 
-        return response()->json(['data' => $product])->setStatusCode(200);
+        return response()->json($product)->setStatusCode(200);
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProduct $request, $id)
     {
         $product = $this->product->findOrFail($id);
 
