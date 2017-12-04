@@ -19,4 +19,6 @@ class Menu extends Model
     {
         return $this->hasOne('App\Product', 'menu_id');
     }
+
+
 }

@@ -30,6 +30,13 @@ class Order extends Model
         return $this->belongsTo('App\Users', 'user_id', 'id');
     }
 
+    public function total()
+    {
+        $total = $this->orderedItem()->sum('prijs');
+
+        return number_format($total, 2);
+    }
+
     public static function status(){
         return collect([
             'open' => 'open',

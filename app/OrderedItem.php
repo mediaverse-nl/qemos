@@ -10,7 +10,7 @@ class OrderedItem extends Model
 
     public $timestamps = true;
 
-    protected $fillable = ['status', 'prijs', 'created_at', 'updated_at'];
+    protected $fillable = ['status', 'prijs', 'created_at', 'quantity', 'order_id', 'product_id', 'updated_at'];
 
     public function excluded()
     {

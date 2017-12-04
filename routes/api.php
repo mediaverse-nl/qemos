@@ -21,14 +21,14 @@ $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\Auth\AuthController@authenticate');
 });
 //
-$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
-    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
-    $api->get('order/{id}', 'App\Http\Controllers\Api\OrderController@show');
+//$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
+//    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
+//    $api->get('order/{id}', 'App\Http\Controllers\Api\OrderController@show');
+//
+//    $api->get('token', 'App\Http\Controllers\Auth\AuthController@token');
+//});
 
-    $api->get('token', 'App\Http\Controllers\Auth\AuthController@token');
-});
-
-Route::middleware('api.token')->prefix('v1')->name('api.')->namespace('Api')->group(function () {
+Route::middleware(['api.token', 'firewall'])->prefix('v1')->name('api.')->namespace('Api')->group(function () {
     Route::resource('/product', 'ProductController');
     Route::resource('/order', 'OrderController');
     Route::resource('/location', 'LocationController');

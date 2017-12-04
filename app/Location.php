@@ -100,4 +100,17 @@ class Location extends Model
     {
         $this->setLocation($request);
     }
+
+    public function getLocationFromApiToken($request)
+    {
+        if ($request->token){
+            $token = $request->token;
+        }elseif (!empty($request->header('Authorization'))){
+            $token = $request->header('Authorization');
+        }
+
+        $location = $this->where('api_key', '=', $token)->first();
+
+        return $location;
+    }
 }

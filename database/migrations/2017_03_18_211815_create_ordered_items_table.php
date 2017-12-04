@@ -19,6 +19,7 @@ class CreateOrderedItemsTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('quantity');
             $table->decimal('prijs', 16, 2)->default(0);
             $table->enum('status', ['open','geannuleerd','wachtend','bevestigd'])->default('open');
             $table->timestamps();

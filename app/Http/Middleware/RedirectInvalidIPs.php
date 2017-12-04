@@ -10,14 +10,14 @@ class RedirectInvalidIPs
     protected $ips = [
 //        local system
         '127.0.0.1',
-//        pietercoeckestraat
+////        pietercoeckestraat
         '77.166.134.82',
-//        daalakkersweg
+////        daalakkersweg
         '89.20.177.129',
     ];
 
     protected $ipRanges = [
-//        '10.11.3.1',
+        '10.11.3.1',
     ];
 
     /**
