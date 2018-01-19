@@ -20,7 +20,7 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
     $api->post('login', 'App\Http\Controllers\Auth\AuthController@authenticate');
 });
-//
+
 //$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
 //    $api->get('orders', 'App\Http\Controllers\Api\OrderController@index');
 //    $api->get('order/{id}', 'App\Http\Controllers\Api\OrderController@show');
