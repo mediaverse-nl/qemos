@@ -1,4 +1,4 @@
-
+    //SADASD
     var url = "/staff/product";
 
     var successMsg =  '<div class="alert alert-success">';

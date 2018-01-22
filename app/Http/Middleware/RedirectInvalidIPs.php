@@ -11,14 +11,22 @@ class RedirectInvalidIPs
 //        local system
         '127.0.0.1',
 ////        pietercoeckestraat
+        '198.199.86.94',
         '77.166.134.82',
 ////        daalakkersweg
         '89.20.177.129',
     ];
 
     protected $ipRanges = [
-        '10.11.3.1',
+//        '10.11.3.1',
     ];
+
+    protected $location;
+
+    public function __construct()
+    {
+        $this->location = new \App\Location();
+    }
 
     /**
      * Handle an incoming request.
@@ -29,9 +37,10 @@ class RedirectInvalidIPs
      */
     public function handle($request, Closure $next)
     {
-//        dd($request->getClientIps());
+//        dd($request->getClientIps()[0]);
+//        dd($this->isValidIp($request->getClientIps()[0]));
         foreach ($request->getClientIps() as $ip) {
-            if (! $this->isValidIp($ip) && ! $this->isValidIpRange($ip)) {
+            if (! $this->isValidIp($ip) && !$this->isValidIpRange($ip)) {
                 abort(403, 'access denied, use the local wifi');
             }
         }

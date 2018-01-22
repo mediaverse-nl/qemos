@@ -21,7 +21,7 @@ Route::get('/home', function () {
 
 Auth::routes();
 
-Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->namespace('support')->group(function () {
+Route::middleware(['auth.role:support'])->prefix('support')->name('support.')->namespace('Support')->group(function () {
     Route::get('/', function () {
         return view('support.index');
     })->name('index');
